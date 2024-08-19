@@ -8,9 +8,7 @@ export const ListHeader = () => (
     <View className="mb-6 flex flex-row items-start justify-between">
       <View>
         <Text className="font-pmedium text-sm text-gray-100">Welcome Back</Text>
-        <Text className="font-psemibold text-2xl text-white">
-          Rn First Contact
-        </Text>
+        <Text className="font-psemibold text-2xl text-white">Punch Me</Text>
       </View>
     </View>
 
