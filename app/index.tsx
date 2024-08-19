@@ -2,7 +2,7 @@ import { Redirect, router } from 'expo-router'
 import React from 'react'
 import { Image, Text, View } from 'react-native'
 
-import { CustomButton, ScrollableWrapper, ThemedText } from '@/components'
+import { ScrollableWrapper, ThemedButtom, ThemedText } from '@/components'
 import { HelloWave } from '@/components/expo-defaults/hello-wave'
 import { images } from '@/constants'
 import { useUserContext } from '@/context'
@@ -30,7 +30,7 @@ const HomePage = () => {
         Punch Your Way to Perks: Every Tap Packs a Rewarding Punch!
       </ThemedText>
 
-      <CustomButton
+      <ThemedButtom
         containerClass="w-full"
         title="Continue with email"
         onPress={() => {

@@ -12,7 +12,7 @@ export type CustomButtonProps = {
   isLoading?: boolean
 }
 
-export const CustomButton = ({
+export const ThemedButtom = ({
   title,
   onPress,
   isLoading,

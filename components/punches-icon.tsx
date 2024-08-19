@@ -7,12 +7,12 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
-import { ThemedText } from '../themed-text'
+import { ThemedText } from './common/themed-text'
 
 // Get screen width
 const { width } = Dimensions.get('window')
 
-export const HelloWave = () => {
+export const PunchesIcon = () => {
   // Calculate start and end positions
   const startPosition = width / 3
   const endPosition = 0 // Center position

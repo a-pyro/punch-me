@@ -2,12 +2,11 @@ import { Link } from 'expo-router'
 import React, { useState } from 'react'
 import { Alert, Text } from 'react-native'
 
-import { ScrollableWrapper } from '@/components/scrollable-wrapper'
+import { ScrollableWrapper } from '../common'
+import { ThemedButtom } from '../common/themed-button'
+import { ThemedText } from '../common/themed-text'
+import { ThemedView } from '../common/themed-view'
 
-import { CustomButton } from '../custom-button'
-
-import { ThemedText } from '../themed-text'
-import { ThemedView } from '../themed-view'
 import { FormField } from './form-field'
 
 type FormType = 'signin' | 'signup'
@@ -95,7 +94,7 @@ export const AuthForm = <TFormType extends FormType>({
           setForm({ ...form, password: value })
         }}
       />
-      <CustomButton
+      <ThemedButtom
         containerClass="mt-7"
         isLoading={isLoading}
         title={formType === 'signin' ? 'Log in' : 'Sign up'}
