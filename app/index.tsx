@@ -2,8 +2,12 @@ import { Redirect, router } from 'expo-router'
 import React from 'react'
 import { Image, Text, View } from 'react-native'
 
-import { ScrollableWrapper, ThemedButtom, ThemedText } from '@/components'
-import { HelloWave } from '@/components/expo-defaults/hello-wave'
+import {
+  PunchesIcon,
+  ScrollableWrapper,
+  ThemedButtom,
+  ThemedText,
+} from '@/components'
 import { images } from '@/constants'
 import { useUserContext } from '@/context'
 
@@ -13,7 +17,7 @@ const HomePage = () => {
   if (!loading && isLogged) return <Redirect href="/home" />
   return (
     <ScrollableWrapper innerViewClass="items-center" statusBarStyle="light">
-      <HelloWave />
+      <PunchesIcon />
 
       <View className="mt-5">
         <ThemedText classValue="text-center text-3xl font-pbold">

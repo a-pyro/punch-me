@@ -5,7 +5,7 @@ import { SafeAreaView, ScrollView, View } from 'react-native'
 
 import { cn } from '@/lib'
 
-import { AppStatusBar } from './app-status-bar'
+import { AppStatusBar } from '../app-status-bar'
 
 type ScrollableWrapperProps = {
   innerViewClass?: ClassValue
