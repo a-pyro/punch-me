@@ -1,6 +1,6 @@
-/* eslint-disable react-native/no-raw-text -- react compo */
-import { ThemedText, ThemedView } from '@/components'
 import { Link, Stack } from 'expo-router'
+
+import { ThemedText, ThemedView } from '@/components'
 
 const NotFoundScreen = () => {
   return (
