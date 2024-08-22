@@ -1,29 +1,17 @@
 import { router } from 'expo-router'
-import React, { useState } from 'react'
-import { Alert } from 'react-native'
+import React from 'react'
 
 import { AuthForm, type SigninFormState } from '@/components'
-import { signIn } from '@/utils'
+import { useUser } from '@/services'
 
 const SignInView = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { signInUser, isPending } = useUser()
   const handleSubmit = async ({ email, password }: SigninFormState) => {
-    setIsSubmitting(true)
-    try {
-      await signIn({ email, password })
-      router.push('/home')
-    } catch (error) {
-      Alert.alert('Error signing in', (error as { message: string }).message)
-    } finally {
-      setIsSubmitting(false)
-    }
+    await signInUser({ email, password })
+    router.push('/home')
   }
   return (
-    <AuthForm
-      formType="signin"
-      isLoading={isSubmitting}
-      onSubmit={handleSubmit}
-    />
+    <AuthForm formType="signin" isLoading={isPending} onSubmit={handleSubmit} />
   )
 }
 

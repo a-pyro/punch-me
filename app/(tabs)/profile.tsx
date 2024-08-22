@@ -1,12 +1,14 @@
 import React from 'react'
-import { Text } from 'react-native'
 
-import { ScrollableWrapper } from '@/components'
+import { ScrollableWrapper, ThemedButton, ThemedText } from '@/components'
+import { useUser } from '@/services'
 
 const ProfileView = () => {
+  const { user, logoutUser } = useUser()
   return (
     <ScrollableWrapper>
-      <Text>ProfileView</Text>
+      <ThemedText>{user?.email}</ThemedText>
+      <ThemedButton title="Logout" onPress={logoutUser} />
     </ScrollableWrapper>
   )
 }

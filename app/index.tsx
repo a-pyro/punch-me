@@ -5,16 +5,17 @@ import { Image, Text, View } from 'react-native'
 import {
   PunchesIcon,
   ScrollableWrapper,
-  ThemedButtom,
+  ThemedButton,
   ThemedText,
 } from '@/components'
 import { images } from '@/constants'
-import { useUserContext } from '@/context'
+import { useUser } from '@/services'
 
 const HomePage = () => {
-  const { isLogged, loading } = useUserContext()
+  const { user } = useUser()
 
-  if (!loading && isLogged) return <Redirect href="/home" />
+  if (user) return <Redirect href="/home" />
+
   return (
     <ScrollableWrapper innerViewClass="items-center" statusBarStyle="light">
       <PunchesIcon />
@@ -34,7 +35,7 @@ const HomePage = () => {
         Punch Your Way to Perks: Every Tap Packs a Rewarding Punch!
       </ThemedText>
 
-      <ThemedButtom
+      <ThemedButton
         containerClass="w-full"
         title="Continue with email"
         onPress={() => {
