@@ -2,7 +2,7 @@ import { type ClassValue } from 'clsx'
 import React from 'react'
 import { Text, TouchableOpacity } from 'react-native'
 
-import { cn } from '@/lib'
+import { cn } from '@/utils'
 
 export type CustomButtonProps = {
   title: string

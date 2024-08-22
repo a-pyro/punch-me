@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from 'react'
 import { View, type ViewProps } from 'react-native'
 
-import { type WithClassValue, cn } from '@/lib'
+import { type WithClassValue, cn } from '@/utils'
 
 export type ThemedViewProps = ViewProps & {
   lightColor?: string

@@ -1,7 +1,7 @@
 import { Image, type ImageSourcePropType, Text, View } from 'react-native'
 
 import { icons } from '@/constants'
-import { cn } from '@/lib'
+import { cn } from '@/utils'
 
 type Props = {
   icon: ImageSourcePropType

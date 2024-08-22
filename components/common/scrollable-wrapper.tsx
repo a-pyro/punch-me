@@ -3,7 +3,7 @@ import { type StatusBarStyle } from 'expo-status-bar'
 import React, { type PropsWithChildren } from 'react'
 import { SafeAreaView, ScrollView, View } from 'react-native'
 
-import { cn } from '@/lib'
+import { cn } from '@/utils'
 
 import { AppStatusBar } from '../app-status-bar'
 

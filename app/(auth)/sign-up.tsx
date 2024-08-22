@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react'
 import { Alert } from 'react-native'
 
 import { AuthForm, type SignUpFormState } from '@/components'
-import { createUser } from '@/lib'
+import { createUser } from '@/utils'
 
 const SignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)

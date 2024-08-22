@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from 'react'
 import { Text } from 'react-native'
 
-import { type WithClassValue, cn } from '@/lib'
+import { type WithClassValue, cn } from '@/utils'
 
 const textStyles = {
   default: 'text-base leading-6 font-pregular',

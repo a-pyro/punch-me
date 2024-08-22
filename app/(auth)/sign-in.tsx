@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Alert } from 'react-native'
 
 import { AuthForm, type SigninFormState } from '@/components'
-import { signIn } from '@/lib'
+import { signIn } from '@/utils'
 
 const SignInView = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)

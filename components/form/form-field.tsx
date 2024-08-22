@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
 import { icons } from '@/constants'
-import { cn } from '@/lib'
+import { cn } from '@/utils'
 
 type FormFieldProps = {
   title: string

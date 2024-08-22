@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 
-import { getCurrentUser } from '@/lib'
+import { getCurrentUser } from '@/utils'
 
 type UserRole = 'admin' | 'puncher' | 'punched'
 
