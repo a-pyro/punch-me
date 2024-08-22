@@ -16,6 +16,14 @@ import { useColorScheme } from 'react-native'
 
 import { UserContextProvider } from '@/context'
 
+import { QueryClientProvider } from '@tanstack/react-query'
+
+import { queryClient } from '@/services'
+
+if (__DEV__) {
+  require('../services/react-query/reactotron.ts')
+}
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 void SplashScreen.preventAutoHideAsync()
 
@@ -42,39 +50,41 @@ const RootLayout = () => {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <UserContextProvider>
-        <Stack>
-          <Stack.Screen
-            name="index"
-            options={{
-              headerShown: false,
-              // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
-            }}
-          />
-          <Stack.Screen
-            name="(auth)"
-            options={{
-              headerShown: false,
-              // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
-            }}
-          />
-          <Stack.Screen
-            name="(tabs)"
-            options={{
-              headerShown: false,
-              // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
-            }}
-          />
-          {/* <Stack.Screen
-            name="/search/[query]"
-            options={{
-              headerShown: false,
-              // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
-            }}
-          /> */}
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </UserContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <UserContextProvider>
+          <Stack>
+            <Stack.Screen
+              name="index"
+              options={{
+                headerShown: false,
+                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
+              }}
+            />
+            <Stack.Screen
+              name="(auth)"
+              options={{
+                headerShown: false,
+                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
+              }}
+            />
+            <Stack.Screen
+              name="(tabs)"
+              options={{
+                headerShown: false,
+                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
+              }}
+            />
+            {/* <Stack.Screen
+              name="/search/[query]"
+              options={{
+                headerShown: false,
+                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
+              }}
+            /> */}
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </UserContextProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   )
 }
