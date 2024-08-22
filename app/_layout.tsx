@@ -16,6 +16,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 
+import '@/i18n'
 import { queryClient } from '@/services'
 
 if (__DEV__) require('../services/react-query/reactotron.ts')
