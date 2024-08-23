@@ -16,6 +16,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 
+import { AppStatusBar } from '@/components'
 import '@/i18n'
 import { queryClient } from '@/services'
 
@@ -81,6 +82,7 @@ const RootLayout = () => {
             /> */}
           <Stack.Screen name="+not-found" />
         </Stack>
+        <AppStatusBar style="auto" />
       </QueryClientProvider>
     </ThemeProvider>
   )

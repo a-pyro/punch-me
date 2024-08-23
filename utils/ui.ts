@@ -11,6 +11,6 @@ export type WithInnerClassValue = {
   innerClassValue?: ClassValue
 }
 
-export type WithOuterClassValue = {
+export type WithouterClassValueValue = {
   outerClassValue?: ClassValue
 }
