@@ -21,8 +21,8 @@ export const TabsLayoutView = () => {
           backgroundColor: '#161622',
           borderTopWidth: 1,
           borderTopColor: '#232533',
-          height: 90,
-          paddingVertical: 15,
+          height: 70,
+          paddingVertical: 1,
         },
       }}
     >
@@ -47,22 +47,22 @@ export const TabsLayoutView = () => {
         }}
       />
       <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'profile',
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <ProfileTabIcon color={color} focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="bookmark"
         options={{
           title: 'bookmark',
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <BookmarkTabIcon color={color} focused={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'profile',
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <ProfileTabIcon color={color} focused={focused} />
           ),
         }}
       />
