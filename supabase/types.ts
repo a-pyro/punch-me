@@ -5,5 +5,5 @@ import {
 } from './generated-types'
 
 export type User = Tables<'users'>
-export type UserCreate = TablesInsert<'users'>
+export type UserInsert = TablesInsert<'users'>
 export type UserUpdate = TablesUpdate<'users'>

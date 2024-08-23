@@ -3,19 +3,19 @@ import { router } from 'expo-router'
 
 import { queryClient } from '@/services/react-query'
 import { expoSecureStore } from '@/services/secure-store'
-import { type User, type UserCreate } from '@/supabase/types'
+import { type User, type UserInsert } from '@/supabase/types'
 
 import { httpClient } from '../http-client'
 
 type UserCreateResponse = {
-  user: User
+  data: User
   token: string
 }
 
 export const createUser = async (
-  user: UserCreate,
+  user: UserInsert,
 ): Promise<UserCreateResponse> => {
-  const { data } = await httpClient.create<UserCreateResponse, UserCreate>(
+  const { data } = await httpClient.create<UserCreateResponse, UserInsert>(
     '/users',
     user,
   )
@@ -46,7 +46,7 @@ export const useUserMutation = () => {
   const createUserMutation = useMutation({
     mutationKey: ['user'],
     mutationFn: createUser,
-    onSuccess: async ({ token, user }) => {
+    onSuccess: async ({ token, data: user }) => {
       await expoSecureStore.writeToStore('accessToken', token)
       queryClient.setQueryData(['user'], user)
     },
@@ -61,7 +61,7 @@ export const useUser = () => {
   const mutationResult = useMutation({
     mutationKey: ['user'],
     mutationFn: loginUser,
-    onSuccess: async ({ token, user }) => {
+    onSuccess: async ({ token, data: user }) => {
       await expoSecureStore.writeToStore('accessToken', token)
       queryClient.setQueryData(['user'], user)
     },

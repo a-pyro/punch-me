@@ -1,46 +1,33 @@
 import { router } from 'expo-router'
-import React, { useCallback, useState } from 'react'
-import { Alert } from 'react-native'
+import React, { useCallback } from 'react'
 
 import { AuthForm, type SignUpFormState } from '@/components'
-import { createUser } from '@/utils'
+import { useUserMutation } from '@/services'
 
 const SignUp = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const {
+    createUserMutation: { mutateAsync: createUser, isPending },
+  } = useUserMutation()
 
   const handleSubmit = useCallback(
     async ({ userName, email, password }: SignUpFormState) => {
-      // sanitize the form data
-
       const sanitizedEmail = email.trim().toLowerCase()
       const sanitizedPassword = password.trim()
       const sanitizedUserName = userName.trim()
-      try {
-        setIsSubmitting(true)
-
-        // create a new user
-        await createUser({
-          email: sanitizedEmail,
-          password: sanitizedPassword,
-          userName: sanitizedUserName,
-        })
-
-        router.push('/home')
-      } catch (error) {
-        Alert.alert('Error', (error as { message: string }).message)
-      } finally {
-        setIsSubmitting(false)
-      }
+      // create a new user
+      await createUser({
+        email: sanitizedEmail,
+        password: sanitizedPassword,
+        display_name: sanitizedUserName,
+        role: 'draft',
+      })
+      router.push('/home')
     },
-    [],
+    [createUser],
   )
 
   return (
-    <AuthForm
-      formType="signup"
-      isLoading={isSubmitting}
-      onSubmit={handleSubmit}
-    />
+    <AuthForm formType="signup" isLoading={isPending} onSubmit={handleSubmit} />
   )
 }
 
