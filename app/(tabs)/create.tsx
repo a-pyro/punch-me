@@ -1,12 +1,11 @@
 import React from 'react'
-import { Text } from 'react-native'
 
-import { ScrollableWrapper } from '@/components'
+import { ScrollableWrapper, ThemedText } from '@/components'
 
 const CreateView = () => {
   return (
     <ScrollableWrapper>
-      <Text>Create</Text>
+      <ThemedText>Create</ThemedText>
     </ScrollableWrapper>
   )
 }

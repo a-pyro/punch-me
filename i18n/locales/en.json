@@ -6,5 +6,8 @@
     "cta": {
       "continueWithEmail": "Continue with Email"
     }
+  },
+  "home": {
+    "welcome": "Welcome, {{name}}!"
   }
 }

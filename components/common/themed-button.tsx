@@ -2,7 +2,7 @@ import { type ClassValue } from 'clsx'
 import React from 'react'
 import { ActivityIndicator, TouchableOpacity } from 'react-native'
 
-import { type WithouterClassValueValue, cn } from '@/utils'
+import { type WithouterClassValue, cn } from '@/utils'
 
 import { ThemedText } from './themed-text'
 
@@ -11,13 +11,13 @@ export type CustomButtonProps = {
   onPress?: () => void
   textClass?: ClassValue
   isLoading?: boolean
-} & WithouterClassValueValue
+} & WithouterClassValue
 
 export const ThemedButton = ({
   title,
   onPress,
   isLoading,
-  outerClassValue: outerClassValueValue,
+  outerClassValue,
   textClass,
 }: CustomButtonProps) => {
   return (
@@ -26,7 +26,7 @@ export const ThemedButton = ({
       disabled={isLoading}
       className={cn(
         'mt-5 flex rounded-xl bg-secondary-200 px-6 py-3',
-        outerClassValueValue,
+        outerClassValue,
         isLoading && 'opacity-50',
       )}
       onPress={onPress}

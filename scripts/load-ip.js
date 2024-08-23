@@ -1,10 +1,11 @@
+/* eslint-disable no-console -- dev script */
 const fs = require('node:fs')
 const os = require('node:os')
 const path = require('node:path')
 
 const dotenv = require('dotenv')
 
-const localApiUrl = `http://${ip}:8000/api`
+const localApiUrl = (ip) => `http://${ip}:8000/api`
 const expoApiUrlEnvName = 'EXPO_PUBLIC_API_URL'
 const localEnvironmentFilePath = '../.env.local'
 
@@ -28,7 +29,7 @@ const envConfig = dotenv.parse(fs.readFileSync(envFilePath))
 
 // Update the specific environment variable
 if (ip) {
-  envConfig[expoApiUrlEnvName] = localApiUrl
+  envConfig[expoApiUrlEnvName] = localApiUrl(ip)
   console.log(
     `Local IP address found: ${ip}. Updated EXPO_PUBLIC_API_URL in .env.local file.`,
   )
