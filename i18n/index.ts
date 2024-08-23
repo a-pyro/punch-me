@@ -4,19 +4,15 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import welcomeEnNs from './locales/en-US/welcome.json'
-import welcomeItNs from './locales/it-IT/welcome.json'
+import translationEn from './locales/en.json'
+import translationIt from './locales/it.json'
 
-export const defaultNS = "ns1";
-
-export const resources = {
-  'en-US': { 
-welcomeEnNs
-   },
-  'it-IT': {
-    welcomeItNs
-    },
+const resources = {
+  en: { translation: translationEn },
+  it: { translation: translationIt },
 } as const
+
+export type Resources = (typeof resources)['en']['translation']
 
 export type LanguageTag = keyof typeof resources
 
@@ -28,7 +24,6 @@ const initI18n = async () => {
     compatibilityJSON: 'v3',
     resources,
     lng: savedLanguage,
-    ns: ['welcome'],
     fallbackLng: 'en-US',
     interpolation: {
       escapeValue: false,
@@ -39,10 +34,3 @@ const initI18n = async () => {
 initI18n()
 
 export default i18n
-
-/* 
-
-
-https://dev.to/lucasferreiralimax/i18n-in-react-native-with-expo-2j0j
-
-*/

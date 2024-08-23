@@ -1,8 +1,7 @@
-import type Resources from '.'
+import { type Resources } from '../i18n'
 
 declare module 'i18next' {
   type CustomTypeOptions = {
-    defaultNS: 'ns1'
     resources: Resources
   }
 }

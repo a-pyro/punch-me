@@ -1,9 +1,10 @@
-{ "welcome": {
+{
+  "welcome": {
     "title": "",
     "subtitle": "",
     "description": "",
     "cta": {
       "continueWithEmail": ""
     }
-  }}
-
+  }
+}
