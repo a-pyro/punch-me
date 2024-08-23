@@ -12,10 +12,11 @@ import {
 import { images } from '@/constants'
 import { useUser } from '@/services'
 
-const HomePage = () => {
+const RootPage = () => {
   const { user } = useUser()
   const { t } = useTranslation()
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- // TODO fix this
   if (user) return <Redirect href="/home" />
 
   return (
@@ -47,4 +48,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default RootPage

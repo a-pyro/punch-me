@@ -1,25 +1,14 @@
 import React from 'react'
 
-import { ScrollableWrapper, ThemedText } from '@/components'
-import { MOCK_LIST } from '@/mock'
+import { DraftUserHomeView, ScrollableWrapper } from '@/components'
+import { useUser } from '@/services'
 
 const HomeView = () => {
+  const { user } = useUser()
+  const { role } = user
   return (
     <ScrollableWrapper>
-      {/* <FlatList
-        ListHeaderComponent={<ListHeader />}
-        className="px-5"
-        data={MOCK_LIST}
-        keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => (
-          <Text>{`${item.title} - ${item.description}`}</Text>
-        )}
-      /> */}
-      {MOCK_LIST.map((item) => (
-        <ThemedText
-          key={item.$id}
-        >{`${item.title} - ${item.description}`}</ThemedText>
-      ))}
+      {role === 'draft' && <DraftUserHomeView />}
     </ScrollableWrapper>
   )
 }

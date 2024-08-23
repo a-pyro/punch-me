@@ -2,12 +2,10 @@ import { router } from 'expo-router'
 import React, { useCallback } from 'react'
 
 import { AuthForm, type SignUpFormState } from '@/components'
-import { useUserMutation } from '@/services'
+import { useCreateUser } from '@/services'
 
 const SignUp = () => {
-  const {
-    createUserMutation: { mutateAsync: createUser, isPending },
-  } = useUserMutation()
+  const { createUser, isPending } = useCreateUser()
 
   const handleSubmit = useCallback(
     async ({ userName, email, password }: SignUpFormState) => {

@@ -42,7 +42,7 @@ export const logoutUser = async () => {
   queryClient.setQueryData(['user'], null)
 }
 
-export const useUserMutation = () => {
+export const useCreateUser = () => {
   const createUserMutation = useMutation({
     mutationKey: ['user'],
     mutationFn: createUser,
@@ -53,7 +53,8 @@ export const useUserMutation = () => {
   })
 
   return {
-    createUserMutation,
+    createUser: createUserMutation.mutateAsync,
+    ...createUserMutation,
   }
 }
 
@@ -75,13 +76,13 @@ export const useUser = () => {
     },
   })
 
-  const user = queryClient.getQueryData<User | null>(['user'])
+  const user = queryClient.getQueryData<User>(['user']) // i get it from the cache that i set when i logged in or signed up
 
   return {
-    user,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- // TODO fix this (see RootPage) this is done to have a typed user everywhere esle in the app, surely can be hadled more gracefully
+    user: user!,
     signInUser: mutationResult.mutateAsync,
     logoutUser: logoutMutation.mutateAsync,
-
     ...mutationResult,
   }
 }

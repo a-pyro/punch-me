@@ -1,5 +1,6 @@
 export * from './app-status-bar'
 export * from './common'
 export * from './form'
+export * from './home'
 export * from './navigation'
 export * from './punches-icon'
