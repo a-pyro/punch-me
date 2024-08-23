@@ -1,6 +1,6 @@
 import { Link } from 'expo-router'
 import React, { useState } from 'react'
-import { Alert, Text } from 'react-native'
+import { Alert, Text, View } from 'react-native'
 
 import { ScrollableWrapper } from '../common'
 import { ThemedButton } from '../common/themed-button'
@@ -8,6 +8,7 @@ import { ThemedText } from '../common/themed-text'
 import { ThemedView } from '../common/themed-view'
 
 import { FormField } from './form-field'
+import { KeyboardAvoidingComponent } from './keyboard-avoiding-view'
 
 type FormType = 'signin' | 'signup'
 
@@ -61,61 +62,67 @@ export const AuthForm = <TFormType extends FormType>({
 
   return (
     <ScrollableWrapper innerClassValue="justify-center">
-      <ThemedText classValue="font-psemibold text-2xl font-semibold text-white">
-        {formType === 'signin' ? 'Sign in to Punch Me' : 'Sign up for Punch Me'}
-      </ThemedText>
-      {form.formType === 'signup' && (
-        <FormField
-          title="Username"
-          type="text"
-          value={form.userName}
-          wrapperViewClassName="mt-5"
-          handleChange={(value) => {
-            setForm({ ...form, userName: value })
-          }}
-          onSubmitEditing={handleSubmit}
-        />
-      )}
-      <FormField
-        keyboardType="email-address"
-        title="Email"
-        type="text"
-        value={form.email}
-        wrapperViewClassName="mt-5"
-        handleChange={(value) => {
-          setForm({ ...form, email: value })
-        }}
-        onSubmitEditing={handleSubmit}
-      />
-      <FormField
-        title="Password"
-        type="password"
-        value={form.password}
-        wrapperViewClassName="mt-5"
-        handleChange={(value) => {
-          setForm({ ...form, password: value })
-        }}
-        onSubmitEditing={handleSubmit}
-      />
-      <ThemedButton
-        isLoading={isLoading}
-        outerClassValue="my-7"
-        title={formType === 'signin' ? 'Log in' : 'Sign up'}
-        onPress={handleSubmit}
-      />
-      <ThemedView classValue="flex flex-row items-center justify-center">
-        <ThemedText classValue="mr-1">
-          {formType === 'signin'
-            ? 'Dont have an account?'
-            : 'Already have an account?'}
-        </ThemedText>
-        <Link
-          className="font-psemibold text-lg text-secondary"
-          href={formType === 'signin' ? '/sign-up' : '/sign-in'}
-        >
-          <Text>{formType === 'signin' ? 'Sign up' : 'Sign in'} </Text>
-        </Link>
-      </ThemedView>
+      <KeyboardAvoidingComponent>
+        <View className="flex-1 justify-center">
+          <ThemedText classValue="font-psemibold text-2xl font-semibold text-white">
+            {formType === 'signin'
+              ? 'Sign in to Punch Me'
+              : 'Sign up for Punch Me'}
+          </ThemedText>
+          {form.formType === 'signup' && (
+            <FormField
+              title="Username"
+              type="text"
+              value={form.userName}
+              wrapperViewClassName="mt-5"
+              handleChange={(value) => {
+                setForm({ ...form, userName: value })
+              }}
+              onSubmitEditing={handleSubmit}
+            />
+          )}
+          <FormField
+            keyboardType="email-address"
+            title="Email"
+            type="text"
+            value={form.email}
+            wrapperViewClassName="mt-5"
+            handleChange={(value) => {
+              setForm({ ...form, email: value })
+            }}
+            onSubmitEditing={handleSubmit}
+          />
+          <FormField
+            title="Password"
+            type="password"
+            value={form.password}
+            wrapperViewClassName="mt-5"
+            handleChange={(value) => {
+              setForm({ ...form, password: value })
+            }}
+            onSubmitEditing={handleSubmit}
+          />
+          <ThemedButton
+            isLoading={isLoading}
+            outerClassValue="my-7"
+            title={formType === 'signin' ? 'Log in' : 'Sign up'}
+            onPress={handleSubmit}
+          />
+          <ThemedView classValue="flex flex-row items-center justify-center">
+            <ThemedText classValue="mr-1">
+              {formType === 'signin'
+                ? 'Dont have an account?'
+                : 'Already have an account?'}
+            </ThemedText>
+            <Link
+              className="font-psemibold text-lg text-secondary"
+              href={formType === 'signin' ? '/sign-up' : '/sign-in'}
+            >
+              <Text>{formType === 'signin' ? 'Sign up' : 'Sign in'} </Text>
+            </Link>
+          </ThemedView>
+        </View>
+      </KeyboardAvoidingComponent>
     </ScrollableWrapper>
   )
 }
