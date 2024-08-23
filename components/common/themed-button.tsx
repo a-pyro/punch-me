@@ -24,7 +24,7 @@ export const ThemedButton = ({
       activeOpacity={0.7}
       disabled={isLoading}
       className={cn(
-        'mt-5 rounded-xl bg-secondary-200 px-6 py-3',
+        'mt-5 flex rounded-xl bg-secondary-200 px-6 py-3',
         containerClass,
         isLoading && 'opacity-50',
       )}

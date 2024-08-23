@@ -19,10 +19,10 @@ const HomePage = () => {
   if (user) return <Redirect href="/home" />
 
   return (
-    <ScrollableWrapper innerViewClass="items-center" statusBarStyle="light">
-      <PunchesIcon />
-
+    <ScrollableWrapper innerClassValue="items-center">
       <View className="mt-5">
+        <PunchesIcon />
+
         <ThemedText classValue="text-center font-pbold text-3xl">
           {t('welcome.title')}&nbsp;
           <Text className="text-secondary-200">{t('welcome.subtitle')}</Text>
@@ -38,7 +38,7 @@ const HomePage = () => {
       </ThemedText>
 
       <ThemedButton
-        containerClass="w-full"
+        containerClass="w-full mt-9"
         title={t('welcome.cta.continueWithEmail')}
         onPress={() => {
           router.push('/sign-in')

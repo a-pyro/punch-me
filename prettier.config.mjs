@@ -8,6 +8,7 @@ const config = {
   arrowParens: 'always',
   printWidth: 80,
   plugins: [...vercelPrettierOptions.plugins, 'prettier-plugin-tailwindcss'],
+  tailwindAttributes: ['classValue', 'innerClassValue', 'outerClassValue'],
 }
 
 export default config

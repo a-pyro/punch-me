@@ -60,10 +60,10 @@ export const AuthForm = <TFormType extends FormType>({
   }
 
   return (
-    <ScrollableWrapper statusBarStyle="light">
-      <Text className="mt-10 font-psemibold text-2xl font-semibold text-white">
+    <ScrollableWrapper>
+      <ThemedText classValue="font-psemibold text-2xl font-semibold text-white">
         {formType === 'signin' ? 'Sign in to Punch Me' : 'Sign up for Punch Me'}
-      </Text>
+      </ThemedText>
       {form.formType === 'signup' && (
         <FormField
           title="Username"
@@ -95,13 +95,13 @@ export const AuthForm = <TFormType extends FormType>({
         }}
       />
       <ThemedButton
-        containerClass="mt-7"
+        containerClass="my-7"
         isLoading={isLoading}
         title={formType === 'signin' ? 'Log in' : 'Sign up'}
         onPress={handleSubmit}
       />
-      <ThemedView classValue="flex flex-row justify-center gap-2 pt-5">
-        <ThemedText>
+      <ThemedView classValue="flex flex-row justify-center items-center">
+        <ThemedText classValue="mr-1">
           {formType === 'signin'
             ? 'Dont have an account?'
             : 'Already have an account?'}

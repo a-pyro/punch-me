@@ -1,33 +1,29 @@
-import { type ClassValue } from 'clsx'
 import { type StatusBarStyle } from 'expo-status-bar'
 import React, { type PropsWithChildren } from 'react'
-import { SafeAreaView, ScrollView, View } from 'react-native'
+import { ScrollView } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { cn } from '@/utils'
+import { type WithInnerClassValue, cn } from '@/utils'
 
 import { AppStatusBar } from '../app-status-bar'
 
+import { ThemedView } from './themed-view'
+
 type ScrollableWrapperProps = {
-  innerViewClass?: ClassValue
   statusBarStyle?: StatusBarStyle
-}
+} & WithInnerClassValue
 
 export const ScrollableWrapper = ({
   children,
-  innerViewClass,
+  innerClassValue,
   statusBarStyle,
 }: PropsWithChildren<ScrollableWrapperProps>) => {
   return (
-    <SafeAreaView className="h-full flex-1 bg-white dark:bg-primary">
+    <SafeAreaView className="flex-1 bg-white px-4 dark:bg-primary">
       <ScrollView>
-        <View
-          className={cn(
-            'min-h-[85vh] w-full justify-center px-4',
-            innerViewClass,
-          )}
-        >
+        <ThemedView classValue={cn('flex-1', innerClassValue)}>
           {children}
-        </View>
+        </ThemedView>
       </ScrollView>
       <AppStatusBar style={statusBarStyle} />
     </SafeAreaView>

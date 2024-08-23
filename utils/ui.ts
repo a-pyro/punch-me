@@ -6,3 +6,11 @@ export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 export type WithClassValue = {
   classValue?: ClassValue
 }
+
+export type WithInnerClassValue = {
+  innerClassValue?: ClassValue
+}
+
+export type WithOuterClassValue = {
+  outerClassValue?: ClassValue
+}

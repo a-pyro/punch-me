@@ -10,7 +10,7 @@ export type ThemedViewProps = ViewProps & {
 
 export const ThemedView = ({
   children,
-  classValue: classValue,
+  classValue,
 }: PropsWithChildren<WithClassValue>) => {
   return (
     <View className={cn('bg-white dark:bg-primary', classValue)}>
