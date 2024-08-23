@@ -13,6 +13,7 @@ type FormFieldProps = {
   keyboardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad'
   placeholder?: string
   type: 'text' | 'password'
+  onSubmitEditing?: () => void
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
@@ -21,6 +22,7 @@ export const FormField: React.FC<FormFieldProps> = ({
   handleChange,
   wrapperViewClassName,
   type = 'text',
+  onSubmitEditing,
   placeholder = `Enter your ${title.toLowerCase()}`,
   keyboardType = 'default',
 }) => {
@@ -28,7 +30,7 @@ export const FormField: React.FC<FormFieldProps> = ({
   return (
     <View className={cn('space-y-2', wrapperViewClassName)}>
       <Text className="font-pmedium text-base text-gray-100">{title}</Text>
-      <View className="flex h-16 w-full flex-row items-center rounded-2xl border-2 border-black-200 bg-black-100 px-4 focus:border-secondary">
+      <View className="flex h-16 w-full flex-row items-center rounded-2xl border-2 bg-gray-100 px-4 focus:border-secondary dark:border-black-200 dark:bg-black-100">
         <TextInput
           className="flex-1 font-psemibold text-base text-white"
           keyboardType={keyboardType}
@@ -37,6 +39,7 @@ export const FormField: React.FC<FormFieldProps> = ({
           secureTextEntry={type === 'password' && !showPassword}
           value={value}
           onChangeText={handleChange}
+          onSubmitEditing={onSubmitEditing}
         />
 
         {type === 'password' && (

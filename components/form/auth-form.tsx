@@ -73,6 +73,7 @@ export const AuthForm = <TFormType extends FormType>({
           handleChange={(value) => {
             setForm({ ...form, userName: value })
           }}
+          onSubmitEditing={handleSubmit}
         />
       )}
       <FormField
@@ -84,6 +85,7 @@ export const AuthForm = <TFormType extends FormType>({
         handleChange={(value) => {
           setForm({ ...form, email: value })
         }}
+        onSubmitEditing={handleSubmit}
       />
       <FormField
         title="Password"
@@ -93,6 +95,7 @@ export const AuthForm = <TFormType extends FormType>({
         handleChange={(value) => {
           setForm({ ...form, password: value })
         }}
+        onSubmitEditing={handleSubmit}
       />
       <ThemedButton
         isLoading={isLoading}
