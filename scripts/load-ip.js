@@ -24,7 +24,7 @@ const envConfig = dotenv.parse(fs.readFileSync(envFilePath))
 
 // Update the specific environment variable
 if (ip) {
-  envConfig['EXPO_PUBLIC_API_URL'] = `http://${ip}:8000`
+  envConfig['EXPO_PUBLIC_API_URL'] = `http://${ip}:8000/api`
   console.log(
     `Local IP address found: ${ip}. Updated EXPO_PUBLIC_API_URL in .env file.`,
   )

@@ -1,26 +1,39 @@
-import axios, { type AxiosResponse } from 'axios'
+import axios, { type AxiosError, type AxiosResponse } from 'axios'
+import { Alert } from 'react-native'
 
 import { readFromStore } from '../secure-store'
 
 import { type HTTPRequestConfig } from './types'
-
+// TODO HANDLE ERRORS
 export const axiosClient = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
 })
+axiosClient.interceptors.response.use(
+  (response: AxiosResponse) => {
+    return response
+  },
+  async (error: AxiosError) => {
+    console.log('🚀 ~ error:', error.response?.data.error)
+    // Log the error response
+    console.error('Response error:', error.response)
 
-// axiosClient.interceptors.response.use(
-//   (response: AxiosResponse<any>) => {
-//     return response
-//   },
-//   async (error: ApiError) => {
-//     if (error.response?.status === 401 || error.response?.status === 403) {
-//       await Auth.signOut()
-//       window.location.pathname = '/'
-//     }
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      Alert.alert(
+        'Unauthorized',
+        'You are not authorized to access this resource.',
+      )
+    } else if (error.response?.status === 400) {
+      Alert.alert(
+        'Bad Request',
+        'The request could not be understood by the server.',
+      )
+    } else if (error.response?.status === 404) {
+      Alert.alert('Not Found', 'The requested resource could not be found.')
+    }
 
-//     return Promise.reject(error)
-//   },
-// )
+    return Promise.reject(error)
+  },
+)
 
 axiosClient.interceptors.request.use(async (config) => {
   const token = await readFromStore('accessToken')

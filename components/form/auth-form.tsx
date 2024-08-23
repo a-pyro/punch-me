@@ -64,7 +64,7 @@ export const AuthForm = <TFormType extends FormType>({
     <ScrollableWrapper innerClassValue="justify-center">
       <KeyboardAvoidingComponent>
         <View className="flex-1 justify-center">
-          <ThemedText classValue="font-psemibold text-2xl font-semibold text-white">
+          <ThemedText classValue="font-psemibold text-2xl font-semibold text-primary dark:text-white">
             {formType === 'signin'
               ? 'Sign in to Punch Me'
               : 'Sign up for Punch Me'}
