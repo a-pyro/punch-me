@@ -12,25 +12,10 @@ axiosClient.interceptors.response.use(
   (response: AxiosResponse) => {
     return response
   },
-  async (error: AxiosError) => {
-    console.log('🚀 ~ error:', error.response?.data.error)
-    // Log the error response
-    console.error('Response error:', error.response)
-
-    if (error.response?.status === 401 || error.response?.status === 403) {
-      Alert.alert(
-        'Unauthorized',
-        'You are not authorized to access this resource.',
-      )
-    } else if (error.response?.status === 400) {
-      Alert.alert(
-        'Bad Request',
-        'The request could not be understood by the server.',
-      )
-    } else if (error.response?.status === 404) {
-      Alert.alert('Not Found', 'The requested resource could not be found.')
-    }
-
+  async (error: AxiosError<{ message: string }>) => {
+    Alert.alert(
+      `Error ${error.response?.status}: ${error.response?.data.message}`,
+    )
     return Promise.reject(error)
   },
 )
