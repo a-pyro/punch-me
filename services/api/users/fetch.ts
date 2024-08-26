@@ -3,7 +3,7 @@ import { router } from 'expo-router'
 
 import { queryClient } from '@/services/react-query'
 import { expoSecureStore } from '@/services/secure-store'
-import { type User, type UserInsert } from '@/supabase/types'
+import { type User, type UserInsert, type UserUpdate } from '@/supabase/types'
 
 import { httpClient } from '../http-client'
 
@@ -17,6 +17,14 @@ export const createUser = async (
 ): Promise<UserCreateResponse> => {
   const { data } = await httpClient.create<UserCreateResponse, UserInsert>(
     '/users',
+    user,
+  )
+  return data
+}
+
+export const updateUser = async (user: UserUpdate) => {
+  const { data } = await httpClient.update<User, UserUpdate>(
+    `/users/${user.id}`,
     user,
   )
   return data
@@ -84,5 +92,20 @@ export const useUser = () => {
     signInUser: mutationResult.mutateAsync,
     logoutUser: logoutMutation.mutateAsync,
     ...mutationResult,
+  }
+}
+
+export const useUpdateUser = () => {
+  const updateUserMutation = useMutation({
+    mutationKey: ['user'],
+    mutationFn: updateUser,
+    onSuccess: (user) => {
+      queryClient.setQueryData(['user'], user)
+    },
+  })
+
+  return {
+    updateUser: updateUserMutation.mutateAsync,
+    ...updateUserMutation,
   }
 }

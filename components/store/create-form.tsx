@@ -1,9 +1,11 @@
+import { router } from 'expo-router'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
+import { useCreateStore, useUpdateUser, useUser } from '@/services'
 import { type StoreInsert } from '@/supabase'
 
-import { ThemedButton, ThemedView } from '../common'
+import { ThemedButton, ThemedText, ThemedView } from '../common'
 import { ControlledFormField } from '../form'
 
 // {
@@ -20,9 +22,24 @@ import { ControlledFormField } from '../form'
 // }
 
 // TODO - ADD STICKY HEADER and rest of the form fields
+// TODO - Handle loading and validation
 export const StoreCreateForm = () => {
   const { t } = useTranslation()
   const { control, handleSubmit } = useForm<StoreInsert>()
+  const { user } = useUser()
+
+  const { createStore, isPending: isCreatingStore } = useCreateStore()
+  const { updateUser, isPending: isUpdatingUser } = useUpdateUser()
+
+  const onSubmit = handleSubmit(async (data) => {
+    const { id } = await createStore({ ...data, user_id: user.id })
+    await updateUser({ ...user, role: 'store_owner' })
+    router.push(`/store/${id}`)
+  })
+
+  if (isCreatingStore || isUpdatingUser) {
+    return <ThemedText>🍌🍌🍌</ThemedText>
+  }
 
   return (
     <ThemedView>
@@ -77,12 +94,7 @@ export const StoreCreateForm = () => {
         placeholder={t('store.create_form.website_url_placeholder')}
         title={t('store.create_form.website_url')}
       />
-      <ThemedButton
-        outerClassValue="mt-4"
-        onPress={handleSubmit((data) => {
-          console.log(data)
-        })}
-      >
+      <ThemedButton outerClassValue="mt-4" onPress={onSubmit}>
         {t('store.create_form.submit')}
       </ThemedButton>
     </ThemedView>
