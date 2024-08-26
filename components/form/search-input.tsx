@@ -1,8 +1,8 @@
 import { router, usePathname } from 'expo-router'
 import { useState } from 'react'
-import { Alert, Image, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, TextInput, TouchableOpacity, View } from 'react-native'
 
-import { icons } from '@/constants'
+import { Icon } from '../common/icon'
 
 type SearchInputProps = {
   initialQuery?: string
@@ -38,7 +38,7 @@ export const SearchInput = ({ initialQuery }: SearchInputProps) => {
           else router.push(`/search/${query}`)
         }}
       >
-        <Image className="h-5 w-5" resizeMode="contain" source={icons.search} />
+        <Icon color="#CDCDE0" name="search1" />
       </TouchableOpacity>
     </View>
   )

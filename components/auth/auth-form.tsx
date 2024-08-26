@@ -6,9 +6,8 @@ import { ScrollableWrapper } from '../common'
 import { ThemedButton } from '../common/themed-button'
 import { ThemedText } from '../common/themed-text'
 import { ThemedView } from '../common/themed-view'
-
-import { FormField } from './form-field'
-import { KeyboardAvoidingComponent } from './keyboard-avoiding-view'
+import { FormField } from '../form/form-field'
+import { KeyboardAvoidingComponent } from '../form/keyboard-avoiding-view'
 
 type FormType = 'signin' | 'signup'
 
@@ -75,10 +74,10 @@ export const AuthForm = <TFormType extends FormType>({
               type="text"
               value={form.userName}
               wrapperViewClassName="mt-5"
-              handleChange={(value) => {
+              onSubmitEditing={handleSubmit}
+              onChangeText={(value) => {
                 setForm({ ...form, userName: value })
               }}
-              onSubmitEditing={handleSubmit}
             />
           )}
           <FormField
@@ -87,20 +86,20 @@ export const AuthForm = <TFormType extends FormType>({
             type="text"
             value={form.email}
             wrapperViewClassName="mt-5"
-            handleChange={(value) => {
+            onSubmitEditing={handleSubmit}
+            onChangeText={(value) => {
               setForm({ ...form, email: value })
             }}
-            onSubmitEditing={handleSubmit}
           />
           <FormField
             title="Password"
             type="password"
             value={form.password}
             wrapperViewClassName="mt-5"
-            handleChange={(value) => {
+            onSubmitEditing={handleSubmit}
+            onChangeText={(value) => {
               setForm({ ...form, password: value })
             }}
-            onSubmitEditing={handleSubmit}
           />
           <ThemedButton
             isLoading={isLoading}
