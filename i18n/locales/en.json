@@ -10,5 +10,25 @@
   "home": {
     "welcome": "Welcome, {{name}}!",
     "create_store_description": ""
+  },
+
+  "auth": {
+    "form": {
+      "sign_in_title": "Sign in to Punch Me",
+      "sign_up_title": "Sign up for Punch Me",
+      "username": "Username",
+      "username_placeholder": "Enter your username",
+      "email": "Email",
+      "email_placeholder": "Enter your email",
+      "password": "Password",
+      "password_placeholder": "Enter your password",
+      "login": "Log in",
+      "signup": "Sign up",
+      "no_account": "Don't have an account?",
+      "have_account": "Already have an account?",
+      "sign_up": "Sign up",
+      "sign_in": "Sign in",
+      "fill_all_fields": "Please fill in all fields"
+    }
   }
 }

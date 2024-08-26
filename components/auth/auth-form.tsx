@@ -1,5 +1,6 @@
 import { Link } from 'expo-router'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Alert, Text, View } from 'react-native'
 
 import { ScrollableWrapper } from '../common'
@@ -38,6 +39,7 @@ export const AuthForm = <TFormType extends FormType>({
   onSubmit,
   isLoading,
 }: AuthFormProps<TFormType>) => {
+  const { t } = useTranslation()
   const [form, setForm] = useState<FormState>(
     formType === 'signin'
       ? { email: '', password: '', formType: 'signin' }
@@ -50,7 +52,7 @@ export const AuthForm = <TFormType extends FormType>({
       (form.formType === 'signup' &&
         (!form.email || !form.password || !form.userName))
     ) {
-      Alert.alert('Please fill in all fields')
+      Alert.alert(t('auth.form.fill_all_fields'))
       return
     }
 
@@ -65,12 +67,13 @@ export const AuthForm = <TFormType extends FormType>({
         <View className="flex-1 justify-center">
           <ThemedText classValue="font-psemibold text-2xl font-semibold text-primary dark:text-white">
             {formType === 'signin'
-              ? 'Sign in to Punch Me'
-              : 'Sign up for Punch Me'}
+              ? t('auth.form.sign_in_title')
+              : t('auth.form.sign_up_title')}
           </ThemedText>
           {form.formType === 'signup' && (
             <FormField
-              title="Username"
+              placeholder={t('auth.form.username_placeholder')}
+              title={t('auth.form.username')}
               type="text"
               value={form.userName}
               wrapperViewClassName="mt-5"
@@ -82,7 +85,8 @@ export const AuthForm = <TFormType extends FormType>({
           )}
           <FormField
             keyboardType="email-address"
-            title="Email"
+            placeholder={t('auth.form.email_placeholder')}
+            title={t('auth.form.email')}
             type="text"
             value={form.email}
             wrapperViewClassName="mt-5"
@@ -92,7 +96,8 @@ export const AuthForm = <TFormType extends FormType>({
             }}
           />
           <FormField
-            title="Password"
+            placeholder={t('auth.form.password_placeholder')}
+            title={t('auth.form.password')}
             type="password"
             value={form.password}
             wrapperViewClassName="mt-5"
@@ -104,20 +109,28 @@ export const AuthForm = <TFormType extends FormType>({
           <ThemedButton
             isLoading={isLoading}
             outerClassValue="my-7"
-            title={formType === 'signin' ? 'Log in' : 'Sign up'}
+            title={
+              formType === 'signin'
+                ? t('auth.form.login')
+                : t('auth.form.signup')
+            }
             onPress={handleSubmit}
           />
           <ThemedView classValue="flex flex-row items-center justify-center">
             <ThemedText classValue="mr-1">
               {formType === 'signin'
-                ? 'Dont have an account?'
-                : 'Already have an account?'}
+                ? t('auth.form.no_account')
+                : t('auth.form.have_account')}
             </ThemedText>
             <Link
               className="font-psemibold text-lg text-secondary"
               href={formType === 'signin' ? '/sign-up' : '/sign-in'}
             >
-              <Text>{formType === 'signin' ? 'Sign up' : 'Sign in'} </Text>
+              <Text>
+                {formType === 'signin'
+                  ? t('auth.form.sign_up')
+                  : t('auth.form.sign_in')}{' '}
+              </Text>
             </Link>
           </ThemedView>
         </View>

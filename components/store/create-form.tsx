@@ -1,38 +1,44 @@
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { type StoreInsert } from '@/supabase'
 
-import { ThemedText, ThemedView } from '../common'
-import { FormField } from '../form'
+import { ThemedButton, ThemedView } from '../common'
+import { ControlledFormField } from '../form'
+
+// {
+//     address?: string | null;
+//     contact_email?: string | null;
+//     contact_phone?: string | null;
+//     created_at?: string | null;
+//     id?: string;
+//     logo_url?: string | null;
+//     name: string;
+//     store_hours?: Json | null;
+//     user_id: string;
+//     website_url?: string | null;
+// }
 
 export const StoreCreateForm = () => {
   const { t } = useTranslation()
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<StoreInsert>()
+  const { control, handleSubmit } = useForm<StoreInsert>()
 
   return (
     <ThemedView>
-      <Controller
+      <ControlledFormField
+        required
         control={control}
         name="name"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <FormField
-            placeholder={t('store.form.namePlaceholder')}
-            title={t('store.form.name')}
-            value={value}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
-        rules={{
-          required: true,
-        }}
+        placeholder={t('store.create_form.name_placeholder')}
+        title={t('store.create_form.name')}
       />
-      {errors.name ? <ThemedText>This is required.</ThemedText> : null}
+      <ThemedButton
+        onPress={handleSubmit((data) => {
+          console.log(data)
+        })}
+      >
+        {t('store.create_form.submit')}
+      </ThemedButton>
     </ThemedView>
   )
 }

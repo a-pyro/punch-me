@@ -12,7 +12,7 @@ import { cn } from '@/utils'
 
 import { Icon } from '../common/icon'
 
-type FormFieldProps = TextInputProps & {
+export type FormFieldProps = TextInputProps & {
   title: string
   wrapperViewClassName?: ClassValue
   keyboardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad'

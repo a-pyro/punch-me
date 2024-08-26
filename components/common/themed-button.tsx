@@ -1,26 +1,29 @@
 import { type ClassValue } from 'clsx'
-import React, { PropsWithChildren } from 'react'
-import { ActivityIndicator, TouchableOpacity } from 'react-native'
+import React from 'react'
+import {
+  ActivityIndicator,
+  TouchableOpacity,
+  type TouchableOpacityProps,
+} from 'react-native'
 
 import { type WithouterClassValue, cn } from '@/utils'
 
 import { ThemedText } from './themed-text'
 
-export type ThemedButtonProps = {
+export type ThemedButtonProps = TouchableOpacityProps & {
   title?: string
-  onPress?: () => void
   textClass?: ClassValue
   isLoading?: boolean
 } & WithouterClassValue
 
 export const ThemedButton = ({
   title,
-  onPress,
   isLoading,
   outerClassValue,
   children,
   textClass,
-}: PropsWithChildren<ThemedButtonProps>) => {
+  ...rest
+}: ThemedButtonProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -30,7 +33,7 @@ export const ThemedButton = ({
         outerClassValue,
         isLoading && 'opacity-50',
       )}
-      onPress={onPress}
+      {...rest}
     >
       {isLoading ? (
         <ActivityIndicator color="orange" />
