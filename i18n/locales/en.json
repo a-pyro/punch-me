@@ -11,7 +11,6 @@
     "welcome": "Welcome, {{name}}!",
     "create_store_description": ""
   },
-
   "auth": {
     "form": {
       "sign_in_title": "Sign in to Punch Me",
@@ -29,6 +28,27 @@
       "sign_up": "Sign up",
       "sign_in": "Sign in",
       "fill_all_fields": "Please fill in all fields"
+    }
+  },
+  "store": {
+    "create": "Create a Store",
+    "edit": "Edit Store",
+    "create_form": {
+      "name": "Name",
+      "name_placeholder": "Enter the store name",
+      "address": "Address",
+      "address_placeholder": "Enter the store address",
+      "contact_email": "Contact Email",
+      "contact_email_placeholder": "Enter the contact email",
+      "contact_phone": "Contact Phone",
+      "contact_phone_placeholder": "Enter the contact phone number",
+      "logo_url": "Logo URL",
+      "logo_url_placeholder": "Enter the logo URL",
+      "store_hours": "Store Hours",
+      "store_hours_placeholder": "Enter the store hours",
+      "website_url": "Website URL",
+      "website_url_placeholder": "Enter the website URL",
+      "submit": "Submit"
     }
   }
 }

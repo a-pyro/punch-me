@@ -6,6 +6,8 @@ import {
   type Path,
 } from 'react-hook-form'
 
+import { type WithClassValue } from '@/utils'
+
 import { ThemedText } from '../common'
 
 import { FormField, type FormFieldProps } from './form-field'
@@ -14,11 +16,12 @@ type ControlledFormFieldProps<T extends FieldValues> = FormFieldProps & {
   control: Control<T>
   name: Path<T>
   required?: boolean
-}
+} & WithClassValue
 
 export const ControlledFormField = <T extends FieldValues>({
   control,
   name,
+  classValue,
   required,
   ...rest
 }: ControlledFormFieldProps<T>) => {
@@ -34,6 +37,7 @@ export const ControlledFormField = <T extends FieldValues>({
         <>
           <FormField
             value={value}
+            wrapperViewClassName={classValue}
             onBlur={onBlur}
             onChangeText={onChange}
             {...rest}
