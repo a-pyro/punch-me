@@ -1,5 +1,6 @@
+import { router } from 'expo-router'
 import React from 'react'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
 import { useUser } from '@/services'
@@ -7,6 +8,7 @@ import { useUser } from '@/services'
 import { ThemedButton, ThemedText } from '../common'
 
 export const DraftUserHomeView = () => {
+  const { t } = useTranslation()
   const { user } = useUser()
 
   return (
@@ -21,12 +23,27 @@ export const DraftUserHomeView = () => {
       <View className="flex flex-row justify-between">
         <ThemedButton
           outerClassValue="h-40 rounded-2xl flex-1 justify-center mr-2"
-          title="create store"
-        />
+          onPress={() => {
+            router.push('/store')
+          }}
+        >
+          <View>
+            <ThemedText>{t('home.create_store')}</ThemedText>
+            <ThemedText>{t('home.create_store_description')}</ThemedText>
+          </View>
+        </ThemedButton>
+
         <ThemedButton
           outerClassValue="h-40 rounded-2xl flex-1 justify-center ml-2"
-          title="search store"
-        />
+          onPress={() => {
+            router.push('/subscribe')
+          }}
+        >
+          <View>
+            <ThemedText>{t('home.subscribe_to_store')}</ThemedText>
+            <ThemedText>{t('home.subscribe_to_store_description')}</ThemedText>
+          </View>
+        </ThemedButton>
       </View>
     </View>
   )

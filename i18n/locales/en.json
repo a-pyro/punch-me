@@ -8,6 +8,7 @@
     }
   },
   "home": {
-    "welcome": "Welcome, {{name}}!"
+    "welcome": "Welcome, {{name}}!",
+    "create_store_description": ""
   }
 }

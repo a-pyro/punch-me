@@ -1,9 +1,9 @@
 import { type ClassValue } from 'clsx'
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 
-import { icons } from '@/constants'
 import { cn } from '@/utils'
+import { Icon } from '../navigation'
 
 type FormFieldProps = {
   title: string
@@ -48,11 +48,7 @@ export const FormField: React.FC<FormFieldProps> = ({
               setShowPassword(!showPassword)
             }}
           >
-            <Image
-              className="h-6 w-6"
-              resizeMode="contain"
-              source={!showPassword ? icons.eye : icons.eyeHide}
-            />
+            <Icon name={!showPassword ? 'eye' : 'eyeo'} />
           </TouchableOpacity>
         )}
       </View>

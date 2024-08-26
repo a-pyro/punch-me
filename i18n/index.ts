@@ -33,4 +33,6 @@ const initI18n = async () => {
 
 initI18n()
 
+export type LocalizedString = string & { readonly __brand: unique symbol }
+
 export default i18n
