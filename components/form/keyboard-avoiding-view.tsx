@@ -8,9 +8,7 @@ export const KeyboardAvoidingComponent = ({ children }: PropsWithChildren) => {
       className="flex-1"
       keyboardVerticalOffset={100}
     >
-      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
       {children}
-      {/* </TouchableWithoutFeedback> */}
     </KeyboardAvoidingView>
   )
 }

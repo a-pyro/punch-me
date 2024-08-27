@@ -9,7 +9,7 @@ const StoreDetailView = () => {
   const { store } = useGetStore(id)
   return (
     <ScrollableWrapper>
-      <ThemedText textStyle="title">Store Detail</ThemedText>
+      <ThemedText style="title">Store Detail</ThemedText>
     </ScrollableWrapper>
   )
 }

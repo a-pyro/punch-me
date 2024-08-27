@@ -3,12 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Image, Text, View } from 'react-native'
 
-import {
-  PunchesIcon,
-  ScrollableWrapper,
-  ThemedButton,
-  ThemedText,
-} from '@/components'
+import { PunchesIcon, SafeView, ThemedButton, ThemedText } from '@/components'
 import { images } from '@/constants'
 import { useUser } from '@/services'
 
@@ -20,7 +15,7 @@ const RootPage = () => {
   if (user) return <Redirect href="/home" />
 
   return (
-    <ScrollableWrapper innerClassValue="pb-7">
+    <SafeView>
       <View className="relative flex-1 justify-center">
         <PunchesIcon />
         <ThemedText classValue="text-center font-pbold text-3xl">
@@ -38,13 +33,13 @@ const RootPage = () => {
       </View>
 
       <ThemedButton
-        outerClassValue="w-full"
+        outerClassValue="w-full mb-3"
         title={t('welcome.cta.continueWithEmail')}
         onPress={() => {
           router.push('/sign-in')
         }}
       />
-    </ScrollableWrapper>
+    </SafeView>
   )
 }
 

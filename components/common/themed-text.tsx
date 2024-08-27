@@ -14,13 +14,13 @@ const textStyles = {
 export type TextStyle = keyof typeof textStyles
 
 type ThemedTextProps = PropsWithChildren<WithClassValue> & {
-  textStyle?: TextStyle
+  style?: TextStyle
 }
 
 export const ThemedText = ({
   children,
   classValue,
-  textStyle = 'default',
+  style: textStyle = 'default',
 }: ThemedTextProps) => {
   return (
     <Text

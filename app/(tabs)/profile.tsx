@@ -1,15 +1,20 @@
 import React from 'react'
 
-import { ScrollableWrapper, ThemedButton, ThemedText } from '@/components'
+import { SafeView, ThemedButton, ThemedText } from '@/components'
 import { useUser } from '@/services'
 
 const ProfileView = () => {
   const { user, logoutUser } = useUser()
   return (
-    <ScrollableWrapper>
-      <ThemedText>{user?.email}</ThemedText>
-      <ThemedButton title="Logout" onPress={logoutUser} />
-    </ScrollableWrapper>
+    <SafeView>
+      <ThemedText>{user.email}</ThemedText>
+      <ThemedButton
+        title="Logout"
+        onPress={async () => {
+          await logoutUser()
+        }}
+      />
+    </SafeView>
   )
 }
 

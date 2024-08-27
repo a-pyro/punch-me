@@ -13,7 +13,7 @@ export const DraftUserHomeView = () => {
 
   return (
     <View className="flex-1 justify-center">
-      <ThemedText classValue="pt-5" textStyle="title">
+      <ThemedText classValue="pt-5" style="title">
         <Trans
           defaults="Welcome, {{name}}!"
           i18nKey="home.welcome"

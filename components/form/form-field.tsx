@@ -15,7 +15,6 @@ import { Icon } from '../common/icon'
 export type FormFieldProps = TextInputProps & {
   title: string
   wrapperViewClassName?: ClassValue
-  keyboardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad'
   placeholder?: string
   type?: 'text' | 'password'
   onSubmitEditing?: () => void

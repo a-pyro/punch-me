@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { ScrollableWrapper, ThemedText } from '@/components'
+import { SafeView, ThemedText } from '@/components'
 
 const BookmarkView = () => {
   return (
-    <ScrollableWrapper>
+    <SafeView>
       <ThemedText>Bookmark</ThemedText>
-    </ScrollableWrapper>
+    </SafeView>
   )
 }
 

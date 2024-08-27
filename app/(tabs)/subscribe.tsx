@@ -1,9 +1,13 @@
 import React from 'react'
 
-import { ThemedText } from '@/components'
+import { SafeView, ThemedText } from '@/components'
 
 const SubscribeView = () => {
-  return <ThemedText>SubscribeView</ThemedText>
+  return (
+    <SafeView>
+      <ThemedText>SubscribeView</ThemedText>
+    </SafeView>
+  )
 }
 
 export default SubscribeView

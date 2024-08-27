@@ -20,6 +20,7 @@ import { useColorScheme } from 'react-native'
 import { AppStatusBar } from '@/components'
 import '@/i18n'
 import { queryClient } from '@/services'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 if (__DEV__) require('../services/react-query/reactotron.ts')
 
@@ -50,42 +51,44 @@ const RootLayout = () => {
   if (!fontsLoaded && !error) return null
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <QueryClientProvider client={queryClient}>
-        <Stack>
-          <Stack.Screen
-            name="index"
-            options={{
-              headerShown: false,
-              // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
-            }}
-          />
-          <Stack.Screen
-            name="(auth)"
-            options={{
-              headerShown: false,
-              // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
-            }}
-          />
-          <Stack.Screen
-            name="(tabs)"
-            options={{
-              headerShown: false,
-              // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
-            }}
-          />
-          {/* <Stack.Screen
+    <SafeAreaProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <QueryClientProvider client={queryClient}>
+          <Stack>
+            <Stack.Screen
+              name="index"
+              options={{
+                headerShown: false,
+                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
+              }}
+            />
+            <Stack.Screen
+              name="(auth)"
+              options={{
+                headerShown: false,
+                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
+              }}
+            />
+            <Stack.Screen
+              name="(tabs)"
+              options={{
+                headerShown: false,
+                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
+              }}
+            />
+            {/* <Stack.Screen
               name="/search/[query]"
               options={{
                 headerShown: false,
                 // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
               }}
             /> */}
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <AppStatusBar style="auto" />
-      </QueryClientProvider>
-    </ThemeProvider>
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <AppStatusBar style="auto" />
+        </QueryClientProvider>
+      </ThemeProvider>
+    </SafeAreaProvider>
   )
 }
 

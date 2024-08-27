@@ -78,8 +78,9 @@ export const useUser = () => {
   const logoutMutation = useMutation({
     mutationKey: ['user'],
     mutationFn: logoutUser,
-    onSuccess: () => {
-      router.push('/')
+    onSuccess: async () => {
+      await expoSecureStore.deleteFromStore('accessToken')
+      router.push('/sign-in')
     },
   })
 

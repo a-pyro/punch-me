@@ -1,20 +1,18 @@
 import React from 'react'
 
-import {
-  DraftUserHomeView,
-  ScrollableWrapper,
-  StoreOwnerHomeView,
-} from '@/components'
+import { DraftUserHomeView, SafeView, StoreOwnerHomeView } from '@/components'
+import { CustomerHomeView } from '@/components/home/customer-home-view'
 import { useUser } from '@/services'
 
 const HomeView = () => {
   const { user } = useUser()
   const { role } = user
   return (
-    <ScrollableWrapper>
+    <SafeView>
       {role === 'draft' && <DraftUserHomeView />}
       {role === 'store_owner' && <StoreOwnerHomeView />}
-    </ScrollableWrapper>
+      {role === 'customer' && <CustomerHomeView />}
+    </SafeView>
   )
 }
 

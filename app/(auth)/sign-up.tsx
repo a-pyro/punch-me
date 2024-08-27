@@ -1,7 +1,7 @@
 import { router } from 'expo-router'
 import React, { useCallback } from 'react'
 
-import { AuthForm, type SignUpFormState } from '@/components'
+import { AuthForm, SafeView, type SignUpFormState } from '@/components'
 import { useCreateUser } from '@/services'
 
 const SignUp = () => {
@@ -25,7 +25,13 @@ const SignUp = () => {
   )
 
   return (
-    <AuthForm formType="signup" isLoading={isPending} onSubmit={handleSubmit} />
+    <SafeView>
+      <AuthForm
+        formType="signup"
+        isLoading={isPending}
+        onSubmit={handleSubmit}
+      />
+    </SafeView>
   )
 }
 

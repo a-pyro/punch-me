@@ -1,7 +1,7 @@
 import { router } from 'expo-router'
 import React from 'react'
 
-import { AuthForm, type SigninFormState } from '@/components'
+import { AuthForm, SafeView, type SigninFormState } from '@/components'
 import { useUser } from '@/services'
 
 const SignInView = () => {
@@ -11,7 +11,13 @@ const SignInView = () => {
     router.push('/home')
   }
   return (
-    <AuthForm formType="signin" isLoading={isPending} onSubmit={handleSubmit} />
+    <SafeView>
+      <AuthForm
+        formType="signin"
+        isLoading={isPending}
+        onSubmit={handleSubmit}
+      />
+    </SafeView>
   )
 }
 

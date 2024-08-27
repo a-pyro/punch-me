@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   type TouchableOpacityProps,
+  View,
 } from 'react-native'
 
 import { type WithouterClassValue, cn } from '@/utils'
@@ -35,9 +36,8 @@ export const ThemedButton = ({
       )}
       {...rest}
     >
-      {isLoading ? (
-        <ActivityIndicator color="orange" />
-      ) : (
+      <View className={cn('flex flex-row items-center justify-center')}>
+        {!!isLoading && <ActivityIndicator className="mr-2" color="yellow" />}
         <ThemedText
           classValue={cn(
             'py-1 text-center text-lg font-semibold text-white dark:text-primary',
@@ -46,7 +46,7 @@ export const ThemedButton = ({
         >
           {title ? title : children}
         </ThemedText>
-      )}
+      </View>
     </TouchableOpacity>
   )
 }
