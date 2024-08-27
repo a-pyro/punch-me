@@ -8,19 +8,6 @@ import { type StoreInsert } from '@/supabase'
 import { ThemedButton, ThemedText, ThemedView } from '../common'
 import { ControlledFormField } from '../form'
 
-// {
-//     address?: string | null;
-//     contact_email?: string | null;
-//     contact_phone?: string | null;
-//     created_at?: string | null;
-//     id?: string;
-//     logo_url?: string | null;
-//     name: string;
-//     store_hours?: Json | null;
-//     user_id: string;
-//     website_url?: string | null;
-// }
-
 // TODO - ADD STICKY HEADER and rest of the form fields
 // TODO - Handle loading and validation
 export const StoreCreateForm = () => {
@@ -33,7 +20,8 @@ export const StoreCreateForm = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     const { id } = await createStore({ ...data, user_id: user.id })
-    await updateUser({ ...user, role: 'store_owner' })
+    if (user.role !== 'store_owner')
+      await updateUser({ ...user, role: 'store_owner' })
     router.push(`/store/${id}`)
   })
 

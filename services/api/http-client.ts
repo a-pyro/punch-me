@@ -3,7 +3,7 @@ import { Alert } from 'react-native'
 
 import { readFromStore } from '../secure-store'
 
-import { type HTTPRequestConfig } from './types'
+import { type ApiResponse, type HTTPRequestConfig } from './types'
 // TODO HANDLE ERRORS
 export const axiosClient = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
@@ -27,7 +27,7 @@ axiosClient.interceptors.request.use(async (config) => {
 })
 
 async function tryAction<T>(
-  action: () => Promise<AxiosResponse<T>>,
+  action: () => Promise<AxiosResponse<ApiResponse<T>>>,
   endpoint: string,
 ) {
   try {
@@ -38,29 +38,41 @@ async function tryAction<T>(
     throw error
   }
 }
-
 const get = async <T>(endpoint: string, config: HTTPRequestConfig = {}) => {
-  return await tryAction(() => axiosClient.get<T>(endpoint, config), endpoint)
-}
-
-const create = async <TResponse, TRequest>(
-  endpoint: string,
-  data?: TRequest,
-  config: HTTPRequestConfig = {},
-) => {
   return await tryAction(
-    () => axiosClient.post<TResponse>(endpoint, data, config),
+    () => axiosClient.get<ApiResponse<T>>(endpoint, config),
     endpoint,
   )
 }
 
-const update = async <TResponse, TRequest>(
+const create = async <TResponse, TDataPayload>(
   endpoint: string,
-  data?: TRequest,
+  requestDataPayload?: TDataPayload,
   config: HTTPRequestConfig = {},
 ) => {
   return await tryAction(
-    () => axiosClient.put<TResponse>(endpoint, data, config),
+    () =>
+      axiosClient.post<ApiResponse<TResponse>>(
+        endpoint,
+        requestDataPayload,
+        config,
+      ),
+    endpoint,
+  )
+}
+
+const update = async <TResponse, TDataPayload>(
+  endpoint: string,
+  requestDataPayload?: TDataPayload,
+  config: HTTPRequestConfig = {},
+) => {
+  return await tryAction(
+    () =>
+      axiosClient.put<ApiResponse<TResponse>>(
+        endpoint,
+        requestDataPayload,
+        config,
+      ),
     endpoint,
   )
 }

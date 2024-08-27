@@ -7,8 +7,7 @@ import { type User, type UserInsert, type UserUpdate } from '@/supabase/types'
 
 import { httpClient } from '../http-client'
 
-type UserCreateResponse = {
-  data: User
+type UserCreateResponse = User & {
   token: string
 }
 
@@ -19,15 +18,15 @@ export const createUser = async (
     '/users',
     user,
   )
-  return data
+  return data.data
 }
 
-export const updateUser = async (user: UserUpdate) => {
+export const updateUser = async ({ password: _, ...user }: UserUpdate) => {
   const { data } = await httpClient.update<User, UserUpdate>(
     `/users/${user.id}`,
     user,
   )
-  return data
+  return data.data
 }
 
 export const loginUser = async ({
@@ -42,7 +41,7 @@ export const loginUser = async ({
     { email: string; password: string }
   >('/users/login', { email, password })
 
-  return data
+  return data.data
 }
 
 export const logoutUser = async () => {
@@ -54,7 +53,7 @@ export const useCreateUser = () => {
   const createUserMutation = useMutation({
     mutationKey: ['user'],
     mutationFn: createUser,
-    onSuccess: async ({ token, data: user }) => {
+    onSuccess: async ({ token, ...user }) => {
       await expoSecureStore.writeToStore('accessToken', token)
       queryClient.setQueryData(['user'], user)
     },
@@ -70,7 +69,7 @@ export const useUser = () => {
   const mutationResult = useMutation({
     mutationKey: ['user'],
     mutationFn: loginUser,
-    onSuccess: async ({ token, data: user }) => {
+    onSuccess: async ({ token, ...user }) => {
       await expoSecureStore.writeToStore('accessToken', token)
       queryClient.setQueryData(['user'], user)
     },

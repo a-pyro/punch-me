@@ -1,13 +1,12 @@
-import { useGlobalSearchParams, useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams } from 'expo-router'
 import React from 'react'
 
 import { ScrollableWrapper, ThemedText } from '@/components'
+import { type WithId, useGetStore } from '@/services'
 
 const StoreDetailView = () => {
-  const glob = useGlobalSearchParams()
-  console.log('🚀 ~ StoreDetailView ~ glob:', glob)
-  const local = useLocalSearchParams()
-  console.log('🚀 ~ StoreDetailView ~ local:', local)
+  const { id } = useLocalSearchParams<WithId>()
+  const { store } = useGetStore(id)
   return (
     <ScrollableWrapper>
       <ThemedText textStyle="title">Store Detail</ThemedText>
