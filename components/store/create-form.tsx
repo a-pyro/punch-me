@@ -25,9 +25,8 @@ export const StoreCreateForm = () => {
     router.push(`/store/${id}`)
   })
 
-  if (isCreatingStore || isUpdatingUser) {
-    return <ThemedText>🍌🍌🍌</ThemedText>
-  }
+  if (isCreatingStore || isUpdatingUser)
+    return <ThemedText>Loading...🍌🍌🍌</ThemedText>
 
   return (
     <ThemedView>
