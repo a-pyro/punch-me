@@ -1,6 +1,10 @@
 import React from 'react'
 
-import { DraftUserHomeView, ScrollableWrapper } from '@/components'
+import {
+  DraftUserHomeView,
+  ScrollableWrapper,
+  StoreOwnerHomeView,
+} from '@/components'
 import { useUser } from '@/services'
 
 const HomeView = () => {
@@ -9,6 +13,7 @@ const HomeView = () => {
   return (
     <ScrollableWrapper>
       {role === 'draft' && <DraftUserHomeView />}
+      {role === 'store_owner' && <StoreOwnerHomeView />}
     </ScrollableWrapper>
   )
 }
