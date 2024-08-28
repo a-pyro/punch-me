@@ -1,15 +1,16 @@
 import { useLocalSearchParams } from 'expo-router'
 import React from 'react'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 
 import { SafeView, ThemedText } from '@/components'
-import { StoreDetailCard } from '@/components/store'
+import { StoreDetailCard, StorePunchcards } from '@/components/store'
 import { type WithId, useGetStore } from '@/services'
 
 // TODO - Add the rest of store information and store edit button
 const StoreDetailView = () => {
   const { id } = useLocalSearchParams<WithId>()
   const { store } = useGetStore(id)
+  const { t } = useTranslation()
 
   if (!store) return null
   return (
@@ -22,6 +23,10 @@ const StoreDetailView = () => {
         />
       </ThemedText>
       <StoreDetailCard store={store} />
+      <ThemedText classValue="mt-4" style="subtitle">
+        {t('store_detail.punchcards')}
+      </ThemedText>
+      <StorePunchcards />
     </SafeView>
   )
 }

@@ -54,6 +54,8 @@
   },
   "store_detail": {
     "name": "Store: {{name}}",
-    "title": "Store: {{name}}"
+    "title": "Store: {{name}}",
+    "punchcards": "Punchcards",
+    "create_new_punchcard": "Create new"
   }
 }
