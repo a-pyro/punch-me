@@ -1,6 +1,12 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
-import { COLLECTIONS, type Punchcard } from '@/supabase'
+import { queryClient } from '@/services/react-query/query-client'
+import {
+  COLLECTIONS,
+  type Punchcard,
+  type PunchcardInsert,
+  type PunchcardUpdate,
+} from '@/supabase'
 
 import { httpClient } from '../http-client'
 
@@ -26,5 +32,49 @@ export const useGetPunchcards = (storeId: string) => {
   return {
     punchcards: queryResult.data ?? [],
     ...queryResult,
+  }
+}
+
+export const createPunchcard = async (data: PunchcardInsert) => {
+  const { data: response } = await httpClient.create<
+    Punchcard,
+    PunchcardInsert
+  >(`/${COLLECTIONS.punchcards}`, data)
+
+  return response.data
+}
+
+export const updatePunchcard = async (data: Punchcard) => {
+  const { data: response } = await httpClient.update<
+    Punchcard,
+    PunchcardUpdate
+  >(`/${COLLECTIONS.punchcards}/${data.id}`, data)
+  return response.data
+}
+
+export const usePunchcardsMutation = () => {
+  const createMutation = useMutation({
+    mutationFn: createPunchcard,
+    mutationKey: [COLLECTIONS.punchcards],
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [COLLECTIONS.punchcards],
+      })
+    },
+  })
+
+  const updateMutation = useMutation({
+    mutationFn: updatePunchcard,
+    mutationKey: [COLLECTIONS.punchcards],
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [COLLECTIONS.punchcards],
+      })
+    },
+  })
+
+  return {
+    createMutation,
+    updateMutation,
   }
 }

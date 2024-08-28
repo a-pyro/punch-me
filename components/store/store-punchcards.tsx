@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
@@ -12,7 +12,6 @@ export const StorePunchcards = () => {
   const { id: storeId } = useLocalSearchParams<WithId>()
   const { punchcards, isLoading } = useGetPunchcards(storeId)
   const { t } = useTranslation()
-  console.log('🚀 ~ StorePunchcards ~ punchcards:', punchcards)
 
   if (isLoading) return <LoadingScreen />
 
@@ -21,7 +20,16 @@ export const StorePunchcards = () => {
       {punchcards.map((punchcard) => (
         <Text key={punchcard.id}>{punchcard.name}</Text>
       ))}
-      <ThemedButton>{t('store_detail.create_new_punchcard')}</ThemedButton>
+      <ThemedButton
+        onPress={() => {
+          router.push({
+            pathname: '/punchcards/[id]/create',
+            params: { id: storeId },
+          })
+        }}
+      >
+        {t('store_detail.create_new_punchcard')}
+      </ThemedButton>
     </ScrollableWrapper>
   )
 }

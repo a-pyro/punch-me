@@ -59,37 +59,30 @@ const RootLayout = () => {
               name="index"
               options={{
                 headerShown: false,
-                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
               }}
             />
             <Stack.Screen
               name="(auth)"
               options={{
                 headerShown: false,
-                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
               }}
             />
             <Stack.Screen
               name="(tabs)"
               options={{
                 headerShown: false,
-                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
               }}
             />
-            {/* <Stack.Screen
-              name="/search/[query]"
-              options={{
-                headerShown: false,
-                // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
-              }}
-            /> */}
             <Stack.Screen
               name="store"
               options={{
-                headerStyle: {
-                  backgroundColor: '#161622',
-                },
-                headerTitle: 'Home',
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="punchcards"
+              options={{
+                headerShown: false,
               }}
             />
             <Stack.Screen
