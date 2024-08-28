@@ -20,6 +20,7 @@ export const DraftUserHomeView = () => {
           values={{ name: user.display_name ?? user.email }}
         />
       </ThemedText>
+
       <View className="flex flex-row justify-between">
         <ThemedButton
           outerClassValue="h-40 rounded-2xl flex-1 justify-center mr-2"
@@ -27,10 +28,8 @@ export const DraftUserHomeView = () => {
             router.push('/store')
           }}
         >
-          <View>
-            <ThemedText>{t('home.create_store')}</ThemedText>
-            <ThemedText>{t('home.create_store_description')}</ThemedText>
-          </View>
+          <ThemedText>{t('home.create_store')}</ThemedText>
+          <ThemedText>{t('home.create_store_description')}</ThemedText>
         </ThemedButton>
 
         <ThemedButton
@@ -39,10 +38,8 @@ export const DraftUserHomeView = () => {
             router.push('/subscribe')
           }}
         >
-          <View>
-            <ThemedText>{t('home.subscribe_to_store')}</ThemedText>
-            <ThemedText>{t('home.subscribe_to_store_description')}</ThemedText>
-          </View>
+          <ThemedText>{t('home.subscribe_to_store')}</ThemedText>
+          <ThemedText>{t('home.subscribe_to_store_description')}</ThemedText>
         </ThemedButton>
       </View>
     </View>
