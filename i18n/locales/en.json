@@ -9,7 +9,10 @@
   },
   "home": {
     "welcome": "Welcome, {{name}}!",
-    "create_store_description": ""
+    "create_store": "Create a Store",
+    "create_store_description": "Start distributing punchcards to your customers.",
+    "subscribe_to_store": "Browse Stores",
+    "subscribe_to_store_description": "Become a customer and start subscribing to punchcards."
   },
   "auth": {
     "form": {
@@ -57,5 +60,25 @@
     "title": "Store: {{name}}",
     "punchcards": "Punchcards",
     "create_new_punchcard": "Create new"
+  },
+  "punchcards": {
+    "form": {
+      "name": "Name",
+      "name_placeholder": "Enter the name",
+      "description": "Description",
+      "description_placeholder": "Enter the description",
+      "expiration_date": "Expiration Date",
+      "expiration_date_placeholder": "Enter the expiration date",
+      "image_url": "Image URL",
+      "image_url_placeholder": "Enter the image URL",
+      "punches_needed": "Punches Needed",
+      "punches_needed_placeholder": "Enter the number of punches needed",
+      "terms_conditions": "Terms and Conditions",
+      "terms_conditions_placeholder": "Enter the terms and conditions",
+      "total_punches": "Total Punches",
+      "total_punches_placeholder": "Enter the total number of punches",
+      "create": "Create Punch Card",
+      "update": "Update Punch Card"
+    }
   }
 }

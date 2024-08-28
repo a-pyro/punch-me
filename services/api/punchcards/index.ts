@@ -44,7 +44,7 @@ export const createPunchcard = async (data: PunchcardInsert) => {
   return response.data
 }
 
-export const updatePunchcard = async (data: Punchcard) => {
+export const updatePunchcard = async (data: PunchcardUpdate) => {
   const { data: response } = await httpClient.update<
     Punchcard,
     PunchcardUpdate
