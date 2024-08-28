@@ -83,6 +83,24 @@ const RootLayout = () => {
                 // nasconde il nome della pagina nell'header (che mette di default il nome della pagina corrente)
               }}
             /> */}
+            <Stack.Screen
+              name="store"
+              options={{
+                headerStyle: {
+                  backgroundColor: '#161622',
+                },
+                headerTitle: 'Home',
+              }}
+            />
+            <Stack.Screen
+              name="subscribe"
+              options={{
+                headerStyle: {
+                  backgroundColor: '#161622',
+                },
+                headerTitle: 'Home',
+              }}
+            />
             <Stack.Screen name="+not-found" />
           </Stack>
           <AppStatusBar style="auto" />

@@ -3,13 +3,7 @@
 import { Redirect, Tabs } from 'expo-router'
 import React from 'react'
 
-import {
-  CreateTabIcon,
-  HomeTabIcon,
-  ProfileTabIcon,
-  PunchcardsTabIcon,
-  SubscribeTabIcon,
-} from '@/components'
+import { HomeTabIcon, ProfileTabIcon, PunchcardsTabIcon } from '@/components'
 import { useUser } from '@/services'
 
 const TabsLayout = () => {
@@ -41,26 +35,7 @@ const TabsLayout = () => {
           ),
         }}
       />
-      <Tabs.Screen
-        name="store"
-        options={{
-          title: 'store',
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <CreateTabIcon color={color} focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="subscribe"
-        options={{
-          title: 'subscribe',
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <SubscribeTabIcon color={color} focused={focused} />
-          ),
-        }}
-      />
+
       <Tabs.Screen
         name="punchcards"
         options={{

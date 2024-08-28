@@ -82,7 +82,7 @@ export const StoreCreateForm = () => {
         title={t('store.create_form.website_url')}
       />
       <ThemedButton outerClassValue="mt-4" onPress={onSubmit}>
-        {t('store.create_form.submit')}
+        {t('store.create_form.create')}
       </ThemedButton>
     </ThemedView>
   )

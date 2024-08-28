@@ -13,6 +13,7 @@
     "npm:clean": "rm -rf node_modules && npm install",
     "reset-project": "node ./scripts/reset-project.js",
     "start": "npm run load:ip && expo start",
+    "start:c": "npm run start -- -c",
     "test": "jest --watchAll",
     "type:check": "tsc --noEmit",
     "web": "expo start --web"

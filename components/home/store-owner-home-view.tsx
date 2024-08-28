@@ -1,3 +1,4 @@
+import { router } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 
@@ -17,7 +18,7 @@ export const StoreOwnerHomeView = () => {
     <FlatList
       data={stores}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <StoreCard store={item} />}
+      renderItem={({ item }) => <StoreActionCard store={item} />}
       showsVerticalScrollIndicator={false}
       ListFooterComponent={
         <ThemedButton>
@@ -32,9 +33,13 @@ export const StoreOwnerHomeView = () => {
   )
 }
 
-const StoreCard = ({ store }: { store: Store }) => {
+const StoreActionCard = ({ store }: { store: Store }) => {
   return (
-    <ThemedButton>
+    <ThemedButton
+      onPress={() => {
+        router.push(`/store/${store.id}`)
+      }}
+    >
       <ThemedText style="subtitle">{store.name}</ThemedText>
     </ThemedButton>
   )

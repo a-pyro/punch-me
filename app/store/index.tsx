@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { SafeView, ScrollableWrapper, ThemedText } from '@/components'
+import { ScrollableWrapper, ThemedText, ThemedView } from '@/components'
 import { StoreCreateForm } from '@/components/store'
 import { useUser } from '@/services'
 
@@ -12,12 +12,12 @@ const CreateView = () => {
   } = useUser()
   const title = role === 'draft' ? t('store.create') : t('store.edit')
   return (
-    <SafeView>
+    <ThemedView classValue="p-2">
       <ScrollableWrapper>
         <ThemedText style="title">{title}</ThemedText>
         <StoreCreateForm />
       </ScrollableWrapper>
-    </SafeView>
+    </ThemedView>
   )
 }
 

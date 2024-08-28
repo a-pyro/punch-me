@@ -2,12 +2,12 @@ import React from 'react'
 
 import { SafeView, ThemedText } from '@/components'
 
-const BookmarkView = () => {
+const PunchcardsView = () => {
   return (
     <SafeView>
-      <ThemedText>Bookmark</ThemedText>
+      <ThemedText>Punchcards</ThemedText>
     </SafeView>
   )
 }
 
-export default BookmarkView
+export default PunchcardsView

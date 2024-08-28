@@ -1,16 +1,29 @@
-/* eslint-disable react-native/no-inline-styles -- need this for safe area */
-import React, { type PropsWithChildren } from 'react'
+/* eslint-disable react-native/no-inline-styles -- need for insets */
+import React from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { ThemedView } from './themed-view'
+import { ThemedView, type ThemedViewProps } from './themed-view'
 
-const ADDITIONAL_HORIZONTAL_PADDING = 5
+const ADDITIONAL_HORIZONTAL_PADDING = 10
 const ADDITIONAL_VERTICAL_PADDING = 10
 
-export const SafeView = ({ children }: PropsWithChildren) => {
-  const insets = useSafeAreaInsets()
+export type SafeViewProps = {
+  disableInsets?: boolean
+} & ThemedViewProps
+
+export const SafeView = ({
+  children,
+  disableInsets,
+  classValue,
+}: SafeViewProps) => {
+  const internalInsets = useSafeAreaInsets()
+  const insets = disableInsets
+    ? { top: 0, bottom: 0, left: 0, right: 0 }
+    : internalInsets
+
   return (
     <ThemedView
+      classValue={classValue}
       style={{
         flex: 1,
         // Paddings to handle safe area

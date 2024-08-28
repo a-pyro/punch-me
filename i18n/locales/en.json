@@ -48,7 +48,12 @@
       "store_hours_placeholder": "Enter the store hours",
       "website_url": "Website URL",
       "website_url_placeholder": "Enter the website URL",
-      "submit": "Submit"
+      "submit": "Submit",
+      "create": "Create"
     }
+  },
+  "store_detail": {
+    "name": "Store: {{name}}",
+    "title": "Store: {{name}}"
   }
 }
