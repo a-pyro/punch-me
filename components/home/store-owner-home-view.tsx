@@ -5,7 +5,8 @@ import { useGetStores } from '@/services'
 
 import { Icon, ThemedButton } from '../common'
 import { ThemedText } from '../common/themed-text'
-import { StoreListItem } from '../store'
+
+import { StoreListItem } from './store-list-item'
 
 export const StoreOwnerHomeView = () => {
   const { stores, isLoading } = useGetStores()

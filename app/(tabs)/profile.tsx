@@ -5,6 +5,9 @@ import { useUser } from '@/services'
 
 const ProfileView = () => {
   const { user, logoutUser } = useUser()
+
+  if (!user) return null
+
   return (
     <SafeView>
       <ThemedText>{user.email}</ThemedText>

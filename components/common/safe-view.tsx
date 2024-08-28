@@ -11,6 +11,8 @@ export type SafeViewProps = {
   disableInsets?: boolean
 } & ThemedViewProps
 
+/* https://reactnavigation.org/docs/handling-safe-area/ */
+
 export const SafeView = ({
   children,
   disableInsets,

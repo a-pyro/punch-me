@@ -10,7 +10,7 @@ import { ThemedButton, ThemedText } from '../common'
 export const DraftUserHomeView = () => {
   const { t } = useTranslation()
   const { user } = useUser()
-
+  if (!user) return null
   return (
     <View className="flex-1 justify-center">
       <ThemedText classValue="pt-5" style="title">

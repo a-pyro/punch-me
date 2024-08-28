@@ -8,7 +8,6 @@ import { useUser } from '@/services'
 
 const TabsLayout = () => {
   const { user } = useUser()
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- if something happens and the user is not logged in, redirect to the sign-in page
   if (!user) return <Redirect href="/sign-in" />
   return (
     <Tabs

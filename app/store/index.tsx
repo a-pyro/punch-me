@@ -7,10 +7,9 @@ import { useUser } from '@/services'
 
 const CreateView = () => {
   const { t } = useTranslation()
-  const {
-    user: { role },
-  } = useUser()
-  const title = role === 'draft' ? t('store.create') : t('store.edit')
+  const { user } = useUser()
+  if (!user) return null
+  const title = user.role === 'draft' ? t('store.create') : t('store.edit')
   return (
     <ThemedView classValue="p-2">
       <ScrollableWrapper>

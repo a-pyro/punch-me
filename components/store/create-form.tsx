@@ -18,6 +18,8 @@ export const StoreCreateForm = () => {
   const { createStore, isPending: isCreatingStore } = useCreateStore()
   const { updateUser, isPending: isUpdatingUser } = useUpdateUser()
 
+  if (!user) return null
+
   const onSubmit = handleSubmit(async (data) => {
     const { id } = await createStore({ ...data, user_id: user.id })
     if (user.role !== 'store_owner')

@@ -6,6 +6,7 @@ import { useUser } from '@/services'
 
 const HomeView = () => {
   const { user } = useUser()
+  if (!user) return null
   const { role } = user
   return (
     <SafeView>

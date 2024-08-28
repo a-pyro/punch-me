@@ -87,8 +87,7 @@ export const useUser = () => {
   const user = queryClient.getQueryData<User>(['user']) // i get it from the cache that i set when i logged in or signed up
 
   return {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- // TODO fix this (see RootPage) this is done to have a typed user everywhere esle in the app, surely can be hadled more gracefully
-    user: user!,
+    user,
     signInUser: mutationResult.mutateAsync,
     logoutUser: logoutMutation.mutateAsync,
     ...mutationResult,
