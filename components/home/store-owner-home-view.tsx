@@ -1,12 +1,11 @@
-import { router } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 
 import { useGetStores } from '@/services'
-import { type Store } from '@/supabase'
 
 import { Icon, ThemedButton } from '../common'
 import { ThemedText } from '../common/themed-text'
+import { StoreListItem } from '../store'
 
 export const StoreOwnerHomeView = () => {
   const { stores, isLoading } = useGetStores()
@@ -18,7 +17,7 @@ export const StoreOwnerHomeView = () => {
     <FlatList
       data={stores}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <StoreActionCard store={item} />}
+      renderItem={({ item }) => <StoreListItem store={item} />}
       showsVerticalScrollIndicator={false}
       ListFooterComponent={
         <ThemedButton>
@@ -30,17 +29,5 @@ export const StoreOwnerHomeView = () => {
         <ThemedText style="title">{t('home.store_list')}</ThemedText>
       }
     />
-  )
-}
-
-const StoreActionCard = ({ store }: { store: Store }) => {
-  return (
-    <ThemedButton
-      onPress={() => {
-        router.push(`/store/${store.id}`)
-      }}
-    >
-      <ThemedText style="subtitle">{store.name}</ThemedText>
-    </ThemedButton>
   )
 }
