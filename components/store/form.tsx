@@ -5,12 +5,18 @@ import { useTranslation } from 'react-i18next'
 import { useCreateStore, useUpdateUser, useUser } from '@/services'
 import { type StoreInsert } from '@/supabase'
 
-import { ThemedButton, ThemedText, ThemedView } from '../common'
+import { LoadingScreen, ThemedButton, ThemedView } from '../common'
 import { ControlledFormField } from '../form'
 
 // TODO - ADD STICKY HEADER and rest of the form fields
 // TODO - Handle loading and validation
-export const StoreCreateForm = () => {
+
+type StoreCreateFormProps = {
+  action: 'create' | 'update'
+}
+
+export const StoreForm = ({ action }: StoreCreateFormProps) => {
+  console.log('🚀 ~ StoreForm ~ action:', action)
   const { t } = useTranslation()
   const { control, handleSubmit } = useForm<StoreInsert>()
   const { user } = useUser()
@@ -24,11 +30,10 @@ export const StoreCreateForm = () => {
     const { id } = await createStore({ ...data, user_id: user.id })
     if (user.role !== 'store_owner')
       await updateUser({ ...user, role: 'store_owner' })
-    router.push(`/store/${id}`)
+    router.push(`/store/${id}/view`)
   })
 
-  if (isCreatingStore || isUpdatingUser)
-    return <ThemedText>Loading...🍌🍌🍌</ThemedText>
+  if (isCreatingStore || isUpdatingUser) return <LoadingScreen />
 
   return (
     <ThemedView>

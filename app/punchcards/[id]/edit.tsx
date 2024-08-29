@@ -1,12 +1,16 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+
+import { SafeView, ScrollableWrapper } from '@/components'
+import { PunchCardsForm } from '@/components/punchcards/create-form'
 
 //  TODO - implement PunchcardEditView
 const PunchcardEditView = () => {
   return (
-    <View>
-      <Text>PunchcardEditView</Text>
-    </View>
+    <SafeView disableInsets>
+      <ScrollableWrapper>
+        <PunchCardsForm action="update" />
+      </ScrollableWrapper>
+    </SafeView>
   )
 }
 

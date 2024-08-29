@@ -28,7 +28,7 @@ export const Collapsible = ({
           name={isOpen ? 'chevron-down' : 'chevron-forward-outline'}
           size={18}
         />
-        <ThemedText type="defaultSemiBold">{title}</ThemedText>
+        <ThemedText style="defaultSemiBold">{title}</ThemedText>
       </TouchableOpacity>
       {isOpen ? (
         <ThemedView style={styles.content}>{children}</ThemedView>

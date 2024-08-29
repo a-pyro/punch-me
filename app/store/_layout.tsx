@@ -5,7 +5,7 @@ const StoreLayout = () => {
   return (
     <Stack>
       <Stack.Screen
-        name="index"
+        name="[id]/create"
         options={{
           headerStyle: {
             backgroundColor: '#161622',
@@ -14,7 +14,7 @@ const StoreLayout = () => {
         }}
       />
       <Stack.Screen
-        name="[id]"
+        name="[id]/view"
         options={{
           headerStyle: {
             backgroundColor: '#161622',

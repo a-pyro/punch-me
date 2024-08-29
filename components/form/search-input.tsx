@@ -35,7 +35,7 @@ export const SearchInput = ({ initialQuery }: SearchInputProps) => {
           }
 
           if (pathname.startsWith('/search')) router.setParams({ query })
-          else router.push(`/search/${query}`)
+          // else router.push(`/search/${query}`)
         }}
       >
         <Icon color="#CDCDE0" name="search1" />

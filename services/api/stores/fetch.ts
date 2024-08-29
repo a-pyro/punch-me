@@ -21,7 +21,7 @@ export const getStore = async (id: string) => {
   return data.data
 }
 
-export const getStores = async (userId: string) => {
+export const getStores = async (userId?: string) => {
   const { data } = await httpClient.get<Store[]>('/stores', {
     params: {
       id: userId,
@@ -76,8 +76,8 @@ export const useGetStore = (id: string) => {
 export const useGetStores = () => {
   const { user } = useUser()
   const queryResult = useQuery({
-    queryKey: ['stores', user.id],
-    queryFn: () => getStores(user.id),
+    queryKey: ['stores', user?.id],
+    queryFn: () => getStores(user?.id),
   })
 
   return {

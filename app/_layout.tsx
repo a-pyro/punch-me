@@ -68,6 +68,7 @@ const RootLayout = () => {
               }}
             />
             <Stack.Screen
+              // listeners={}
               name="(tabs)"
               options={{
                 headerShown: false,

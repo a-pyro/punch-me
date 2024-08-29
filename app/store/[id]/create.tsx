@@ -2,22 +2,22 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ScrollableWrapper, ThemedText, ThemedView } from '@/components'
-import { StoreCreateForm } from '@/components/store'
+import { StoreForm } from '@/components/store'
 import { useUser } from '@/services'
 
-const CreateView = () => {
+const StoreCreateView = () => {
   const { t } = useTranslation()
   const { user } = useUser()
   if (!user) return null
-  const title = user.role === 'draft' ? t('store.create') : t('store.edit')
+
   return (
     <ThemedView classValue="p-2">
       <ScrollableWrapper>
-        <ThemedText style="title">{title}</ThemedText>
-        <StoreCreateForm />
+        <ThemedText style="title">{t('store.create')}</ThemedText>
+        <StoreForm action="create" />
       </ScrollableWrapper>
     </ThemedView>
   )
 }
 
-export default CreateView
+export default StoreCreateView

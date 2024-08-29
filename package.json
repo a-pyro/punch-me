@@ -11,6 +11,7 @@
     "lint": "expo lint",
     "load:ip": "node scripts/load-ip.js",
     "npm:clean": "rm -rf node_modules && npm install",
+    "react:devtools": "npx react-devtools",
     "reset-project": "node ./scripts/reset-project.js",
     "start": "npm run load:ip && expo start",
     "start:c": "npm run start -- -c",

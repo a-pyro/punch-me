@@ -7,7 +7,7 @@ import { type WithId } from '@/services'
 import { usePunchcardsMutation } from '@/services/api/punchcards'
 import { type PunchcardInsert, type PunchcardUpdate } from '@/supabase'
 
-import { ThemedText } from '../common'
+import { LoadingScreen, ThemedText } from '../common'
 import { ThemedButton } from '../common/themed-button'
 import { ThemedView } from '../common/themed-view'
 import { ControlledFormField } from '../form/controlled-form-field'
@@ -26,12 +26,16 @@ export const PunchCardsForm = ({ action }: PunchCardsFormProps) => {
   } = usePunchcardsMutation()
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log('🚀 ~ onSubmit ~ data:', data)
+
     if (action === 'update') await updatePunchCard(data)
     else await createPunchCard({ ...data, store_id: id } as PunchcardInsert)
   })
 
   const title =
     action === 'create' ? 'punchcards.form.create' : 'punchcards.form.update'
+
+  if (isCreating || isUpdating) return <LoadingScreen />
 
   return (
     <ThemedView>

@@ -21,7 +21,7 @@ export const createUser = async (
   return data.data
 }
 
-export const updateUser = async ({ password: _, ...user }: UserUpdate) => {
+export const updateUser = async (user: UserUpdate) => {
   const { data } = await httpClient.update<User, UserUpdate>(
     `/users/${user.id}`,
     user,
