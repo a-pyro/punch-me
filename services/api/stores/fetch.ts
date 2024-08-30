@@ -4,7 +4,7 @@ import { queryClient } from '@/services/react-query'
 import { type Store, type StoreInsert, type StoreUpdate } from '@/supabase'
 
 import { httpClient } from '../http-client'
-import { useUser } from '../users'
+import { useUser } from '../profiles'
 
 export const createStore = async (store: StoreInsert) => {
   const { data } = await httpClient.create<Store, StoreInsert>('/stores', store)

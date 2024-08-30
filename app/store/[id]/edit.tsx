@@ -13,7 +13,7 @@ const StoreEditView = () => {
     <ThemedView classValue="p-2">
       <ScrollableWrapper>
         <ThemedText style="title">{t('store.edit')}</ThemedText>
-        <StoreForm action="update" />
+        <StoreForm operation="update" />
       </ScrollableWrapper>
     </ThemedView>
   )

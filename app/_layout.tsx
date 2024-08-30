@@ -18,11 +18,12 @@ import { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 
 import { AppStatusBar } from '@/components'
+import { SessionProvider } from '@/context'
 import '@/i18n'
 import { queryClient } from '@/services'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-if (__DEV__) require('../services/react-query/reactotron.ts')
+if (__DEV__) require('../services/logger/reactotron.ts')
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 void SplashScreen.preventAutoHideAsync()
@@ -54,50 +55,52 @@ const RootLayout = () => {
     <SafeAreaProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <QueryClientProvider client={queryClient}>
-          <Stack>
-            <Stack.Screen
-              name="index"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="(auth)"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              // listeners={}
-              name="(tabs)"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="store"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="punchcards"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="subscribe"
-              options={{
-                headerStyle: {
-                  backgroundColor: '#161622',
-                },
-                headerTitle: 'Home',
-              }}
-            />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-          <AppStatusBar style="auto" />
+          <SessionProvider>
+            <Stack>
+              <Stack.Screen
+                name="index"
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="(auth)"
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                // listeners={}
+                name="(tabs)"
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="store"
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="punchcards"
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="subscribe"
+                options={{
+                  headerStyle: {
+                    backgroundColor: '#161622',
+                  },
+                  headerTitle: 'Home',
+                }}
+              />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+            <AppStatusBar style="auto" />
+          </SessionProvider>
         </QueryClientProvider>
       </ThemeProvider>
     </SafeAreaProvider>

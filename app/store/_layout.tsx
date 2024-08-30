@@ -14,6 +14,15 @@ const StoreLayout = () => {
         }}
       />
       <Stack.Screen
+        name="[id]/edit"
+        options={{
+          headerStyle: {
+            backgroundColor: '#161622',
+          },
+          headerTitle: 'Home',
+        }}
+      />
+      <Stack.Screen
         name="[id]/view"
         options={{
           headerStyle: {

@@ -8,7 +8,7 @@ const PunchcardEditView = () => {
   return (
     <SafeView disableInsets>
       <ScrollableWrapper>
-        <PunchCardsForm action="update" />
+        <PunchCardsForm operation="update" />
       </ScrollableWrapper>
     </SafeView>
   )

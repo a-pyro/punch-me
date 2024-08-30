@@ -4,7 +4,7 @@ import {
   reactotronReactQuery,
 } from 'reactotron-react-query'
 
-import { queryClient } from './query-client'
+import { queryClient } from '../react-query/query-client'
 
 const queryClientManager = new QueryClientManager({
   // @ts-expect-error  -- code take from the officiacl repo

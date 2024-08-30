@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useUser } from '@/services/api/users'
+import { useUser } from '@/services/api/profiles'
 
 import { ThemedText } from '../common/themed-text'
 

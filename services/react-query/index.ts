@@ -1,2 +1,2 @@
+export * from '../logger/reactotron'
 export * from './query-client'
-export * from './reactotron'

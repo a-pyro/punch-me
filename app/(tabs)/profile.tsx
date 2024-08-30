@@ -4,9 +4,7 @@ import { SafeView, ThemedButton, ThemedText } from '@/components'
 import { useUser } from '@/services'
 
 const ProfileView = () => {
-  const { user, logoutUser } = useUser()
-
-  if (!user) return null
+  const { user, signOut } = useUser()
 
   return (
     <SafeView>
@@ -14,7 +12,9 @@ const ProfileView = () => {
       <ThemedButton
         title="Logout"
         onPress={async () => {
-          await logoutUser()
+          // TODO fix this typing
+
+          await signOut()
         }}
       />
     </SafeView>

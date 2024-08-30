@@ -10,21 +10,19 @@ import { ControlledFormField } from '../form'
 
 // TODO - ADD STICKY HEADER and rest of the form fields
 // TODO - Handle loading and validation
-
+export type FormOperation = 'create' | 'update'
 type StoreCreateFormProps = {
-  action: 'create' | 'update'
+  operation: FormOperation
 }
 
-export const StoreForm = ({ action }: StoreCreateFormProps) => {
-  console.log('🚀 ~ StoreForm ~ action:', action)
+export const StoreForm = ({ operation }: StoreCreateFormProps) => {
+  console.log('🚀 ~ StoreForm ~ operation:', operation)
   const { t } = useTranslation()
   const { control, handleSubmit } = useForm<StoreInsert>()
   const { user } = useUser()
 
   const { createStore, isPending: isCreatingStore } = useCreateStore()
   const { updateUser, isPending: isUpdatingUser } = useUpdateUser()
-
-  if (!user) return null
 
   const onSubmit = handleSubmit(async (data) => {
     const { id } = await createStore({ ...data, user_id: user.id })

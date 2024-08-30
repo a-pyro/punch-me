@@ -39,6 +39,50 @@ export type Database = {
             foreignKeyName: "notifications_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          avatar_url: string | null
+          created_at: string | null
+          date_of_birth: string | null
+          full_name: string | null
+          id: string
+          phone_number: string | null
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at: string | null
+        }
+        Insert: {
+          address?: string | null
+          avatar_url?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          full_name?: string | null
+          id: string
+          phone_number?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string | null
+          avatar_url?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          full_name?: string | null
+          id?: string
+          phone_number?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -176,7 +220,7 @@ export type Database = {
             foreignKeyName: "reviews_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -226,7 +270,7 @@ export type Database = {
             foreignKeyName: "stores_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -284,7 +328,7 @@ export type Database = {
             foreignKeyName: "transactions_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -326,55 +370,10 @@ export type Database = {
             foreignKeyName: "user_punchcards_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "users"
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
-      }
-      users: {
-        Row: {
-          address: string | null
-          avatar_url: string | null
-          created_at: string | null
-          date_of_birth: string | null
-          display_name: string | null
-          email: string
-          id: string
-          is_verified: boolean | null
-          password: string
-          phone_number: string | null
-          role: Database["public"]["Enums"]["user_role"]
-          updated_at: string | null
-        }
-        Insert: {
-          address?: string | null
-          avatar_url?: string | null
-          created_at?: string | null
-          date_of_birth?: string | null
-          display_name?: string | null
-          email: string
-          id?: string
-          is_verified?: boolean | null
-          password: string
-          phone_number?: string | null
-          role?: Database["public"]["Enums"]["user_role"]
-          updated_at?: string | null
-        }
-        Update: {
-          address?: string | null
-          avatar_url?: string | null
-          created_at?: string | null
-          date_of_birth?: string | null
-          display_name?: string | null
-          email?: string
-          id?: string
-          is_verified?: boolean | null
-          password?: string
-          phone_number?: string | null
-          role?: Database["public"]["Enums"]["user_role"]
-          updated_at?: string | null
-        }
-        Relationships: []
       }
     }
     Views: {

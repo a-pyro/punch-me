@@ -5,14 +5,13 @@ import { Image, Text, View } from 'react-native'
 
 import { PunchesIcon, SafeView, ThemedButton, ThemedText } from '@/components'
 import { images } from '@/constants'
-import { useUser } from '@/services'
+import { useSession } from '@/context'
 
 const RootPage = () => {
-  const { user } = useUser()
   const { t } = useTranslation()
+  const { session } = useSession()
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- // TODO fix this
-  if (user) return <Redirect href="/home" />
+  if (session) return <Redirect href="/home" />
 
   return (
     <SafeView>

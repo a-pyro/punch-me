@@ -1,14 +1,11 @@
 /* eslint-disable react/no-unstable-nested-components -- rn */
 
-import { Redirect, Tabs } from 'expo-router'
+import { Tabs } from 'expo-router'
 import React from 'react'
 
 import { HomeTabIcon, ProfileTabIcon, PunchcardsTabIcon } from '@/components'
-import { useUser } from '@/services'
 
 const TabsLayout = () => {
-  const { user } = useUser()
-  if (!user) return <Redirect href="/sign-in" />
   return (
     <Tabs
       screenOptions={{
@@ -36,7 +33,7 @@ const TabsLayout = () => {
       />
 
       <Tabs.Screen
-        name="punchcards"
+        name="user-punchcards"
         options={{
           title: 'punchcards',
           headerShown: false,

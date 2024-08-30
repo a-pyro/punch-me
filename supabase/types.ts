@@ -5,14 +5,14 @@ import {
 } from './generated-types'
 
 export const COLLECTIONS = {
-  users: 'users',
+  profiles: 'profiles',
   stores: 'stores',
   punchcards: 'punchcards',
 } as const
 
-export type User = Tables<'users'>
-export type UserInsert = TablesInsert<'users'>
-export type UserUpdate = Omit<TablesUpdate<'users'>, 'password'>
+export type Profile = Tables<'profiles'>
+export type ProfileInsert = TablesInsert<'profiles'>
+export type ProfileUpdate = TablesUpdate<'profiles'>
 
 export type Store = Tables<'stores'>
 export type StoreInsert = TablesInsert<'stores'>
