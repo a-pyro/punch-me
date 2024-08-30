@@ -1,14 +1,16 @@
-import { useLocalSearchParams } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { type WithId } from '@/services'
-import { usePunchcardsMutation } from '@/services/api/punchcards'
+import {
+  useGetPunchcard,
+  usePunchcardsMutation,
+} from '@/services/api/punchcards'
 import { type PunchcardInsert, type PunchcardUpdate } from '@/supabase'
 
-import { LoadingScreen, ThemedText } from '../common'
-import { ThemedButton } from '../common/themed-button'
+import { LoadingScreen, ThemedButton, ThemedText } from '../common'
 import { ThemedView } from '../common/themed-view'
 import { ControlledFormField } from '../form/controlled-form-field'
 import { type FormOperation } from '../store'
@@ -17,30 +19,50 @@ type PunchCardsFormProps = {
   operation: FormOperation
 }
 
-export const PunchCardsForm = ({ operation: action }: PunchCardsFormProps) => {
+export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
   const { id } = useLocalSearchParams<WithId>()
+  const { getAsyncPunchcard } = useGetPunchcard(id)
   const { t } = useTranslation()
-  const { control, handleSubmit } = useForm<PunchcardInsert | PunchcardUpdate>()
+  const { control, handleSubmit, watch } = useForm<
+    PunchcardInsert | PunchcardUpdate
+  >({
+    defaultValues:
+      operation === 'update'
+        ? async () => {
+            const asd = await getAsyncPunchcard(id)
+            return asd
+          }
+        : { punches_needed: 10 },
+  })
   const {
     createMutation: { mutateAsync: createPunchCard, isPending: isCreating },
     updateMutation: { mutateAsync: updatePunchCard, isPending: isUpdating },
   } = usePunchcardsMutation()
 
-  const onSubmit = handleSubmit(async (data) => {
-    if (action === 'update') await updatePunchCard(data)
-    else await createPunchCard({ ...data, store_id: id } as PunchcardInsert)
-  })
+  const onSubmit: SubmitHandler<PunchcardUpdate | PunchcardInsert> = async (
+    punchcard,
+  ) => {
+    if (operation === 'create') {
+      await createPunchCard({ ...punchcard, store_id: id } as PunchcardInsert)
+    } else {
+      await updatePunchCard(punchcard as PunchcardUpdate)
+    }
+    router.push(`/punchcards/${id}/edit`)
+  }
+
+  console.log(watch('punches_needed'))
 
   const title =
-    action === 'create' ? 'punchcards.form.create' : 'punchcards.form.update'
+    operation === 'create' ? 'punchcards.form.create' : 'punchcards.form.update'
 
   if (isCreating || isUpdating) return <LoadingScreen />
 
   return (
     <ThemedView>
       <ThemedText style="title">{t(title)}</ThemedText>
+
       <ControlledFormField
-        required
+        rules={{ required: true }}
         classValue="my-4"
         control={control}
         name="name"
@@ -48,7 +70,6 @@ export const PunchCardsForm = ({ operation: action }: PunchCardsFormProps) => {
         title={t('punchcards.form.name')}
       />
       <ControlledFormField
-        required
         classValue="my-4"
         control={control}
         name="description"
@@ -56,16 +77,15 @@ export const PunchCardsForm = ({ operation: action }: PunchCardsFormProps) => {
         title={t('punchcards.form.description')}
       />
       <ControlledFormField
-        required
         classValue="my-4"
         control={control}
+        rules={{ required: true }}
         name="punches_needed"
         placeholder={t('punchcards.form.punches_needed_placeholder')}
         title={t('punchcards.form.punches_needed')}
       />
       {/* TODO - make date picker */}
       <ControlledFormField
-        required
         classValue="my-4"
         control={control}
         name="expiration_date"
@@ -74,8 +94,8 @@ export const PunchCardsForm = ({ operation: action }: PunchCardsFormProps) => {
       />
 
       {/* TODO - make upload from device */}
-      <ControlledFormField
-        required
+
+      {/* <ControlledFormField
         classValue="my-4"
         control={control}
         name="image_url"
@@ -84,8 +104,7 @@ export const PunchCardsForm = ({ operation: action }: PunchCardsFormProps) => {
       />
 
       {/* TODO - make text area or something easier to fill */}
-      <ControlledFormField
-        required
+      {/* <ControlledFormField
         classValue="my-4"
         control={control}
         name="terms_conditions"
@@ -93,15 +112,18 @@ export const PunchCardsForm = ({ operation: action }: PunchCardsFormProps) => {
         title={t('punchcards.form.terms_conditions')}
       />
       <ControlledFormField
-        required
         classValue="my-4"
         control={control}
         name="total_punches"
         placeholder={t('punchcards.form.total_punches_placeholder')}
         title={t('punchcards.form.total_punches')}
-      />
-      <ThemedButton outerClassValue="mt-4" onPress={onSubmit}>
-        {t('punchcards.form.create')}
+      /> */}
+      <ThemedButton onPress={handleSubmit((d) => onSubmit(d))}>
+        {t(
+          operation === 'create'
+            ? 'punchcards.form.create'
+            : 'punchcards.form.update',
+        )}
       </ThemedButton>
     </ThemedView>
   )

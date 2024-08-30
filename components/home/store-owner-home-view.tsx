@@ -24,7 +24,7 @@ export const StoreOwnerHomeView = () => {
       ListFooterComponent={
         <ThemedButton
           onPress={() => {
-            router.replace('/store/new/create')
+            router.push('/store/new/create')
           }}
         >
           <View className="flex-1 flex-row">

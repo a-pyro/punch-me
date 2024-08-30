@@ -6,6 +6,7 @@
   "scripts": {
     "android": "npm run load:ip && expo run:android",
     "check:all": "npm run lint && npm run type:check",
+    "devtools": "npx react-devtools",
     "gen:types": "npx supabase gen types typescript --project-id jsoywqogrthynrvuduco > supabase/generated-types.ts",
     "ios": "expo run:ios",
     "lint": "expo lint",

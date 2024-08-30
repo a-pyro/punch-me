@@ -11,7 +11,6 @@ import { LoadingScreen, ScrollableWrapper, ThemedButton } from '../common'
 export const StorePunchcards = () => {
   const { id: storeId } = useLocalSearchParams<WithId>()
   const { punchcards, isLoading } = useGetPunchcards(storeId)
-  console.log('🚀 ~ StorePunchcards ~ punchcards:', punchcards)
   const { t } = useTranslation()
 
   if (isLoading) return <LoadingScreen />

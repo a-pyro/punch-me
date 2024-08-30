@@ -1,54 +1,103 @@
-import React from 'react'
 import {
   type Control,
   Controller,
+  FieldError,
   type FieldValues,
   type Path,
+  type RegisterOptions,
 } from 'react-hook-form'
 
 import { type WithClassValue } from '@/utils'
 
-import { ThemedText } from '../common'
+import { Text } from 'react-native'
 
+import { ThemedView } from '../common'
 import { FormField, type FormFieldProps } from './form-field'
 
 type ControlledFormFieldProps<T extends FieldValues> = FormFieldProps & {
   control: Control<T>
   name: Path<T>
-  required?: boolean
+  rules?:
+    | Omit<
+        RegisterOptions<T, Path<T>>,
+        'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
+      >
+    | undefined
 } & WithClassValue
 
 export const ControlledFormField = <T extends FieldValues>({
   control,
   name,
   classValue,
-  required,
+  rules,
   ...rest
 }: ControlledFormFieldProps<T>) => {
   return (
     <Controller
       control={control}
       name={name}
-      rules={{ required }}
+      rules={rules}
       render={({
         field: { onChange, onBlur, value },
         fieldState: { error },
-      }) => (
-        <>
-          <FormField
-            value={value}
-            wrapperViewClassName={classValue}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            {...rest}
-          />
-          {error ? (
-            <ThemedText classValue="text-red-500">
-              {error.message ?? 'This field is required'}
-            </ThemedText>
-          ) : null}
-        </>
-      )}
+      }) => {
+        return (
+          <>
+            <FormField
+              value={value}
+              wrapperViewClassName={classValue}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              {...rest}
+            />
+            <ErrorMessage error={error} />
+          </>
+        )
+      }}
     />
+  )
+}
+
+type ErrorMessageProps = {
+  error?: FieldError
+}
+
+export const ErrorMessage: React.FC<ErrorMessageProps> = ({ error }) => {
+  if (!error) return null
+
+  if (error.types) {
+    return (
+      <ThemedView>
+        {Object.entries(error.types).map(([key, value]) => (
+          <Text key={key} className="text-sm text-red-700">
+            {value || `Validation failed on ${key}`}
+          </Text>
+        ))}
+      </ThemedView>
+    )
+  }
+
+  if (!error.message && error.type === 'required') {
+    return (
+      <ThemedView>
+        <Text className="text-sm text-red-700">This field is required.</Text>
+      </ThemedView>
+    )
+  }
+
+  if (!error.message) {
+    return (
+      <ThemedView>
+        <Text className="text-sm text-red-700">
+          {`Validation error: ${error.type}`}
+        </Text>
+      </ThemedView>
+    )
+  }
+
+  return (
+    <ThemedView>
+      <Text className="text-sm text-red-700">{error.message}</Text>
+    </ThemedView>
   )
 }

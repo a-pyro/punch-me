@@ -23,7 +23,7 @@ type StoreCreateFormProps = {
 export const StoreForm = ({ operation }: StoreCreateFormProps) => {
   const { t } = useTranslation()
   const { control, handleSubmit } = useForm<StoreInsert>()
-  const { profile: user } = useProfile()
+  const { profile } = useProfile()
 
   const { createStore, isPending: isCreatingStore } = useCreateStore()
   const { updateStore, isPending: isUpdatingStore } = useUpdateStore()
@@ -31,9 +31,9 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     const fn = operation === 'create' ? createStore : updateStore
-    const { id } = await fn({ ...data, user_id: user.id })
-    if (user.role !== 'store_owner')
-      await updateProfile({ ...user, role: 'store_owner' })
+    const { id } = await fn({ ...data, user_id: profile.id })
+    if (profile.role !== 'store_owner')
+      await updateProfile({ ...profile, role: 'store_owner' })
     router.push(`/store/${id}/view`)
   })
 
@@ -43,7 +43,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
   return (
     <ThemedView>
       <ControlledFormField
-        required
+        rules={{ required: true }}
         classValue="my-4"
         control={control}
         name="name"

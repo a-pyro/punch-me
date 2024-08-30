@@ -4,23 +4,10 @@ import { useSession } from '@/context'
 import { httpClient } from '@/supabase'
 import { type Profile, type ProfileUpdate } from '@/supabase/types'
 
-export const createProfile = async (profile: Profile) => {
-  return await httpClient.create('profiles', profile)
-}
-
-export const updateProfile = async ({
-  email: _,
-  ...user
-}: ProfileUpdate & {
-  email: string
-}) => {
-  return await httpClient.update('profiles', user)
-}
-
 export const useCreateProfile = () => {
   const createUserMutation = useMutation({
     mutationKey: ['profile'],
-    mutationFn: createProfile,
+    mutationFn: (profile: Profile) => httpClient.create('profiles', profile),
   })
 
   return {
@@ -33,15 +20,13 @@ export const useProfile = () => {
   const { session, signOut } = useSession()
   const mutationResult = useQuery({
     queryKey: ['profile'],
-    queryFn: async () => httpClient.getOne('profiles', session?.user.id ?? ''),
+    queryFn: () => httpClient.getOne('profiles', session?.user.id ?? ''),
+    select: (data) => ({ ...data, email: session?.user.email }),
   })
 
   return {
-    profile: {
-      ...mutationResult.data,
-      email: session?.user.email,
-    } as Profile & { email: string },
     signOut,
+    profile: mutationResult.data as Profile,
     ...mutationResult,
   }
 }
@@ -49,7 +34,13 @@ export const useProfile = () => {
 export const useUpdateProfile = () => {
   const updateUserMutation = useMutation({
     mutationKey: ['profile'],
-    mutationFn: updateProfile,
+    // need to remove the email from the user object before updating because is not part of the profile table but we're mapping it in the select function above
+    mutationFn: async ({
+      email: _,
+      ...user
+    }: ProfileUpdate & {
+      email: string
+    }) => await httpClient.update('profiles', user),
   })
 
   return {

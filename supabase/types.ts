@@ -14,7 +14,7 @@ export const COLLECTIONS = {
 // Override the type for a specific column in a view:
 export type Collection = keyof Database['public']['Tables']
 
-export type Profile = Tables<'profiles'>
+export type Profile = Tables<'profiles'> & { email: string }
 export type ProfileInsert = TablesInsert<'profiles'>
 export type ProfileUpdate = TablesUpdate<'profiles'>
 

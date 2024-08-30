@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { SafeView, ScrollableWrapper } from '@/components'
-import { PunchCardsForm } from '@/components/punchcards/create-form'
+import { PunchCardsForm } from '@/components/punchcards/form'
 
 //  TODO - implement PunchcardEditView
 const PunchcardEditView = () => {

@@ -6,27 +6,14 @@ import {
   type Punchcard,
   type PunchcardInsert,
   type PunchcardUpdate,
+  httpClient,
 } from '@/supabase'
-
-import { httpAxiosClient } from '../axios-client'
-
-export const getPunchards = async (storeId: string) => {
-  const { data } = await httpAxiosClient.get<Punchcard[]>(
-    `/${COLLECTIONS.punchcards}`,
-    {
-      params: {
-        store_id: storeId,
-      },
-    },
-  )
-
-  return data.data
-}
 
 export const useGetPunchcards = (storeId: string) => {
   const queryResult = useQuery<Punchcard[]>({
     queryKey: [COLLECTIONS.punchcards, storeId],
-    queryFn: () => getPunchards(storeId),
+    queryFn: () =>
+      httpClient.getList(COLLECTIONS.punchcards, { store_id: storeId }),
   })
 
   return {
@@ -35,36 +22,35 @@ export const useGetPunchcards = (storeId: string) => {
   }
 }
 
-export const createPunchcard = async (data: PunchcardInsert) => {
-  const { data: response } = await httpAxiosClient.create<
-    Punchcard,
-    PunchcardInsert
-  >(`/${COLLECTIONS.punchcards}`, data)
+export const useGetPunchcard = (id: string) => {
+  const queryResult = useQuery<Punchcard>({
+    queryKey: [COLLECTIONS.punchcards, id],
+    queryFn: () => httpClient.getOne(COLLECTIONS.punchcards, id),
+  })
 
-  return response.data
-}
+  const getAsync = useMutation({
+    mutationFn: async (id: string) =>
+      httpClient.getOne(COLLECTIONS.punchcards, id),
+  })
 
-export const updatePunchcard = async (data: PunchcardUpdate) => {
-  const { data: response } = await httpAxiosClient.update<
-    Punchcard,
-    PunchcardUpdate
-  >(`/${COLLECTIONS.punchcards}/${data.id}`, data)
-  return response.data
+  return {
+    punchcard: queryResult.data,
+    ...queryResult,
+    getAsyncPunchcard: getAsync.mutateAsync,
+    isGettingAsync: getAsync.isPending,
+  }
 }
 
 export const usePunchcardsMutation = () => {
   const createMutation = useMutation({
-    mutationFn: createPunchcard,
+    mutationFn: async (punchcard: PunchcardInsert) =>
+      await httpClient.create(COLLECTIONS.punchcards, punchcard),
     mutationKey: [COLLECTIONS.punchcards],
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: [COLLECTIONS.punchcards],
-      })
-    },
   })
 
   const updateMutation = useMutation({
-    mutationFn: updatePunchcard,
+    mutationFn: async (punchcard: PunchcardUpdate) =>
+      await httpClient.update(COLLECTIONS.punchcards, punchcard),
     mutationKey: [COLLECTIONS.punchcards],
     onSuccess: async () => {
       await queryClient.invalidateQueries({
