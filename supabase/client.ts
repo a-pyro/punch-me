@@ -4,8 +4,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createClient } from '@supabase/supabase-js'
 import { AppState } from 'react-native'
 
+import { handleSupabaseError } from '@/services/api/utils/error'
 import 'react-native-url-polyfill/auto'
-import { type Database } from './generated-types'
+
+import {
+  type Database,
+  type Tables,
+  type TablesInsert,
+  type TablesUpdate,
+} from './generated-types'
+import { type Collection } from './types'
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY
@@ -38,3 +46,82 @@ AppState.addEventListener('change', (state) => {
     supabaseClient.auth.stopAutoRefresh()
   }
 })
+
+export const httpClient = {
+  create: async <TCollection extends Collection>(
+    collection: TCollection,
+    data: TablesInsert<TCollection>,
+  ) => {
+    // We cast the result to the appropriate type using a type assertion.
+    const { data: responseData, error } = await supabaseClient
+      .from(collection)
+      .insert(data as never)
+      .select()
+      .single()
+
+    if (error) {
+      return handleSupabaseError(error)
+    }
+
+    return responseData as Tables<TCollection>
+  },
+
+  update: async <TCollection extends Collection>(
+    collection: TCollection,
+    data: TablesUpdate<TCollection>,
+  ) => {
+    const { data: responseData, error } = await supabaseClient
+      .from(collection)
+      .update(data as never)
+      .eq('id', data.id as never)
+      .select()
+      .single()
+
+    if (error) {
+      return handleSupabaseError(error)
+    }
+
+    return responseData as Tables<TCollection>
+  },
+
+  getOne: async <TCollection extends Collection>(
+    collection: TCollection,
+    id: string,
+  ) => {
+    const { data, error } = await supabaseClient
+      .from(collection)
+      .select()
+      .eq('id', id as never)
+      .single()
+
+    if (error) {
+      return handleSupabaseError(error)
+    }
+
+    return data as Tables<TCollection>
+  },
+
+  getList: async <
+    TCollection extends Collection,
+    TFilter extends keyof Tables<TCollection>,
+  >(
+    collection: TCollection,
+    filter?: { [key in TFilter]?: string | number | boolean },
+  ) => {
+    let query = supabaseClient.from(collection).select()
+
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        query = query.eq(key, filter[key as TFilter] as never)
+      })
+    }
+
+    const { data, error } = await query
+
+    if (error) {
+      return handleSupabaseError(error)
+    }
+
+    return data as Tables<TCollection>[]
+  },
+}

@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { SafeView, ThemedButton, ThemedText } from '@/components'
-import { useUser } from '@/services'
+import { useProfile } from '@/services'
 
 const ProfileView = () => {
-  const { user, signOut } = useUser()
+  const { profile: user, signOut } = useProfile()
 
   return (
     <SafeView>

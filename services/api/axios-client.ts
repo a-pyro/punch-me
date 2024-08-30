@@ -77,7 +77,7 @@ const update = async <TResponse, TDataPayload>(
   )
 }
 
-export const httpClient = {
+export const httpAxiosClient = {
   get,
   create,
   update,

@@ -2,7 +2,12 @@ import { router } from 'expo-router'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { useCreateStore, useUpdateUser, useUser } from '@/services'
+import {
+  useCreateStore,
+  useProfile,
+  useUpdateProfile,
+  useUpdateStore,
+} from '@/services'
 import { type StoreInsert } from '@/supabase'
 
 import { LoadingScreen, ThemedButton, ThemedView } from '../common'
@@ -16,22 +21,24 @@ type StoreCreateFormProps = {
 }
 
 export const StoreForm = ({ operation }: StoreCreateFormProps) => {
-  console.log('🚀 ~ StoreForm ~ operation:', operation)
   const { t } = useTranslation()
   const { control, handleSubmit } = useForm<StoreInsert>()
-  const { user } = useUser()
+  const { profile: user } = useProfile()
 
   const { createStore, isPending: isCreatingStore } = useCreateStore()
-  const { updateUser, isPending: isUpdatingUser } = useUpdateUser()
+  const { updateStore, isPending: isUpdatingStore } = useUpdateStore()
+  const { updateProfile, isPending: isUpdatingProfile } = useUpdateProfile()
 
   const onSubmit = handleSubmit(async (data) => {
-    const { id } = await createStore({ ...data, user_id: user.id })
+    const fn = operation === 'create' ? createStore : updateStore
+    const { id } = await fn({ ...data, user_id: user.id })
     if (user.role !== 'store_owner')
-      await updateUser({ ...user, role: 'store_owner' })
+      await updateProfile({ ...user, role: 'store_owner' })
     router.push(`/store/${id}/view`)
   })
 
-  if (isCreatingStore || isUpdatingUser) return <LoadingScreen />
+  if (isCreatingStore || isUpdatingProfile || isUpdatingStore)
+    return <LoadingScreen />
 
   return (
     <ThemedView>

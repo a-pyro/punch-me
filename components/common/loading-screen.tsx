@@ -1,10 +1,12 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
+
+import { ThemedView } from './themed-view'
 
 export const LoadingScreen = () => {
   return (
-    <View className="flex-1">
+    <ThemedView classValue="flex-1">
       <Text>LoadingScreen</Text>
-    </View>
+    </ThemedView>
   )
 }

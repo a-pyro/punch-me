@@ -2,10 +2,10 @@ import React from 'react'
 
 import { DraftUserHomeView, SafeView, StoreOwnerHomeView } from '@/components'
 import { CustomerHomeView } from '@/components/home/customer-home-view'
-import { useUser } from '@/services'
+import { useProfile } from '@/services'
 
 const HomeView = () => {
-  const { user } = useUser()
+  const { profile: user } = useProfile()
   if (!user) return null
   const { role } = user
   return (

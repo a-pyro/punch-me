@@ -1,4 +1,5 @@
 import {
+  type Database,
   type Tables,
   type TablesInsert,
   type TablesUpdate,
@@ -9,6 +10,9 @@ export const COLLECTIONS = {
   stores: 'stores',
   punchcards: 'punchcards',
 } as const
+
+// Override the type for a specific column in a view:
+export type Collection = keyof Database['public']['Tables']
 
 export type Profile = Tables<'profiles'>
 export type ProfileInsert = TablesInsert<'profiles'>

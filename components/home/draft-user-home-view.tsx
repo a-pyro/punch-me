@@ -3,13 +3,13 @@ import React from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import { useUser } from '@/services'
+import { useProfile } from '@/services'
 
 import { ThemedButton, ThemedText } from '../common'
 
 export const DraftUserHomeView = () => {
   const { t } = useTranslation()
-  const { user } = useUser()
+  const { profile: user } = useProfile()
   if (!user) return null
   return (
     <View className="flex-1 justify-center">
