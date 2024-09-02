@@ -46,7 +46,7 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
       await updatePunchCard(punchcard as PunchcardUpdate)
     }
     router.push({
-      pathname: '/',
+      pathname: '/punchcards/[id]/view',
       params: { id },
     })
   }

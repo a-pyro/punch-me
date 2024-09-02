@@ -1,25 +1,42 @@
-import { useLocalSearchParams } from 'expo-router'
+import { Link, useLocalSearchParams } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
 
-import { LoadingScreen, SafeView, ThemedText } from '@/components'
+import { Icon, LoadingScreen, SafeView, ThemedText } from '@/components'
 import { type WithId } from '@/services'
 import { useGetPunchcard } from '@/services/api/punchcards'
+
+// TODO - Add the rest of punchcard information and fix ui
 
 const PunchcardDetailView = () => {
   const { id } = useLocalSearchParams<WithId>()
   const { punchcard, isLoading } = useGetPunchcard(id)
-  const { t } = useTranslation()
+  const [t] = useTranslation()
 
   if (isLoading) return <LoadingScreen />
   if (!punchcard) return null
 
   return (
     <SafeView disableInsets>
-      <ThemedText style="title">
-        {t('punchcards.detail.title', { name: punchcard.name })}
+      <View className="flex-row items-center justify-between">
+        <ThemedText style="title">{punchcard.name}</ThemedText>
+        <Link
+          href={{
+            pathname: '/punchcards/[id]/edit',
+            params: { id },
+          }}
+        >
+          <Icon name="edit" outerClassValue="pr-3" />
+        </Link>
+      </View>
+      <ThemedText style="defaultSemiBold">
+        {t('punchcards.detail.punches_needed')}
       </ThemedText>
-      <ThemedText classValue="mt-4" style="subtitle" />
+      <ThemedText style="subtitle">{punchcard.punches_needed}</ThemedText>
+      <ThemedText classValue="mt-4" style="default">
+        {punchcard.description}
+      </ThemedText>
     </SafeView>
   )
 }

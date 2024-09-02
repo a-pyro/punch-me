@@ -14,6 +14,7 @@ export const ScrollableWrapper = ({
       contentContainerStyle={{
         flexGrow: 1,
         width: '100%',
+        paddingBottom: 5,
       }}
     >
       {children}

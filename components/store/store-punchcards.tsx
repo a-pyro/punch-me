@@ -38,6 +38,7 @@ export const StorePunchcards = () => {
         </ThemedView>
       ))}
       <ThemedButton
+        outerClassValue="mt-auto"
         onPress={() => {
           router.push({
             pathname: '/punchcards/[id]/create',
