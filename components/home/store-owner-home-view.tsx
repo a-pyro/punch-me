@@ -24,7 +24,7 @@ export const StoreOwnerHomeView = () => {
       ListFooterComponent={
         <ThemedButton
           onPress={() => {
-            router.navigate({
+            router.push({
               pathname: '/store/[id]/create',
               params: { id: 'new' },
             })

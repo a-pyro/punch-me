@@ -76,27 +76,6 @@ const RootLayout = () => {
                   headerShown: false,
                 }}
               />
-              <Stack.Screen
-                name="store"
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="punchcards"
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="subscribe"
-                options={{
-                  headerStyle: {
-                    backgroundColor: '#161622',
-                  },
-                  headerTitle: 'Home',
-                }}
-              />
               <Stack.Screen name="+not-found" />
             </Stack>
             <AppStatusBar style="auto" />

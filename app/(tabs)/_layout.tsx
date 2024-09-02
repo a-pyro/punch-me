@@ -52,6 +52,27 @@ const TabsLayout = () => {
           ),
         }}
       />
+      <Tabs.Screen
+        name="store"
+        options={{
+          title: 'store',
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="punchcards"
+        options={{
+          title: 'punchcards',
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="subscribe"
+        options={{
+          title: 'subscribe',
+          href: null,
+        }}
+      />
     </Tabs>
   )
 }

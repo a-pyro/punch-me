@@ -10,7 +10,7 @@ const StoreStackLayout = () => {
           headerStyle: {
             backgroundColor: '#161622',
           },
-          headerTitle: 'Home ddasd',
+          headerTitle: 'Home ',
         }}
       />
       <Stack.Screen
