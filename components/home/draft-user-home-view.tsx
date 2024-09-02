@@ -16,7 +16,8 @@ export const DraftUserHomeView = () => {
         <Trans
           defaults="Welcome, {{name}}!"
           i18nKey="home.welcome"
-          values={{ name: user.full_name ?? user.email }}
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- full_name can be empty string
+          values={{ name: user.full_name || user.email }}
         />
       </ThemedText>
 

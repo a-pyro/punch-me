@@ -2,8 +2,8 @@ import { type Session } from '@supabase/supabase-js'
 import { useQuery } from '@tanstack/react-query'
 import { router } from 'expo-router'
 import {
-  type PropsWithChildren,
   createContext,
+  type PropsWithChildren,
   useContext,
   useEffect,
   useState,
@@ -12,8 +12,10 @@ import {
 import { logger } from '@/services/logger'
 import {
   COLLECTIONS,
-  type Profile,
   httpClient,
+  // COLLECTIONS,
+  type Profile,
+  // httpClient,
   supabaseClient,
 } from '@/supabase'
 
@@ -67,20 +69,21 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
 
   const queryResult = useQuery({
     queryKey: [COLLECTIONS.profiles],
-    queryFn: () => httpClient.getOne('profiles', session?.user.id ?? ''),
+    queryFn: () => httpClient.getOne('profiles', session?.user.id),
     select: (data) => ({ ...data, email: session?.user.email }),
   })
 
   useEffect(() => {
     void checkSession().then((session) => {
+      logger.log('🚀 ~ checkSession ~ session:', session)
       setSession(session)
-      if (!session) router.replace('/')
     })
 
     const {
       data: { subscription },
     } = supabaseClient.auth.onAuthStateChange((event, session) => {
       logger.log('🚀 ~ onAuthStateChange ~ event:', event)
+      logger.log('🚀 ~ onAuthStateChange ~ session:', session)
       setSession(session)
       if (!session) router.replace('/')
     })
@@ -89,15 +92,12 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
     }
   }, [])
 
-  const profile = queryResult.data
-  if (!session || !profile) return null
-
   return (
     <AuthContext.Provider
       value={{
         signOut,
         session,
-        profile: profile as Profile,
+        profile: (queryResult.data ?? INIT_PROFILE) as Profile,
       }}
     >
       {children}

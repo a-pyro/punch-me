@@ -1,11 +1,14 @@
-import { useMutation } from '@tanstack/react-query'
 import { router } from 'expo-router'
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { Alert, Pressable, Text, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 
-import { supabaseClient } from '@/supabase'
+import {
+  type AuthFormState,
+  useAuthMutation,
+  useDevAuthMutation,
+} from '@/services/api'
 import { isDev } from '@/utils'
 
 import { ThemedButton } from '../common/themed-button'
@@ -13,78 +16,22 @@ import { ThemedText } from '../common/themed-text'
 import { ThemedView } from '../common/themed-view'
 import { ControlledFormField } from '../form'
 
-type AuthAction = 'signin' | 'signup'
-
-export type AuthFormState = {
-  email: string
-  password: string
-}
-
-const signInWithPassword = async ({ email, password }: AuthFormState) => {
-  const { error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password,
-  })
-
-  if (error) Alert.alert(error.message)
-}
-
-const signUpWithEmail = async ({ email, password }: AuthFormState) => {
-  const {
-    data: { session },
-    error,
-  } = await supabaseClient.auth.signUp({
-    email,
-    password,
-  })
-
-  if (error) Alert.alert(error.message)
-  if (!session) Alert.alert('Please check your inbox for email verification!')
-}
-
-const signInWithDevAccount = async () => {
-  const email = process.env.EXPO_PUBLIC_DEV_ACCOUNT_EMAIL
-  const password = process.env.EXPO_PUBLIC_DEV_ACCOUNT_PASSWORD
-  if (!email || !password) {
-    Alert.alert('No dev account found!')
-    return
-  }
-  await signInWithPassword({ email, password })
-}
-
-export const useAuthMutation = () => {
-  const [authAction, setAuthAction] = useState<AuthAction>('signin')
-
-  let mutationFn
-  if (isDev) {
-    mutationFn = signInWithDevAccount
-  } else if (authAction === 'signin') {
-    mutationFn = signInWithPassword
-  } else {
-    mutationFn = signUpWithEmail
-  }
-
-  const mutation = useMutation({
-    mutationFn,
-  })
-  return {
-    mutationFn,
-    ...mutation,
-    authAction,
-    setAuthAction,
-  }
-}
-
 export const AuthForm = () => {
   const { t } = useTranslation()
   const { control, handleSubmit } = useForm<AuthFormState>()
-  const { mutationFn, isPending, authAction, setAuthAction } = useAuthMutation()
-
+  const { mutateAsync, isPending, authAction, setAuthAction } =
+    useAuthMutation()
+  useDevAuthMutation
+  const { mutateAsync: signInDev } = useDevAuthMutation()
   const onSubmit = handleSubmit(async (data) => {
-    await mutationFn(data)
+    await mutateAsync(data)
     router.replace('/home')
   })
 
+  const onDevSignIn = async (role: 'store_owner' | 'customer') => {
+    await signInDev(role)
+    router.replace('/home')
+  }
   return (
     // <KeyboardAvoidingComponent>
     <View className="flex-1 justify-center">
@@ -141,7 +88,16 @@ export const AuthForm = () => {
         </Pressable>
       </ThemedView>
       {!!isDev && (
-        <ThemedButton title="Sign in with dev account" onPress={onSubmit} />
+        <>
+          <ThemedButton
+            title="Sign in with store account"
+            onPress={() => onDevSignIn('store_owner')}
+          />
+          <ThemedButton
+            title="Sign in with customer account"
+            onPress={() => onDevSignIn('customer')}
+          />
+        </>
       )}
     </View>
     // </KeyboardAvoidingComponent>

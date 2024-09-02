@@ -1,3 +1,4 @@
+import { router } from 'expo-router'
 import React from 'react'
 
 import { SafeView, ThemedButton, ThemedText } from '@/components'
@@ -12,9 +13,8 @@ const ProfileView = () => {
       <ThemedButton
         title="Logout"
         onPress={async () => {
-          // TODO fix this typing
-
           await signOut()
+          router.navigate('/')
         }}
       />
     </SafeView>
