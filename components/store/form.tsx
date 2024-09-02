@@ -2,12 +2,8 @@ import { router } from 'expo-router'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import {
-  useCreateStore,
-  useProfile,
-  useUpdateProfile,
-  useUpdateStore,
-} from '@/services'
+import { useSession } from '@/context'
+import { useCreateStore, useUpdateProfile, useUpdateStore } from '@/services'
 import { type StoreInsert } from '@/supabase'
 
 import { LoadingScreen, ThemedButton, ThemedView } from '../common'
@@ -23,7 +19,7 @@ type StoreCreateFormProps = {
 export const StoreForm = ({ operation }: StoreCreateFormProps) => {
   const { t } = useTranslation()
   const { control, handleSubmit } = useForm<StoreInsert>()
-  const { profile } = useProfile()
+  const { profile } = useSession()
 
   const { createStore, isPending: isCreatingStore } = useCreateStore()
   const { updateStore, isPending: isUpdatingStore } = useUpdateStore()
@@ -34,7 +30,10 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
     const { id } = await fn({ ...data, user_id: profile.id })
     if (profile.role !== 'store_owner')
       await updateProfile({ ...profile, role: 'store_owner' })
-    router.push(`/store/${id}/view`)
+    router.push({
+      pathname: '/store/[id]/view',
+      params: { id },
+    })
   })
 
   if (isCreatingStore || isUpdatingProfile || isUpdatingStore)
@@ -43,11 +42,11 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
   return (
     <ThemedView>
       <ControlledFormField
-        rules={{ required: true }}
         classValue="my-4"
         control={control}
         name="name"
         placeholder={t('store.create_form.name_placeholder')}
+        rules={{ required: true }}
         title={t('store.create_form.name')}
       />
       <ControlledFormField

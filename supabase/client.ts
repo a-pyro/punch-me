@@ -52,10 +52,9 @@ export const httpClient = {
     collection: TCollection,
     data: TablesInsert<TCollection>,
   ) => {
-    // We cast the result to the appropriate type using a type assertion.
     const { data: responseData, error } = await supabaseClient
       .from(collection)
-      .insert(data as never)
+      .insert({ ...data, created_at: new Date().toISOString() } as never)
       .select()
       .single()
 

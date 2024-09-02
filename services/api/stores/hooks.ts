@@ -1,9 +1,8 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 
+import { useSession } from '@/context'
 import { queryClient } from '@/services/react-query'
 import { type StoreInsert, type StoreUpdate, httpClient } from '@/supabase'
-
-import { useProfile } from '../profiles'
 
 export const createStore = async (store: StoreInsert) => {
   return await httpClient.create('stores', store)
@@ -61,7 +60,7 @@ export const useGetStore = (id: string) => {
 }
 
 export const useGetStores = () => {
-  const { profile: user } = useProfile()
+  const { profile: user } = useSession()
   const queryResult = useQuery({
     queryKey: ['stores', user.id],
     queryFn: () => getStores(user.id),

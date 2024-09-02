@@ -1,12 +1,12 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
-import { useSession } from '@/context'
+import { invalidateQueries } from '@/services/react-query'
 import { httpClient } from '@/supabase'
-import { type Profile, type ProfileUpdate } from '@/supabase/types'
+import { COLLECTIONS, type Profile, type ProfileUpdate } from '@/supabase/types'
 
 export const useCreateProfile = () => {
   const createUserMutation = useMutation({
-    mutationKey: ['profile'],
+    mutationKey: [COLLECTIONS.profiles],
     mutationFn: (profile: Profile) => httpClient.create('profiles', profile),
   })
 
@@ -16,24 +16,9 @@ export const useCreateProfile = () => {
   }
 }
 
-export const useProfile = () => {
-  const { session, signOut } = useSession()
-  const mutationResult = useQuery({
-    queryKey: ['profile'],
-    queryFn: () => httpClient.getOne('profiles', session?.user.id ?? ''),
-    select: (data) => ({ ...data, email: session?.user.email }),
-  })
-
-  return {
-    signOut,
-    profile: mutationResult.data as Profile,
-    ...mutationResult,
-  }
-}
-
 export const useUpdateProfile = () => {
   const updateUserMutation = useMutation({
-    mutationKey: ['profile'],
+    mutationKey: [COLLECTIONS.profiles],
     // need to remove the email from the user object before updating because is not part of the profile table but we're mapping it in the select function above
     mutationFn: async ({
       email: _,
@@ -41,6 +26,7 @@ export const useUpdateProfile = () => {
     }: ProfileUpdate & {
       email: string
     }) => await httpClient.update('profiles', user),
+    onSuccess: async () => invalidateQueries([COLLECTIONS.profiles]),
   })
 
   return {

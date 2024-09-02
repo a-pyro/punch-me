@@ -3,21 +3,20 @@ import React from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import { useProfile } from '@/services'
+import { useSession } from '@/context'
 
 import { ThemedButton, ThemedText } from '../common'
 
 export const DraftUserHomeView = () => {
   const { t } = useTranslation()
-  const { profile: user } = useProfile()
-  if (!user) return null
+  const { profile: user } = useSession()
   return (
     <View className="flex-1 justify-center">
       <ThemedText classValue="pt-5" style="title">
         <Trans
           defaults="Welcome, {{name}}!"
           i18nKey="home.welcome"
-          values={{ name: user.display_name ?? user.email }}
+          values={{ name: user.full_name ?? user.email }}
         />
       </ThemedText>
 

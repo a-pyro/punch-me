@@ -23,9 +23,7 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
   const { id } = useLocalSearchParams<WithId>()
   const { getAsyncPunchcard } = useGetPunchcard(id)
   const { t } = useTranslation()
-  const { control, handleSubmit, watch } = useForm<
-    PunchcardInsert | PunchcardUpdate
-  >({
+  const { control, handleSubmit } = useForm<PunchcardInsert | PunchcardUpdate>({
     defaultValues:
       operation === 'update'
         ? async () => {
@@ -47,10 +45,11 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
     } else {
       await updatePunchCard(punchcard as PunchcardUpdate)
     }
-    router.push(`/punchcards/${id}/edit`)
+    router.push({
+      pathname: '/',
+      params: { id },
+    })
   }
-
-  console.log(watch('punches_needed'))
 
   const title =
     operation === 'create' ? 'punchcards.form.create' : 'punchcards.form.update'
@@ -62,11 +61,11 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
       <ThemedText style="title">{t(title)}</ThemedText>
 
       <ControlledFormField
-        rules={{ required: true }}
         classValue="my-4"
         control={control}
         name="name"
         placeholder={t('punchcards.form.name_placeholder')}
+        rules={{ required: true }}
         title={t('punchcards.form.name')}
       />
       <ControlledFormField
@@ -79,9 +78,10 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
       <ControlledFormField
         classValue="my-4"
         control={control}
-        rules={{ required: true }}
+        defaultValue="10"
         name="punches_needed"
         placeholder={t('punchcards.form.punches_needed_placeholder')}
+        rules={{ required: true }}
         title={t('punchcards.form.punches_needed')}
       />
       {/* TODO - make date picker */}

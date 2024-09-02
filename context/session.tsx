@@ -1,4 +1,5 @@
 import { type Session } from '@supabase/supabase-js'
+import { useQuery } from '@tanstack/react-query'
 import { router } from 'expo-router'
 import {
   type PropsWithChildren,
@@ -9,16 +10,36 @@ import {
 } from 'react'
 
 import { logger } from '@/services/logger'
-import { supabaseClient } from '@/supabase'
+import {
+  COLLECTIONS,
+  type Profile,
+  httpClient,
+  supabaseClient,
+} from '@/supabase'
 
 export const signOut = () => supabaseClient.auth.signOut()
+
+const INIT_PROFILE: Profile = {
+  address: '',
+  avatar_url: '',
+  created_at: '',
+  date_of_birth: '',
+  email: '',
+  full_name: '',
+  id: '',
+  phone_number: '',
+  role: 'draft',
+  updated_at: '',
+}
 
 const AuthContext = createContext<{
   signOut: typeof signOut
   session?: Session | null
+  profile: Profile
 }>({
   signOut,
   session: null,
+  profile: INIT_PROFILE,
 })
 
 // This hook can be used to access the user info.
@@ -44,6 +65,12 @@ const checkSession = async () => {
 export const SessionProvider = ({ children }: PropsWithChildren) => {
   const [session, setSession] = useState<Session | null>(null)
 
+  const queryResult = useQuery({
+    queryKey: [COLLECTIONS.profiles],
+    queryFn: () => httpClient.getOne('profiles', session?.user.id ?? ''),
+    select: (data) => ({ ...data, email: session?.user.email }),
+  })
+
   useEffect(() => {
     void checkSession().then((session) => {
       setSession(session)
@@ -62,11 +89,15 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
     }
   }, [])
 
+  const profile = queryResult.data
+  if (!session || !profile) return null
+
   return (
     <AuthContext.Provider
       value={{
         signOut,
         session,
+        profile: profile as Profile,
       }}
     >
       {children}
