@@ -22,6 +22,15 @@ const PunchcardsLayout = () => {
           headerTitle: '',
         }}
       />
+      <Stack.Screen
+        name="view"
+        options={{
+          headerStyle: {
+            backgroundColor: '#161622',
+          },
+          headerTitle: '',
+        }}
+      />
     </Stack>
   )
 }

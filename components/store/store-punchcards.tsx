@@ -1,12 +1,17 @@
-import { router, useLocalSearchParams } from 'expo-router'
+import { Link, router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
 
 import { type WithId } from '@/services'
 import { useGetPunchcards } from '@/services/api/punchcards'
 
-import { LoadingScreen, ScrollableWrapper, ThemedButton } from '../common'
+import {
+  LoadingScreen,
+  ScrollableWrapper,
+  ThemedButton,
+  ThemedText,
+  ThemedView,
+} from '../common'
 
 export const StorePunchcards = () => {
   const { id: storeId } = useLocalSearchParams<WithId>()
@@ -18,7 +23,16 @@ export const StorePunchcards = () => {
   return (
     <ScrollableWrapper>
       {punchcards.map((punchcard) => (
-        <Text key={punchcard.id}>{punchcard.name}</Text>
+        <ThemedView key={punchcard.id}>
+          <Link
+            href={{
+              pathname: '/punchcards/[id]/view',
+              params: { id: punchcard.id },
+            }}
+          >
+            <ThemedText key={punchcard.id}>{punchcard.name}</ThemedText>
+          </Link>
+        </ThemedView>
       ))}
       <ThemedButton
         onPress={() => {

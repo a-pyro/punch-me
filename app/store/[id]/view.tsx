@@ -23,7 +23,7 @@ const StoreDetailView = () => {
         />
       </ThemedText>
       <StoreDetailCard store={store} />
-      <ThemedText classValue="mt-4" style="subtitle">
+      <ThemedText classValue="my-4" style="subtitle">
         {t('store_detail.punchcards')}
       </ThemedText>
       <StorePunchcards />
