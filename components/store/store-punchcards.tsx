@@ -23,7 +23,10 @@ export const StorePunchcards = () => {
   return (
     <ScrollableWrapper>
       {punchcards.map((punchcard) => (
-        <ThemedView key={punchcard.id}>
+        <ThemedView
+          key={punchcard.id}
+          className="mb-2 rounded-xl border border-gray-700 p-2"
+        >
           <Link
             href={{
               pathname: '/punchcards/[id]/view',
