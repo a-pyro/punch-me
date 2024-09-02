@@ -36,7 +36,7 @@ create table public.profiles (
   date_of_birth date,
   avatar_url text,
   updated_at timestamp
-  with
+ with
     time zone,
     created_at timestamp
   with
@@ -430,8 +430,49 @@ UPDATE USING (auth.uid () = user_id);
 -- Allow users to delete their own reviews
 CREATE POLICY delete_own_reviews ON reviews FOR DELETE USING (auth.uid () = user_id);
 
+
+
+
+drop function if exists public.handle_new_user() cascade;
+----------------------------------------------------------------------
+create function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = ''
+as $$
+begin
+  -- insert into public.profiles (id)
+  -- values (new.id);
+  -- return new;
+  IF NOT EXISTS (SELECT 1 FROM public.profiles WHERE id = NEW.id) THEN
+    INSERT INTO public.profiles (id)
+    VALUES (NEW.id);
+  END IF;
+  RETURN NEW;
+end;
+$$;
+
+
+----------------------------------------------------------------------
+-- Drop the trigger for creating profile on signup
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+
+-- Drop the triggers for handling updated_at column
+DROP TRIGGER IF EXISTS handle_updated_at_stores ON stores;
+DROP TRIGGER IF EXISTS handle_updated_at_punchcards ON punchcards;
+DROP TRIGGER IF EXISTS handle_updated_at_user_punchcards ON user_punchcards;
+DROP TRIGGER IF EXISTS handle_updated_at_qr_codes ON qr_codes;
+DROP TRIGGER IF EXISTS handle_updated_at_transactions ON transactions;
+DROP TRIGGER IF EXISTS handle_updated_at_notifications ON notifications;
+DROP TRIGGER IF EXISTS handle_updated_at_reviews ON reviews;
+DROP TRIGGER IF EXISTS handle_updated_at_profiles ON profiles;
+
 ----------------------------------------------------------------------
 -- Create triggers to handle the updated_at column
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
+    
 CREATE TRIGGER handle_updated_at_stores BEFORE
 UPDATE ON stores FOR EACH ROW EXECUTE FUNCTION moddatetime (updated_at);
 

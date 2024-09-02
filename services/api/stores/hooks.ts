@@ -1,8 +1,13 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { useSession } from '@/context'
-import { queryClient } from '@/services/react-query'
-import { type StoreInsert, type StoreUpdate, httpClient } from '@/supabase'
+import { invalidateQueries, queryClient } from '@/services/react-query'
+import {
+  COLLECTIONS,
+  type StoreInsert,
+  type StoreUpdate,
+  httpClient,
+} from '@/supabase'
 
 export const createStore = async (store: StoreInsert) => {
   return await httpClient.create('stores', store)
@@ -22,8 +27,9 @@ export const getStores = async (userId?: string) => {
 
 export const useCreateStore = () => {
   const createStoreMutation = useMutation({
-    mutationKey: ['store'],
+    mutationKey: [COLLECTIONS.stores],
     mutationFn: createStore,
+    onSuccess: async () => invalidateQueries([COLLECTIONS.profiles]),
   })
 
   return {
@@ -34,10 +40,12 @@ export const useCreateStore = () => {
 
 export const useUpdateStore = () => {
   const updateStoreMutation = useMutation({
-    mutationKey: ['store'],
+    mutationKey: [COLLECTIONS.stores],
     mutationFn: updateStore,
     onSuccess: async ({ id }) => {
-      await queryClient.invalidateQueries({ queryKey: ['store', id] })
+      await queryClient.invalidateQueries({
+        queryKey: [COLLECTIONS.stores, id],
+      })
     },
   })
 
@@ -49,7 +57,7 @@ export const useUpdateStore = () => {
 
 export const useGetStore = (id: string) => {
   const queryResult = useQuery({
-    queryKey: ['store', id],
+    queryKey: [COLLECTIONS.stores, id],
     queryFn: () => getStore(id),
   })
 

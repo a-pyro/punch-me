@@ -70,7 +70,9 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   const queryResult = useQuery({
     queryKey: [COLLECTIONS.profiles],
     queryFn: () => httpClient.getOne('profiles', session?.user.id),
-    select: (data) => ({ ...data, email: session?.user.email }),
+    select: (data) => {
+      return { ...data, email: session?.user.email }
+    },
   })
 
   useEffect(() => {
