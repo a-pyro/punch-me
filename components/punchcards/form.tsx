@@ -45,7 +45,7 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
     } else {
       await updatePunchCard(punchcard as PunchcardUpdate)
     }
-    router.push({
+    router.navigate({
       pathname: '/punchcards/[id]/view',
       params: { id },
     })

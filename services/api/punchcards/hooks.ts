@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 
-import { queryClient } from '@/services/react-query/query-client'
+import { invalidateQueries } from '@/services/react-query/query-client'
 import {
   COLLECTIONS,
   type Punchcard,
@@ -46,17 +46,14 @@ export const usePunchcardsMutation = () => {
     mutationFn: async (punchcard: PunchcardInsert) =>
       await httpClient.create(COLLECTIONS.punchcards, punchcard),
     mutationKey: [COLLECTIONS.punchcards],
+    onSuccess: async () => invalidateQueries([COLLECTIONS.punchcards]),
   })
 
   const updateMutation = useMutation({
     mutationFn: async (punchcard: PunchcardUpdate) =>
       await httpClient.update(COLLECTIONS.punchcards, punchcard),
     mutationKey: [COLLECTIONS.punchcards],
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: [COLLECTIONS.punchcards],
-      })
-    },
+    onSuccess: async () => invalidateQueries([COLLECTIONS.punchcards]),
   })
 
   return {

@@ -3,34 +3,18 @@ import React from 'react'
 
 const StoreStackLayout = () => {
   return (
-    <Stack>
-      <Stack.Screen
-        name="create"
-        options={{
-          headerStyle: {
-            backgroundColor: '#161622',
-          },
-          presentation: 'modal',
-        }}
-      />
-      <Stack.Screen
-        name="edit"
-        options={{
-          headerStyle: {
-            backgroundColor: '#161622',
-          },
-          presentation: 'modal',
-        }}
-      />
-      <Stack.Screen
-        name="view"
-        options={{
-          headerStyle: {
-            backgroundColor: '#161622',
-          },
-          presentation: 'modal',
-        }}
-      />
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#161622',
+        },
+        presentation: 'modal',
+        headerTitle: '',
+      }}
+    >
+      <Stack.Screen name="create" />
+      <Stack.Screen name="edit" />
+      <Stack.Screen name="view" />
     </Stack>
   )
 }
