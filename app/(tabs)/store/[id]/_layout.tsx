@@ -10,7 +10,6 @@ const StoreStackLayout = () => {
           headerStyle: {
             backgroundColor: '#161622',
           },
-          headerTitle: 'Home',
           presentation: 'modal',
         }}
       />
@@ -20,7 +19,6 @@ const StoreStackLayout = () => {
           headerStyle: {
             backgroundColor: '#161622',
           },
-          headerTitle: 'Home',
           presentation: 'modal',
         }}
       />
@@ -30,7 +28,6 @@ const StoreStackLayout = () => {
           headerStyle: {
             backgroundColor: '#161622',
           },
-          headerTitle: 'Home',
           presentation: 'modal',
         }}
       />
