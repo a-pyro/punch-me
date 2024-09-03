@@ -28,6 +28,7 @@ export const StorePunchcards = () => {
           className="mb-2 rounded-xl border border-gray-700 p-2"
         >
           <Link
+            push
             href={{
               pathname: '/punchcards/[id]/view',
               params: { id: punchcard.id },

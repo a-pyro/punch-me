@@ -53,17 +53,19 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="store/[id]"
+        name="store"
         options={{
           title: 'store',
           href: null,
+          headerShown: false,
         }}
       />
       <Tabs.Screen
-        name="punchcards"
+        name="punchcards/[id]"
         options={{
           title: 'punchcards',
           href: null,
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -71,6 +73,7 @@ const TabsLayout = () => {
         options={{
           title: 'subscribe',
           href: null,
+          headerShown: false,
         }}
       />
     </Tabs>

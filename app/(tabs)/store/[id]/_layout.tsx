@@ -10,7 +10,8 @@ const StoreStackLayout = () => {
           headerStyle: {
             backgroundColor: '#161622',
           },
-          headerTitle: 'Home ',
+          headerTitle: 'Home',
+          presentation: 'modal',
         }}
       />
       <Stack.Screen
@@ -20,6 +21,7 @@ const StoreStackLayout = () => {
             backgroundColor: '#161622',
           },
           headerTitle: 'Home',
+          presentation: 'modal',
         }}
       />
       <Stack.Screen
@@ -29,6 +31,7 @@ const StoreStackLayout = () => {
             backgroundColor: '#161622',
           },
           headerTitle: 'Home',
+          presentation: 'modal',
         }}
       />
     </Stack>

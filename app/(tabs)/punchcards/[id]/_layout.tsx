@@ -11,6 +11,7 @@ const PunchcardsLayout = () => {
             backgroundColor: '#161622',
           },
           headerTitle: '',
+          presentation: 'modal',
         }}
       />
       <Stack.Screen
@@ -20,6 +21,7 @@ const PunchcardsLayout = () => {
             backgroundColor: '#161622',
           },
           headerTitle: '',
+          presentation: 'modal',
         }}
       />
       <Stack.Screen
@@ -29,6 +31,7 @@ const PunchcardsLayout = () => {
             backgroundColor: '#161622',
           },
           headerTitle: '',
+          presentation: 'modal',
         }}
       />
     </Stack>
