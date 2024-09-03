@@ -5,9 +5,9 @@ import { View } from 'react-native'
 
 import { useSession } from '@/context'
 
-import { ThemedButton, ThemedText } from '../common'
+import { ThemedButton, ThemedText } from '../../common'
 
-export const DraftUserHomeView = () => {
+export const DraftHomeView = () => {
   const { t } = useTranslation()
   const { profile: user } = useSession()
   return (
@@ -25,7 +25,10 @@ export const DraftUserHomeView = () => {
         <ThemedButton
           outerClassValue="rounded-2xl flex-col"
           onPress={() => {
-            router.push('/store')
+            router.push({
+              pathname: '/(tabs)/store/[id]/create',
+              params: { id: 'new' },
+            })
           }}
         >
           <ThemedText classValue="text-center" style="subtitle">

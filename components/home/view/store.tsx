@@ -4,10 +4,9 @@ import { FlatList, View } from 'react-native'
 
 import { useGetStores } from '@/services'
 
-import { Icon, LoadingScreen, ThemedButton } from '../common'
-import { ThemedText } from '../common/themed-text'
-
-import { StoreListItem } from './store-list-item'
+import { Icon, LoadingScreen, ThemedButton } from '../../common'
+import { ThemedText } from '../../common/themed-text'
+import { StoreListItem } from '../store-list-item'
 
 export const StoreOwnerHomeView = () => {
   const { stores, isLoading } = useGetStores()
@@ -22,19 +21,20 @@ export const StoreOwnerHomeView = () => {
       renderItem={({ item }) => <StoreListItem store={item} />}
       showsVerticalScrollIndicator={false}
       ListFooterComponent={
-        <ThemedButton
-          onPress={() => {
-            router.push({
-              pathname: '/store/[id]/create',
-              params: { id: 'new' },
-            })
-          }}
-        >
-          <View className="flex-1 flex-row">
-            <Icon color="#fff" name="pluscircle" />
-            {/* <ThemedText style="subtitle">{t('home.create_store')}</ThemedText> */}
-          </View>
-        </ThemedButton>
+        stores.length === 0 ? (
+          <ThemedButton
+            onPress={() => {
+              router.push({
+                pathname: '/store/[id]/create',
+                params: { id: 'new' },
+              })
+            }}
+          >
+            <View className="flex-1 flex-row">
+              <Icon color="#fff" name="pluscircle" />
+            </View>
+          </ThemedButton>
+        ) : null
       }
       ListHeaderComponent={
         <ThemedText style="title">{t('home.store_list')}</ThemedText>

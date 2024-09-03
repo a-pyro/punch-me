@@ -1,18 +1,16 @@
 import React from 'react'
 
-import { DraftUserHomeView, SafeView, StoreOwnerHomeView } from '@/components'
-import { CustomerHomeView } from '@/components/home/customer-home-view'
+import { HomeViews, SafeView } from '@/components'
 import { useSession } from '@/context'
 
 const HomeView = () => {
   const { profile: user } = useSession()
 
   const { role } = user
+  const RoleBasedHomeView = HomeViews[role]
   return (
     <SafeView>
-      {role === 'draft' && <DraftUserHomeView />}
-      {role === 'store_owner' && <StoreOwnerHomeView />}
-      {role === 'customer' && <CustomerHomeView />}
+      <RoleBasedHomeView />
     </SafeView>
   )
 }

@@ -53,7 +53,7 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="store"
+        name="store/[id]"
         options={{
           title: 'store',
           href: null,
