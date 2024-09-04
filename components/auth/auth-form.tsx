@@ -35,7 +35,7 @@ export const AuthForm = () => {
   return (
     // <KeyboardAvoidingComponent>
     <View className="flex-1 justify-center">
-      <ThemedText classValue="font-psemibold text-2xl font-semibold text-primary dark:text-white">
+      <ThemedText classValue="font-psemibold text-2xl font-semibold text-white">
         {authAction === 'signin'
           ? t('auth.form.sign_in_title')
           : t('auth.form.sign_up_title')}

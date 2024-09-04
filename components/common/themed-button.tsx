@@ -40,7 +40,7 @@ export const ThemedButton = ({
         {!!isLoading && <ActivityIndicator className="mr-2" color="yellow" />}
         <ThemedText
           classValue={cn(
-            'py-1 text-center text-lg font-semibold text-white dark:text-primary',
+            'py-1 text-center text-lg font-semibold text-primary',
             textClass,
           )}
         >

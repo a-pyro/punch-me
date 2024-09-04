@@ -16,7 +16,6 @@ import {
 export const StorePunchcards = () => {
   const { id: storeId } = useLocalSearchParams<WithId>()
   const { punchcards, isLoading } = useGetPunchcards(storeId)
-  console.log('🚀 ~ StorePunchcards ~ isLoading:', isLoading)
   const { t } = useTranslation()
 
   if (isLoading) return <LoadingScreen />

@@ -23,13 +23,7 @@ export const ThemedText = ({
   style: textStyle = 'default',
 }: ThemedTextProps) => {
   return (
-    <Text
-      className={cn(
-        'text-black dark:text-white',
-        textStyles[textStyle],
-        classValue,
-      )}
-    >
+    <Text className={cn('text-white', textStyles[textStyle], classValue)}>
       {children}
     </Text>
   )

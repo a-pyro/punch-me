@@ -26,7 +26,7 @@ const RootPage = () => {
           resizeMode="contain"
           source={images.path}
         />
-        <ThemedText classValue="mt-7 text-center font-pregular text-sm text-black dark:text-gray-100">
+        <ThemedText classValue="mt-7 text-center font-pregular text-sm text-gray-100">
           {t('welcome.description')}
         </ThemedText>
       </View>
