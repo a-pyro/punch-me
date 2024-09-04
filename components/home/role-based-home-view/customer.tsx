@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useSession } from '@/context'
+import { useSession } from '@/context/session'
 
 import { ThemedText } from '../../common/themed-text'
 

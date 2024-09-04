@@ -18,7 +18,7 @@ import { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 
 import { AppStatusBar } from '@/components'
-import { SessionProvider } from '@/context'
+import { SessionProvider } from '@/context/session'
 import '@/i18n'
 import { queryClient } from '@/services'
 import { SafeAreaProvider } from 'react-native-safe-area-context'

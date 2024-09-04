@@ -2,10 +2,10 @@ import { router } from 'expo-router'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { useSession } from '@/context'
-import { useCreateStore, useUpdateProfile, useUpdateStore } from '@/services'
-import { type StoreInsert } from '@/supabase'
-
+import { useSession } from '@/context/session'
+import { useUpdateProfile } from '@/services'
+import { useCreateStore, useUpdateStore } from '@/services/api/stores/hooks'
+import { StoreInsert } from '@/supabase'
 import { LoadingScreen, ThemedButton, ThemedView } from '../common'
 import { ControlledFormField } from '../form'
 

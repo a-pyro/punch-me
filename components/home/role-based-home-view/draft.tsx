@@ -3,7 +3,7 @@ import React from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 
-import { useSession } from '@/context'
+import { useSession } from '@/context/session'
 
 import { ThemedButton, ThemedText } from '../../common'
 
@@ -16,7 +16,7 @@ export const DraftHomeView = () => {
         <Trans
           defaults="Welcome, {{name}}!"
           i18nKey="home.welcome"
-          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- full_name can be empty string
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- strings can be empty
           values={{ name: user.full_name || user.email }}
         />
       </ThemedText>

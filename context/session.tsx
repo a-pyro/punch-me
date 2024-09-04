@@ -1,5 +1,5 @@
 import { type Session } from '@supabase/supabase-js'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { router } from 'expo-router'
 import {
   createContext,
@@ -11,13 +11,14 @@ import {
 
 import { logger } from '@/services/logger'
 import {
-  COLLECTIONS,
+  ENTITIES,
   httpClient,
   // COLLECTIONS,
   type Profile,
   // httpClient,
   supabaseClient,
 } from '@/supabase'
+import { invalidateQueries } from '@/utils/react-query'
 
 export const signOut = () => supabaseClient.auth.signOut()
 
@@ -66,12 +67,16 @@ const checkSession = async () => {
 
 export const SessionProvider = ({ children }: PropsWithChildren) => {
   const [session, setSession] = useState<Session | null>(null)
+  const signOutMutation = useMutation({
+    mutationFn: signOut,
+    onSuccess: () => invalidateQueries([ENTITIES.profiles]),
+  })
 
   const queryResult = useQuery({
-    queryKey: [COLLECTIONS.profiles],
+    queryKey: [ENTITIES.profiles],
     queryFn: () => httpClient.getOne('profiles', session?.user.id),
     select: (data) => {
-      return { ...data, email: session?.user.email }
+      return { ...data, email: session?.user.email } as Profile
     },
   })
 
@@ -97,9 +102,9 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   return (
     <AuthContext.Provider
       value={{
-        signOut,
+        signOut: signOutMutation.mutateAsync,
         session,
-        profile: (queryResult.data ?? INIT_PROFILE) as Profile,
+        profile: queryResult.data ?? INIT_PROFILE,
       }}
     >
       {children}

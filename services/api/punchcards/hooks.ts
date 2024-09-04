@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { invalidateQueries } from '@/services/react-query/query-client'
 import {
-  COLLECTIONS,
+  ENTITIES,
   type Punchcard,
   type PunchcardInsert,
   type PunchcardUpdate,
@@ -11,9 +11,9 @@ import {
 
 export const useGetPunchcards = (storeId: string) => {
   const queryResult = useQuery<Punchcard[]>({
-    queryKey: [COLLECTIONS.punchcards, storeId],
+    queryKey: [ENTITIES.punchcards, storeId],
     queryFn: () =>
-      httpClient.getList(COLLECTIONS.punchcards, { store_id: storeId }),
+      httpClient.getList(ENTITIES.punchcards, { store_id: storeId }),
   })
 
   return {
@@ -24,13 +24,13 @@ export const useGetPunchcards = (storeId: string) => {
 
 export const useGetPunchcard = (id: string) => {
   const queryResult = useQuery<Punchcard>({
-    queryKey: [COLLECTIONS.punchcards, id],
-    queryFn: () => httpClient.getOne(COLLECTIONS.punchcards, id),
+    queryKey: [ENTITIES.punchcards, id],
+    queryFn: () => httpClient.getOne(ENTITIES.punchcards, id),
   })
 
   const getAsync = useMutation({
     mutationFn: async (id: string) =>
-      httpClient.getOne(COLLECTIONS.punchcards, id),
+      httpClient.getOne(ENTITIES.punchcards, id),
   })
 
   return {
@@ -44,16 +44,16 @@ export const useGetPunchcard = (id: string) => {
 export const usePunchcardsMutation = () => {
   const createMutation = useMutation({
     mutationFn: async (punchcard: PunchcardInsert) =>
-      await httpClient.create(COLLECTIONS.punchcards, punchcard),
-    mutationKey: [COLLECTIONS.punchcards],
-    onSuccess: async () => invalidateQueries([COLLECTIONS.punchcards]),
+      await httpClient.create(ENTITIES.punchcards, punchcard),
+    mutationKey: [ENTITIES.punchcards],
+    onSuccess: async () => invalidateQueries([ENTITIES.punchcards]),
   })
 
   const updateMutation = useMutation({
     mutationFn: async (punchcard: PunchcardUpdate) =>
-      await httpClient.update(COLLECTIONS.punchcards, punchcard),
-    mutationKey: [COLLECTIONS.punchcards],
-    onSuccess: async () => invalidateQueries([COLLECTIONS.punchcards]),
+      await httpClient.update(ENTITIES.punchcards, punchcard),
+    mutationKey: [ENTITIES.punchcards],
+    onSuccess: async () => invalidateQueries([ENTITIES.punchcards]),
   })
 
   return {

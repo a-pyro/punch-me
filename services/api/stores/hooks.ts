@@ -1,13 +1,14 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 
-import { useSession } from '@/context'
-import { invalidateQueries, queryClient } from '@/services/react-query'
+import { useSession } from '@/context/session'
+import { queryClient } from '@/services/react-query'
 import {
-  COLLECTIONS,
+  ENTITIES,
   type StoreInsert,
   type StoreUpdate,
   httpClient,
 } from '@/supabase'
+import { invalidateQueries } from '@/utils/react-query'
 
 export const createStore = async (store: StoreInsert) => {
   return await httpClient.create('stores', store)
@@ -27,9 +28,9 @@ export const getStores = async (userId?: string) => {
 
 export const useCreateStore = () => {
   const createStoreMutation = useMutation({
-    mutationKey: [COLLECTIONS.stores],
+    mutationKey: [ENTITIES.stores],
     mutationFn: createStore,
-    onSuccess: async () => invalidateQueries([COLLECTIONS.profiles]),
+    onSuccess: async () => invalidateQueries([ENTITIES.profiles]),
   })
 
   return {
@@ -40,11 +41,11 @@ export const useCreateStore = () => {
 
 export const useUpdateStore = () => {
   const updateStoreMutation = useMutation({
-    mutationKey: [COLLECTIONS.stores],
+    mutationKey: [ENTITIES.stores],
     mutationFn: updateStore,
     onSuccess: async ({ id }) => {
       await queryClient.invalidateQueries({
-        queryKey: [COLLECTIONS.stores, id],
+        queryKey: [ENTITIES.stores, id],
       })
     },
   })
@@ -57,7 +58,7 @@ export const useUpdateStore = () => {
 
 export const useGetStore = (id: string) => {
   const queryResult = useQuery({
-    queryKey: [COLLECTIONS.stores, id],
+    queryKey: [ENTITIES.stores, id],
     queryFn: () => getStore(id),
   })
 

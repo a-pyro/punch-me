@@ -5,7 +5,7 @@ import { Image, Text, View } from 'react-native'
 
 import { PunchesIcon, SafeView, ThemedButton, ThemedText } from '@/components'
 import { images } from '@/constants'
-import { useSession } from '@/context'
+import { useSession } from '@/context/session'
 
 const RootPage = () => {
   const { t } = useTranslation()

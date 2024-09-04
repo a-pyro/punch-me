@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { HomeViews, SafeView } from '@/components'
-import { useSession } from '@/context'
+import { useSession } from '@/context/session'
 
 const HomeView = () => {
   const { profile: user } = useSession()

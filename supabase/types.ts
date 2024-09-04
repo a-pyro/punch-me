@@ -5,14 +5,14 @@ import {
   type TablesUpdate,
 } from './generated-types'
 
-export const COLLECTIONS = {
+export const ENTITIES = {
   profiles: 'profiles',
   stores: 'stores',
   punchcards: 'punchcards',
 } as const
 
 // Override the type for a specific column in a view:
-export type Collection = keyof Database['public']['Tables']
+export type Entity = keyof Database['public']['Tables']
 
 export type Profile = Tables<'profiles'> & { email: string }
 export type ProfileInsert = TablesInsert<'profiles'>

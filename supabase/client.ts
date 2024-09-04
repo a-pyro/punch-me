@@ -13,7 +13,7 @@ import {
   type TablesInsert,
   type TablesUpdate,
 } from './generated-types'
-import { type Collection } from './types'
+import { type Entity } from './types'
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY
@@ -48,7 +48,7 @@ AppState.addEventListener('change', (state) => {
 })
 
 export const httpClient = {
-  create: async <TCollection extends Collection>(
+  create: async <TCollection extends Entity>(
     collection: TCollection,
     data: TablesInsert<TCollection>,
   ) => {
@@ -65,7 +65,7 @@ export const httpClient = {
     return responseData as Tables<TCollection>
   },
 
-  update: async <TCollection extends Collection>(
+  update: async <TCollection extends Entity>(
     collection: TCollection,
     data: TablesUpdate<TCollection>,
   ) => {
@@ -83,7 +83,7 @@ export const httpClient = {
     return responseData as Tables<TCollection>
   },
 
-  getOne: async <TCollection extends Collection>(
+  getOne: async <TCollection extends Entity>(
     collection: TCollection,
     id?: string,
   ) => {
@@ -101,7 +101,7 @@ export const httpClient = {
   },
 
   getList: async <
-    TCollection extends Collection,
+    TCollection extends Entity,
     TFilter extends keyof Tables<TCollection>,
   >(
     collection: TCollection,
