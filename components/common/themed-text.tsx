@@ -9,6 +9,7 @@ const textStyles = {
   link: 'text-primary text-base font-pmedium',
   subtitle: 'text-xl font-pbold',
   title: 'text-4xl font-pextrabold',
+  giant: 'text-6xl font-pextrabold',
 }
 
 export type TextStyle = keyof typeof textStyles

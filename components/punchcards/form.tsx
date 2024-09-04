@@ -9,6 +9,10 @@ import {
   usePunchcardsMutation,
 } from '@/services/api/punchcards'
 import { type PunchcardInsert, type PunchcardUpdate } from '@/supabase'
+import {
+  punchcardsInsertSchema,
+  punchcardsUpdateSchema,
+} from '@/supabase/zod-types'
 import { useAsyncForm } from '@/utils/forms/hooks'
 
 import { LoadingScreen, ThemedButton, ThemedText } from '../common'
@@ -30,6 +34,8 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
     defaultValues: { punches_needed: 10 },
     getAsyncData: () => getAsyncPunchcard(id),
     operation,
+    schema:
+      operation === 'insert' ? punchcardsInsertSchema : punchcardsUpdateSchema,
   })
 
   const {
@@ -40,7 +46,7 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
   const onSubmit: SubmitHandler<PunchcardUpdate | PunchcardInsert> = async (
     punchcard,
   ) => {
-    if (operation === 'create') {
+    if (operation === 'insert') {
       await createPunchCard({ ...punchcard, store_id: id } as PunchcardInsert)
     } else {
       await updatePunchCard(punchcard as PunchcardUpdate)
@@ -52,7 +58,7 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
   }
 
   const title =
-    operation === 'create' ? 'punchcards.form.create' : 'punchcards.form.update'
+    operation === 'insert' ? 'punchcards.form.create' : 'punchcards.form.update'
 
   if (isCreating || isUpdating) return <LoadingScreen />
 
@@ -65,7 +71,6 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
         control={control}
         name="name"
         placeholder={t('punchcards.form.name_placeholder')}
-        rules={{ required: true }}
         title={t('punchcards.form.name')}
       />
       <ControlledFormField
@@ -81,7 +86,6 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
         defaultValue="10"
         name="punches_needed"
         placeholder={t('punchcards.form.punches_needed_placeholder')}
-        rules={{ required: true }}
         title={t('punchcards.form.punches_needed')}
       />
       {/* TODO - make date picker */}
@@ -120,7 +124,7 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
       /> */}
       <ThemedButton onPress={handleSubmit((d) => onSubmit(d))}>
         {t(
-          operation === 'create'
+          operation === 'insert'
             ? 'punchcards.form.create'
             : 'punchcards.form.update',
         )}

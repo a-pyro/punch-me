@@ -15,30 +15,32 @@ export const StoreOwnerHomeView = () => {
   if (isLoading) return <LoadingScreen />
 
   return (
-    <FlatList
-      data={stores}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <StoreListItem store={item} />}
-      showsVerticalScrollIndicator={false}
-      ListFooterComponent={
-        stores.length === 0 ? (
-          <ThemedButton
-            onPress={() => {
-              router.push({
-                pathname: '/store/[id]/create',
-                params: { id: 'new' },
-              })
-            }}
-          >
-            <View className="flex-1 flex-row">
-              <Icon color="#fff" name="pluscircle" />
-            </View>
-          </ThemedButton>
-        ) : null
-      }
-      ListHeaderComponent={
-        <ThemedText style="title">{t('home.store_list')}</ThemedText>
-      }
-    />
+    <View>
+      <ThemedText classValue="pt-5" style="giant">
+        {t('home.store_list')}
+      </ThemedText>
+      <FlatList
+        data={stores}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <StoreListItem store={item} />}
+        showsVerticalScrollIndicator={false}
+        ListFooterComponent={
+          stores.length === 0 ? (
+            <ThemedButton
+              onPress={() => {
+                router.push({
+                  pathname: '/store/[id]/create',
+                  params: { id: 'new' },
+                })
+              }}
+            >
+              <View className="flex-1 flex-row">
+                <Icon color="#fff" name="pluscircle" />
+              </View>
+            </ThemedButton>
+          ) : null
+        }
+      />
+    </View>
   )
 }

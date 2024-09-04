@@ -29,14 +29,12 @@ export const ControlledFormField = <T extends FieldValues>({
   control,
   name,
   classValue,
-  rules,
   ...rest
 }: ControlledFormFieldProps<T>) => {
   return (
     <Controller
       control={control}
       name={name}
-      rules={rules}
       render={({
         field: { onChange, onBlur, value },
         fieldState: { error },

@@ -11,7 +11,7 @@ const StoreCreateView = () => {
     <ThemedView classValue="p-2">
       <ScrollableWrapper>
         <ThemedText style="title">{t('store.create')}</ThemedText>
-        <StoreForm operation="create" />
+        <StoreForm operation="insert" />
       </ScrollableWrapper>
     </ThemedView>
   )

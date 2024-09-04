@@ -12,7 +12,8 @@
     "create_store": "Create a Store",
     "create_store_description": "Start distributing punchcards to your customers.",
     "subscribe_to_store": "Browse Stores",
-    "subscribe_to_store_description": "Become a customer and start subscribing to punchcards."
+    "subscribe_to_store_description": "Become a customer and start subscribing to punchcards.",
+    "store_list": "Stores"
   },
   "auth": {
     "form": {
@@ -79,6 +80,10 @@
       "total_punches_placeholder": "Enter the total number of punches",
       "create": "Create Punch Card",
       "update": "Update Punch Card"
-    }
+    },
+    "list": "Punchcards"
+  },
+  "profile": {
+    "title": "Profile"
   }
 }

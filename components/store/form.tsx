@@ -9,6 +9,7 @@ import {
   useUpdateStore,
 } from '@/services/api/stores/hooks'
 import { type StoreInsert } from '@/supabase'
+import { storesInsertSchema, storesUpdateSchema } from '@/supabase/zod-types'
 import { useAsyncForm } from '@/utils/forms/hooks'
 
 import { LoadingScreen, ThemedButton, ThemedView } from '../common'
@@ -16,7 +17,7 @@ import { ControlledFormField } from '../form'
 
 // TODO - ADD STICKY HEADER and rest of the form fields
 // TODO - Handle loading and validation
-export type FormOperation = 'create' | 'update'
+export type FormOperation = 'insert' | 'update'
 type StoreCreateFormProps = {
   operation: FormOperation
 }
@@ -31,6 +32,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
   const { control, handleSubmit } = useAsyncForm<StoreInsert>({
     operation,
     getAsyncData: () => getStoreAsync(id),
+    schema: operation === 'insert' ? storesInsertSchema : storesUpdateSchema,
   })
   const { profile } = useSession()
 
@@ -39,7 +41,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
   const { updateProfile, isPending: isUpdatingProfile } = useUpdateProfile()
 
   const onSubmit = handleSubmit(async (data) => {
-    const fn = operation === 'create' ? createStore : updateStore
+    const fn = operation === 'insert' ? createStore : updateStore
     const { id } = await fn({ ...data, user_id: profile.id })
     if (profile.role !== 'store_owner')
       await updateProfile({ ...profile, role: 'store_owner' })
@@ -59,7 +61,6 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
         control={control}
         name="name"
         placeholder={t('store.create_form.name_placeholder')}
-        rules={{ required: true }}
         title={t('store.create_form.name')}
         onSubmitEditing={onSubmit}
       />
@@ -113,7 +114,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
         onSubmitEditing={onSubmit}
       />
       <ThemedButton outerClassValue="mt-4" onPress={onSubmit}>
-        {t(operation === 'create' ? 'store.from.create' : 'store.from.update')}
+        {t(operation === 'insert' ? 'store.from.create' : 'store.from.update')}
       </ThemedButton>
     </ThemedView>
   )
