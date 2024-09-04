@@ -22,7 +22,7 @@ export const getStore = async (id: string) => {
   return await httpClient.getOne('stores', id)
 }
 
-export const getStores = async (userId?: string) => {
+export const getStores = async (userId: string) => {
   return await httpClient.getList('stores', { user_id: userId })
 }
 
@@ -30,7 +30,9 @@ export const useCreateStore = () => {
   const createStoreMutation = useMutation({
     mutationKey: [ENTITIES.stores],
     mutationFn: createStore,
-    onSuccess: async () => invalidateQueries([ENTITIES.profiles]),
+    onSuccess: async () => {
+      await invalidateQueries([ENTITIES.stores])
+    },
   })
 
   return {
@@ -43,9 +45,9 @@ export const useUpdateStore = () => {
   const updateStoreMutation = useMutation({
     mutationKey: [ENTITIES.stores],
     mutationFn: updateStore,
-    onSuccess: async ({ id }) => {
+    onSuccess: async ({ id: storeId }) => {
       await queryClient.invalidateQueries({
-        queryKey: [ENTITIES.stores, id],
+        queryKey: [ENTITIES.stores, { storeId }],
       })
     },
   })
@@ -56,10 +58,10 @@ export const useUpdateStore = () => {
   }
 }
 
-export const useGetStore = (id: string) => {
+export const useGetStore = (storeId: string) => {
   const queryResult = useQuery({
-    queryKey: [ENTITIES.stores, id],
-    queryFn: () => getStore(id),
+    queryKey: [ENTITIES.stores, { storeId }],
+    queryFn: () => getStore(storeId),
   })
 
   return {
@@ -68,10 +70,10 @@ export const useGetStore = (id: string) => {
   }
 }
 
-export const useGetStores = () => {
+export const useGetUserStores = () => {
   const { profile: user } = useSession()
   const queryResult = useQuery({
-    queryKey: ['stores', user.id],
+    queryKey: [ENTITIES.stores, { userId: user.id }],
     queryFn: () => getStores(user.id),
   })
 

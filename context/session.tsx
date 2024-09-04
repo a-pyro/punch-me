@@ -70,11 +70,11 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   const signOutMutation = useMutation({
     mutationFn: signOut,
     onSuccess: () =>
-      invalidateQueries([ENTITIES.profiles, { user_id: session?.user.id }]),
+      invalidateQueries([ENTITIES.profiles, { userId: session?.user.id }]),
   })
 
   const queryResult = useQuery({
-    queryKey: [ENTITIES.profiles, { user_id: session?.user.id }],
+    queryKey: [ENTITIES.profiles, { userId: session?.user.id }],
     queryFn: () =>
       session ? httpClient.getOne('profiles', session.user.id) : undefined,
     select: (data) => {

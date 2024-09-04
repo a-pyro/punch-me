@@ -2,14 +2,14 @@ import { router } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
 
-import { useGetStores } from '@/services'
+import { useGetUserStores } from '@/services'
 
 import { Icon, LoadingScreen, ThemedButton } from '../../common'
 import { ThemedText } from '../../common/themed-text'
 import { StoreListItem } from '../store-list-item'
 
 export const StoreOwnerHomeView = () => {
-  const { stores, isLoading } = useGetStores()
+  const { stores, isLoading } = useGetUserStores()
   const { t } = useTranslation()
 
   if (isLoading) return <LoadingScreen />

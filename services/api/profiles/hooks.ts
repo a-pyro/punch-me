@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { invalidateQueries } from '@/services/react-query'
 import { httpClient } from '@/supabase'
 import { ENTITIES, type Profile, type ProfileUpdate } from '@/supabase/types'
+import { invalidateQueries } from '@/utils/react-query'
 
 export const useCreateProfile = () => {
   const createUserMutation = useMutation({
@@ -26,7 +26,8 @@ export const useUpdateProfile = () => {
     }: ProfileUpdate & {
       email: string
     }) => await httpClient.update('profiles', user),
-    onSuccess: async () => invalidateQueries([ENTITIES.profiles]),
+    onSuccess: async ({ id: userId }) =>
+      invalidateQueries([ENTITIES.profiles, { userId }]),
   })
 
   return {

@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { useSession } from '@/context/session'
 import { useUpdateProfile } from '@/services'
 import { useCreateStore, useUpdateStore } from '@/services/api/stores/hooks'
-import { StoreInsert } from '@/supabase'
+import { type StoreInsert } from '@/supabase'
+
 import { LoadingScreen, ThemedButton, ThemedView } from '../common'
 import { ControlledFormField } from '../form'
 
