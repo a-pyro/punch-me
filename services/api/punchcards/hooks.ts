@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 
-import { invalidateQueries } from '@/services/react-query/query-client'
 import {
   ENTITIES,
   type Punchcard,
@@ -8,10 +7,11 @@ import {
   type PunchcardUpdate,
   httpClient,
 } from '@/supabase'
+import { invalidateQueries } from '@/utils/react-query'
 
 export const useGetPunchcards = (storeId: string) => {
   const queryResult = useQuery<Punchcard[]>({
-    queryKey: [ENTITIES.punchcards, storeId],
+    queryKey: [ENTITIES.punchcards, { storeId }],
     queryFn: () =>
       httpClient.getList(ENTITIES.punchcards, { store_id: storeId }),
   })
@@ -22,21 +22,21 @@ export const useGetPunchcards = (storeId: string) => {
   }
 }
 
-export const useGetPunchcard = (id: string) => {
+export const useGetPunchcard = (punchcardId: string) => {
   const queryResult = useQuery<Punchcard>({
-    queryKey: [ENTITIES.punchcards, id],
-    queryFn: () => httpClient.getOne(ENTITIES.punchcards, id),
+    queryKey: [ENTITIES.punchcards, { punchcardId }],
+    queryFn: () => httpClient.getOne(ENTITIES.punchcards, punchcardId),
   })
 
   const getAsync = useMutation({
-    mutationFn: async (id: string) =>
-      httpClient.getOne(ENTITIES.punchcards, id),
+    mutationFn: async (punchcardId: string) =>
+      httpClient.getOne(ENTITIES.punchcards, punchcardId),
   })
 
   return {
     punchcard: queryResult.data,
     ...queryResult,
-    getAsyncPunchcard: getAsync.mutateAsync,
+    getPunchcardAsync: getAsync.mutateAsync,
     isGettingAsync: getAsync.isPending,
   }
 }

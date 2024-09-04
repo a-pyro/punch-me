@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
-import { type SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { type WithId } from '@/services'
@@ -9,6 +9,7 @@ import {
   usePunchcardsMutation,
 } from '@/services/api/punchcards'
 import { type PunchcardInsert, type PunchcardUpdate } from '@/supabase'
+import { useAsyncForm } from '@/utils/forms/hooks'
 
 import { LoadingScreen, ThemedButton, ThemedText } from '../common'
 import { ThemedView } from '../common/themed-view'
@@ -21,17 +22,16 @@ type PunchCardsFormProps = {
 
 export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
   const { id } = useLocalSearchParams<WithId>()
-  const { getAsyncPunchcard } = useGetPunchcard(id)
+  const { getPunchcardAsync: getAsyncPunchcard } = useGetPunchcard(id)
   const { t } = useTranslation()
-  const { control, handleSubmit } = useForm<PunchcardInsert | PunchcardUpdate>({
-    defaultValues:
-      operation === 'update'
-        ? async () => {
-            const asd = await getAsyncPunchcard(id)
-            return asd
-          }
-        : { punches_needed: 10 },
+  const { control, handleSubmit } = useAsyncForm<
+    PunchcardInsert | PunchcardUpdate
+  >({
+    defaultValues: { punches_needed: 10 },
+    getAsyncData: () => getAsyncPunchcard(id),
+    operation,
   })
+
   const {
     createMutation: { mutateAsync: createPunchCard, isPending: isCreating },
     updateMutation: { mutateAsync: updatePunchCard, isPending: isUpdating },

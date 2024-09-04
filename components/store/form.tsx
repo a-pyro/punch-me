@@ -1,11 +1,15 @@
-import { router } from 'expo-router'
-import { useForm } from 'react-hook-form'
+import { router, useLocalSearchParams } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 
 import { useSession } from '@/context/session'
-import { useUpdateProfile } from '@/services'
-import { useCreateStore, useUpdateStore } from '@/services/api/stores/hooks'
+import { type WithId, useUpdateProfile } from '@/services'
+import {
+  useCreateStore,
+  useGetStore,
+  useUpdateStore,
+} from '@/services/api/stores/hooks'
 import { type StoreInsert } from '@/supabase'
+import { useAsyncForm } from '@/utils/forms/hooks'
 
 import { LoadingScreen, ThemedButton, ThemedView } from '../common'
 import { ControlledFormField } from '../form'
@@ -18,8 +22,16 @@ type StoreCreateFormProps = {
 }
 
 export const StoreForm = ({ operation }: StoreCreateFormProps) => {
+  const { id } = useLocalSearchParams<WithId>()
   const { t } = useTranslation()
-  const { control, handleSubmit } = useForm<StoreInsert>()
+  const { getStoreAsync, isGettingAsync } = useGetStore({
+    storeId: id,
+    enabled: false,
+  })
+  const { control, handleSubmit } = useAsyncForm<StoreInsert>({
+    operation,
+    getAsyncData: () => getStoreAsync(id),
+  })
   const { profile } = useSession()
 
   const { createStore, isPending: isCreatingStore } = useCreateStore()
@@ -37,7 +49,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
     })
   })
 
-  if (isCreatingStore || isUpdatingProfile || isUpdatingStore)
+  if (isCreatingStore || isUpdatingProfile || isUpdatingStore || isGettingAsync)
     return <LoadingScreen />
 
   return (
@@ -49,6 +61,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
         placeholder={t('store.create_form.name_placeholder')}
         rules={{ required: true }}
         title={t('store.create_form.name')}
+        onSubmitEditing={onSubmit}
       />
       <ControlledFormField
         classValue="mb-4"
@@ -56,6 +69,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
         name="address"
         placeholder={t('store.create_form.address_placeholder')}
         title={t('store.create_form.address')}
+        onSubmitEditing={onSubmit}
       />
       <ControlledFormField
         classValue="mb-4"
@@ -63,6 +77,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
         name="contact_email"
         placeholder={t('store.create_form.contact_email_placeholder')}
         title={t('store.create_form.contact_email')}
+        onSubmitEditing={onSubmit}
       />
       <ControlledFormField
         classValue="mb-4"
@@ -70,6 +85,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
         name="contact_phone"
         placeholder={t('store.create_form.contact_phone_placeholder')}
         title={t('store.create_form.contact_phone')}
+        onSubmitEditing={onSubmit}
       />
       {/* TODO - UPLOADER COMPONENT */}
       <ControlledFormField
@@ -78,6 +94,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
         name="logo_url"
         placeholder={t('store.create_form.logo_url_placeholder')}
         title={t('store.create_form.logo_url')}
+        onSubmitEditing={onSubmit}
       />
       <ControlledFormField
         classValue="mb-4"
@@ -85,6 +102,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
         name="store_hours"
         placeholder={t('store.create_form.store_hours_placeholder')}
         title={t('store.create_form.store_hours')}
+        onSubmitEditing={onSubmit}
       />
       <ControlledFormField
         classValue="mb-4"
@@ -92,9 +110,10 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
         name="website_url"
         placeholder={t('store.create_form.website_url_placeholder')}
         title={t('store.create_form.website_url')}
+        onSubmitEditing={onSubmit}
       />
       <ThemedButton outerClassValue="mt-4" onPress={onSubmit}>
-        {t('store.create_form.create')}
+        {t(operation === 'create' ? 'store.from.create' : 'store.from.update')}
       </ThemedButton>
     </ThemedView>
   )

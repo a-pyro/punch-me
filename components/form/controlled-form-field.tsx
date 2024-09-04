@@ -1,17 +1,17 @@
 import {
   type Control,
   Controller,
-  FieldError,
+  type FieldError,
   type FieldValues,
   type Path,
   type RegisterOptions,
 } from 'react-hook-form'
+import { Text, View } from 'react-native'
 
 import { type WithClassValue } from '@/utils'
 
-import { Text } from 'react-native'
-
 import { ThemedView } from '../common'
+
 import { FormField, type FormFieldProps } from './form-field'
 
 type ControlledFormFieldProps<T extends FieldValues> = FormFieldProps & {
@@ -50,7 +50,9 @@ export const ControlledFormField = <T extends FieldValues>({
               onChangeText={onChange}
               {...rest}
             />
-            <ErrorMessage error={error} />
+            <View className="mb-2">
+              <ErrorMessage error={error} />
+            </View>
           </>
         )
       }}
@@ -70,6 +72,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = ({ error }) => {
       <ThemedView>
         {Object.entries(error.types).map(([key, value]) => (
           <Text key={key} className="text-sm text-red-700">
+            {/* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- strings */}
             {value || `Validation failed on ${key}`}
           </Text>
         ))}

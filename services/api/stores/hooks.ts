@@ -18,8 +18,8 @@ export const updateStore = async (store: StoreUpdate) => {
   return await httpClient.update('stores', store)
 }
 
-export const getStore = async (id: string) => {
-  return await httpClient.getOne('stores', id)
+export const getStore = async (storeId: string) => {
+  return await httpClient.getOne('stores', storeId)
 }
 
 export const getStores = async (userId: string) => {
@@ -45,11 +45,10 @@ export const useUpdateStore = () => {
   const updateStoreMutation = useMutation({
     mutationKey: [ENTITIES.stores],
     mutationFn: updateStore,
-    onSuccess: async ({ id: storeId }) => {
-      await queryClient.invalidateQueries({
-        queryKey: [ENTITIES.stores, { storeId }],
-      })
-    },
+    onSuccess: async () =>
+      queryClient.invalidateQueries({
+        queryKey: [ENTITIES.stores],
+      }),
   })
 
   return {
@@ -58,15 +57,28 @@ export const useUpdateStore = () => {
   }
 }
 
-export const useGetStore = (storeId: string) => {
+export const useGetStore = ({
+  storeId,
+  enabled = true,
+}: {
+  storeId: string
+  enabled?: boolean
+}) => {
   const queryResult = useQuery({
     queryKey: [ENTITIES.stores, { storeId }],
     queryFn: () => getStore(storeId),
+    enabled,
+  })
+
+  const getAsync = useMutation({
+    mutationFn: async (storeId: string) => getStore(storeId),
   })
 
   return {
     store: queryResult.data,
     ...queryResult,
+    getStoreAsync: getAsync.mutateAsync,
+    isGettingAsync: getAsync.isPending,
   }
 }
 
