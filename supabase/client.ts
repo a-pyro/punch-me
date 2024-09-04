@@ -85,7 +85,7 @@ export const httpClient = {
 
   getOne: async <TCollection extends Entity>(
     collection: TCollection,
-    id?: string,
+    id: string,
   ) => {
     const { data, error } = await supabaseClient
       .from(collection)

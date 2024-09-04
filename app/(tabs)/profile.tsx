@@ -14,7 +14,7 @@ const ProfileView = () => {
         title="Logout"
         onPress={async () => {
           await signOut()
-          router.navigate('/')
+          router.push('/')
         }}
       />
     </SafeView>
