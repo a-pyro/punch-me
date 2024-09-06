@@ -26,7 +26,7 @@ export const DraftHomeView = () => {
           outerClassValue="rounded-2xl flex-col"
           onPress={() => {
             router.push({
-              pathname: '/(tabs)/store/[id]/create',
+              pathname: '/stores/[id]/create',
               params: { id: 'new' },
             })
           }}
@@ -34,19 +34,17 @@ export const DraftHomeView = () => {
           <ThemedText classValue="text-center" style="subtitle">
             {t('home.create_store')}
           </ThemedText>
-          {/* <ThemedText>{t('home.create_store_description')}</ThemedText> */}
         </ThemedButton>
 
         <ThemedButton
           outerClassValue="rounded-2xl"
           onPress={() => {
-            router.push('/subscribe')
+            router.push('/stores')
           }}
         >
           <ThemedText style="subtitle">
             {t('home.subscribe_to_store')}
           </ThemedText>
-          {/* <ThemedText>{t('home.subscribe_to_store_description')}</ThemedText> */}
         </ThemedButton>
       </View>
     </View>

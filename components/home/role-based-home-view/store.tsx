@@ -11,7 +11,6 @@ import { StoreListItem } from '../store-list-item'
 export const StoreOwnerHomeView = () => {
   const { stores, isLoading } = useGetUserStores()
   const { t } = useTranslation()
-
   if (isLoading) return <LoadingScreen />
 
   return (
@@ -19,6 +18,7 @@ export const StoreOwnerHomeView = () => {
       <ThemedText classValue="pt-5" style="giant">
         {t('home.store_list')}
       </ThemedText>
+
       <FlatList
         data={stores}
         keyExtractor={(item) => item.id}
@@ -29,7 +29,7 @@ export const StoreOwnerHomeView = () => {
             <ThemedButton
               onPress={() => {
                 router.push({
-                  pathname: '/store/[id]/create',
+                  pathname: '/stores/[id]/create',
                   params: { id: 'new' },
                 })
               }}

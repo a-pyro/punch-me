@@ -46,7 +46,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
     if (profile.role !== 'store_owner')
       await updateProfile({ ...profile, role: 'store_owner' })
     router.push({
-      pathname: '/store/[id]/view',
+      pathname: '/stores/[id]/view',
       params: { id },
     })
   })

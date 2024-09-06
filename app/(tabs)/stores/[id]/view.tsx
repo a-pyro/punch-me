@@ -31,7 +31,7 @@ const StoreDetailView = () => {
         </ThemedText>
         <Link
           href={{
-            pathname: '/store/[id]/edit',
+            pathname: '/stores/[id]/edit',
             params: { id },
           }}
         >

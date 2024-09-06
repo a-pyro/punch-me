@@ -53,9 +53,9 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="store"
+        name="stores"
         options={{
-          title: 'store',
+          title: 'stores',
           href: null,
           headerShown: false,
         }}

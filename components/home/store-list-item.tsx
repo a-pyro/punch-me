@@ -9,7 +9,7 @@ export const StoreListItem = ({ store }: { store: Store }) => {
     <ThemedButton
       onPress={() => {
         router.push({
-          pathname: '/store/[id]/view',
+          pathname: '/stores/[id]/view',
           params: { id: store.id },
         })
       }}

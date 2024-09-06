@@ -9,8 +9,19 @@ const StoreStackLayout = () => {
           headerStyle: {
             backgroundColor: '#161622',
           },
-          presentation: 'modal',
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="index"
+        options={{
+          headerSearchBarOptions: {
+            placeholder: 'Search for stores',
+            onChangeText: (e) => {
+              console.log(e.nativeEvent.text)
+            },
+          },
+          headerTitle: '',
         }}
       />
     </Stack>
