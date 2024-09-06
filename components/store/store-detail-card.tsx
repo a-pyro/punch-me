@@ -16,9 +16,6 @@ export const StoreDetailCard = ({ store }: { store: Store }) => {
           />
         </ThemedView>
       )}
-      <ThemedText classValue="mb-2 text-center text-xl font-semibold">
-        {store.name}
-      </ThemedText>
       {!!store.address && (
         <ThemedText classValue="mb-2 text-center text-sm text-gray-500">
           {store.address}
