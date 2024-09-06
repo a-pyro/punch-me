@@ -17,9 +17,6 @@ const StoreStackLayout = () => {
         options={{
           headerSearchBarOptions: {
             placeholder: 'Search for stores',
-            onChangeText: (e) => {
-              console.log(e.nativeEvent.text)
-            },
           },
           headerTitle: '',
         }}
