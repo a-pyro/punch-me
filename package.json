@@ -7,7 +7,7 @@
     "android": "npm run load:ip && expo run:android",
     "check:all": "npm run lint && npm run type:check",
     "devtools": "npx react-devtools",
-    "gen:types": "npx supabase gen types typescript --project-id jsoywqogrthynrvuduco > supabase/generated-types.ts",
+    "gen:types": "npx supabase gen types typescript --project-id jsoywqogrthynrvuduco > supabase/generated-types.ts && npm run zodify",
     "ios": "expo run:ios",
     "lint": "expo lint",
     "load:ip": "node scripts/load-ip.js",
@@ -43,6 +43,7 @@
     "expo-font": "~12.0.9",
     "expo-linking": "~6.3.1",
     "expo-localization": "~15.0.3",
+    "expo-location": "~17.0.1",
     "expo-router": "~3.5.23",
     "expo-secure-store": "~13.0.2",
     "expo-splash-screen": "~0.27.5",
@@ -67,8 +68,7 @@
     "tailwind-merge": "^2.5.2",
     "ts-to-zod": "^3.13.0",
     "uninstall": "^0.0.0",
-    "zod": "^3.23.8",
-    "expo-location": "~17.0.1"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

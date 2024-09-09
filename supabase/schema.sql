@@ -23,6 +23,16 @@ DROP TYPE IF EXISTS user_role CASCADE;
 -- Create ENUM type for user roles
 CREATE TYPE user_role AS ENUM ('customer', 'store_owner', 'draft');
 
+-- Drop the custom type for geographical position if it exists
+DROP TYPE IF EXISTS location CASCADE;
+
+-- Create a custom type for geographical position
+CREATE TYPE location AS (
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8),
+    address TEXT
+);
+
 -- Enable MODDATETIME extension for handling updated_at column
 CREATE EXTENSION IF NOT EXISTS moddatetime SCHEMA extensions;
 
@@ -70,10 +80,10 @@ CREATE TABLE stores (
   user_id UUID NOT NULL REFERENCES profiles (id) ON DELETE CASCADE,
   name VARCHAR(255) NOT NULL,
   logo_url TEXT,
-  address TEXT,
   contact_email VARCHAR(255),
   contact_phone VARCHAR(20),
   website_url TEXT,
+  location location,
   store_hours JSONB,
   created_at TIMESTAMP
   WITH

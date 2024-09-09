@@ -128,15 +128,7 @@ export type Database = {
           total_punches?: number
           updated_at?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "punchcards_store_id_fkey"
-            columns: ["store_id"]
-            isOneToOne: false
-            referencedRelation: "stores"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       qr_codes: {
         Row: {
@@ -210,13 +202,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "reviews_store_id_fkey"
-            columns: ["store_id"]
-            isOneToOne: false
-            referencedRelation: "stores"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "reviews_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
@@ -227,11 +212,11 @@ export type Database = {
       }
       stores: {
         Row: {
-          address: string | null
           contact_email: string | null
           contact_phone: string | null
           created_at: string | null
           id: string
+          location: Database["public"]["CompositeTypes"]["location"] | null
           logo_url: string | null
           name: string
           store_hours: Json | null
@@ -240,11 +225,11 @@ export type Database = {
           website_url: string | null
         }
         Insert: {
-          address?: string | null
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string | null
           id?: string
+          location?: Database["public"]["CompositeTypes"]["location"] | null
           logo_url?: string | null
           name: string
           store_hours?: Json | null
@@ -253,11 +238,11 @@ export type Database = {
           website_url?: string | null
         }
         Update: {
-          address?: string | null
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string | null
           id?: string
+          location?: Database["public"]["CompositeTypes"]["location"] | null
           logo_url?: string | null
           name?: string
           store_hours?: Json | null
@@ -315,13 +300,6 @@ export type Database = {
             columns: ["punchcard_id"]
             isOneToOne: false
             referencedRelation: "punchcards"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "transactions_store_id_fkey"
-            columns: ["store_id"]
-            isOneToOne: false
-            referencedRelation: "stores"
             referencedColumns: ["id"]
           },
           {
@@ -386,7 +364,15 @@ export type Database = {
       user_role: "customer" | "store_owner" | "draft"
     }
     CompositeTypes: {
-      [_ in never]: never
+      geo_position: {
+        latitude: number | null
+        longitude: number | null
+      }
+      location: {
+        latitude: number | null
+        longitude: number | null
+        address: string | null
+      }
     }
   }
 }

@@ -18,12 +18,17 @@ export type FormFieldProps = TextInputProps & {
   placeholder?: string
   type?: 'text' | 'password'
   onSubmitEditing?: () => void
+} & {
+  iconRight?: React.ReactNode
+  onPressIconRight?: () => void
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
   title,
   wrapperViewClassName,
   type = 'text',
+  iconRight,
+  onPressIconRight,
   ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(false)
@@ -45,6 +50,11 @@ export const FormField: React.FC<FormFieldProps> = ({
             }}
           >
             <Icon name={!showPassword ? 'eye' : 'eyeo'} />
+          </TouchableOpacity>
+        )}
+        {!!iconRight && (
+          <TouchableOpacity onPress={onPressIconRight}>
+            {iconRight}
           </TouchableOpacity>
         )}
       </View>
