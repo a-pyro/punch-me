@@ -30,6 +30,7 @@ type StoreCreateFormProps = {
 export const StoreForm = ({ operation }: StoreCreateFormProps) => {
   const { id } = useLocalSearchParams<WithId>()
   const { t } = useTranslation()
+  const { profile } = useSession()
   const { getStoreAsync, isGettingAsync } = useGetStore({
     storeId: id,
     enabled: false,
@@ -37,9 +38,11 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
   const { control, handleSubmit, setValue } = useAsyncForm<StoreInsert>({
     operation,
     getAsyncData: () => getStoreAsync(id),
+    defaultValues: {
+      user_id: profile.id,
+    },
     schema: operation === 'insert' ? storesInsertSchema : storesUpdateSchema,
   })
-  const { profile } = useSession()
 
   const { createStore, isPending: isCreatingStore } = useCreateStore()
   const { updateStore, isPending: isUpdatingStore } = useUpdateStore()
@@ -47,7 +50,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
 
   const onSubmit = handleSubmit(async (data) => {
     const fn = operation === 'insert' ? createStore : updateStore
-    const { id } = await fn({ ...data, user_id: profile.id })
+    const { id } = await fn({ ...data })
     if (profile.role !== 'store_owner')
       await updateProfile({ ...profile, role: 'store_owner' })
     router.push({
@@ -69,6 +72,8 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
 
   const handleAddressChange = (text: string) => {
     setValue('location.address', text)
+    setValue('location.latitude', null)
+    setValue('location.longitude', null)
     searchAddress(text)
   }
 
