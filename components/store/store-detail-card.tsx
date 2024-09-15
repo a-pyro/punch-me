@@ -16,9 +16,9 @@ export const StoreDetailCard = ({ store }: { store: Store }) => {
           />
         </ThemedView>
       )}
-      {!!store.address && (
+      {!!store.location?.address && (
         <ThemedText classValue="mb-2 text-center text-sm text-gray-500">
-          {store.address}
+          {store.location.address}
         </ThemedText>
       )}
       {!!store.contact_phone && (

@@ -7,7 +7,7 @@ const PunchcardCreateView = () => {
   return (
     <SafeView disableInsets>
       <ScrollableWrapper>
-        <PunchCardsForm operation="create" />
+        <PunchCardsForm operation="insert" />
       </ScrollableWrapper>
     </SafeView>
   )

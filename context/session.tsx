@@ -67,7 +67,7 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   })
 
   const queryResult = useQuery({
-    queryKey: [ENTITIES.profiles, { userId: session?.user.id }],
+    queryKey: [ENTITIES.profiles, session?.user.id, session],
     queryFn: () =>
       session ? httpClient.getOne('profiles', session.user.id) : undefined,
     select: (data) => {
