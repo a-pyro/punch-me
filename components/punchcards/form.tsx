@@ -122,7 +122,7 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
         placeholder={t('punchcards.form.total_punches_placeholder')}
         title={t('punchcards.form.total_punches')}
       /> */}
-      <ThemedButton c onPress={handleSubmit((d) => onSubmit(d))}>
+      <ThemedButton onPress={handleSubmit((d) => onSubmit(d))}>
         {t(
           operation === 'insert'
             ? 'punchcards.form.create'
