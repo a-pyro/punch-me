@@ -1,11 +1,11 @@
 import { type Profile } from '@/supabase'
 
+import { BusinessHomeView } from './business'
 import { CustomerHomeView } from './customer'
 import { DraftHomeView } from './draft'
-import { StoreOwnerHomeView } from './store'
 
 export const HomeViews: Record<Profile['role'], React.ComponentType> = {
   customer: CustomerHomeView,
   draft: DraftHomeView,
-  store_owner: StoreOwnerHomeView,
+  store_owner: BusinessHomeView,
 }

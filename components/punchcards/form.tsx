@@ -63,7 +63,7 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
   if (isCreating || isUpdating) return <LoadingScreen />
 
   return (
-    <ThemedView>
+    <ThemedView className="pb-3">
       <ThemedText style="title">{t(title)}</ThemedText>
 
       <ControlledFormField
@@ -122,7 +122,7 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
         placeholder={t('punchcards.form.total_punches_placeholder')}
         title={t('punchcards.form.total_punches')}
       /> */}
-      <ThemedButton onPress={handleSubmit((d) => onSubmit(d))}>
+      <ThemedButton c onPress={handleSubmit((d) => onSubmit(d))}>
         {t(
           operation === 'insert'
             ? 'punchcards.form.create'

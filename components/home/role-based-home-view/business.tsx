@@ -8,7 +8,7 @@ import { Icon, LoadingScreen, ThemedButton } from '../../common'
 import { ThemedText } from '../../common/themed-text'
 import { StoreListItem } from '../store-list-item'
 
-export const StoreOwnerHomeView = () => {
+export const BusinessHomeView = () => {
   const { stores, isLoading } = useGetUserStores()
   const { t } = useTranslation()
   if (isLoading) return <LoadingScreen />
