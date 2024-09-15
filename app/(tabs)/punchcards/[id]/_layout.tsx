@@ -10,6 +10,7 @@ const PunchcardsLayout = () => {
         },
         presentation: 'modal',
         headerTitle: '',
+        headerShown: false,
       }}
     >
       <Stack.Screen name="edit" />

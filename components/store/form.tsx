@@ -81,7 +81,7 @@ export const StoreForm = ({ operation }: StoreCreateFormProps) => {
     return <LoadingScreen />
 
   return (
-    <ThemedView className="p-4">
+    <ThemedView>
       <ControlledFormField
         classValue="my-4"
         control={control}

@@ -16,8 +16,8 @@ const TabsLayout = () => {
           backgroundColor: '#161622',
           borderTopWidth: 1,
           borderTopColor: '#232533',
-          height: 70,
-          paddingVertical: 1,
+          height: 100,
+          paddingVertical: 10,
         },
       }}
     >
@@ -55,10 +55,8 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="stores"
         options={{
-          title: 'stores',
           href: null,
-          // headerShown: false,
-          headerTitle: 'TABS LAYOUT - tab.screen (stores)',
+          headerShown: false,
         }}
       />
       <Tabs.Screen

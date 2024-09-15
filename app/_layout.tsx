@@ -21,7 +21,6 @@ import { AppStatusBar } from '@/components'
 import { SessionProvider } from '@/context/session'
 import '@/i18n'
 import { queryClient } from '@/services'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -63,38 +62,35 @@ const RootLayout = () => {
   if (!fontsLoaded && !error) return null
 
   return (
-    <SafeAreaProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <QueryClientProvider client={queryClient}>
-          <SessionProvider>
-            <Stack>
-              <Stack.Screen
-                name="index"
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="(auth)"
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                // listeners={}
-                name="(tabs)"
-                options={{
-                  // headerShown: false,
-                  headerTitle: 'STACK ROOT LAYOUT (tabs)',
-                }}
-              />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-            <AppStatusBar style="auto" />
-          </SessionProvider>
-        </QueryClientProvider>
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider>
+          <Stack>
+            <Stack.Screen
+              name="index"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="(auth)"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              // listeners={}
+              name="(tabs)"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <AppStatusBar style="auto" />
+        </SessionProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   )
 }
 

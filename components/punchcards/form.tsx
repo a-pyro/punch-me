@@ -31,7 +31,7 @@ export const PunchCardsForm = ({ operation }: PunchCardsFormProps) => {
   const { control, handleSubmit } = useAsyncForm<
     PunchcardInsert | PunchcardUpdate
   >({
-    defaultValues: { punches_needed: 10 },
+    defaultValues: { punches_needed: 10, store_id: id },
     getAsyncData: () => getAsyncPunchcard(id),
     operation,
     schema:
