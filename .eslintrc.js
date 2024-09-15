@@ -8,12 +8,13 @@ const { JAVASCRIPT_FILES } = require('@vercel/style-guide/eslint/constants')
 
 module.exports = {
   root: true,
-  plugins: ['react-native'],
+  plugins: ['react-native', 'unused-imports'],
   extends: [
     require.resolve('@vercel/style-guide/eslint/node'),
     require.resolve('@vercel/style-guide/eslint/react'),
     require.resolve('@vercel/style-guide/eslint/typescript'),
     'plugin:react-native/all',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
   parserOptions: {
     project,
@@ -26,6 +27,16 @@ module.exports = {
     },
   },
   rules: {
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
     '@typescript-eslint/explicit-function-return-type': 'off',
     'no-implicit-coercion': 'off',
     '@typescript-eslint/no-var-requires': 'off',

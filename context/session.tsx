@@ -2,22 +2,15 @@ import { type Session } from '@supabase/supabase-js'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { router } from 'expo-router'
 import {
-  createContext,
   type PropsWithChildren,
+  createContext,
   useContext,
   useEffect,
   useState,
 } from 'react'
 
 import { logger } from '@/services/logger'
-import {
-  ENTITIES,
-  httpClient,
-  // COLLECTIONS,
-  type Profile,
-  // httpClient,
-  supabaseClient,
-} from '@/supabase'
+import { ENTITIES, type Profile, httpClient, supabaseClient } from '@/supabase'
 import { invalidateQueries } from '@/utils/react-query'
 
 export const signOut = () => supabaseClient.auth.signOut()

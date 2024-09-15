@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { useCallback, useRef, useState } from 'react'
 
+import { logger } from '../logger'
+
 export type GoogleMapsPlace = {
   place_id: string
   formatted_address: string
@@ -70,7 +72,7 @@ export const searchAddress = async (
     })
     return response.data.results.slice(0, 3)
   } catch (error) {
-    console.error('Error fetching address suggestions:', error)
+    logger.log('Error fetching address suggestions:', error)
     return []
   }
 }
