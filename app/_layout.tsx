@@ -84,7 +84,8 @@ const RootLayout = () => {
                 // listeners={}
                 name="(tabs)"
                 options={{
-                  headerShown: false,
+                  // headerShown: false,
+                  headerTitle: 'STACK ROOT LAYOUT (tabs)',
                 }}
               />
               <Stack.Screen name="+not-found" />

@@ -1,28 +1,19 @@
 import { Stack } from 'expo-router'
 
-const StoreStackLayout = () => {
+const StoresLayout = () => {
   return (
     <Stack>
-      <Stack.Screen
-        name="[id]"
-        options={{
-          headerStyle: {
-            backgroundColor: '#161622',
-          },
-          headerShown: false,
-        }}
-      />
+      <Stack.Screen name="[id]" options={{ headerShown: false }} />
       <Stack.Screen
         name="index"
         options={{
           headerSearchBarOptions: {
             placeholder: 'Search for stores',
           },
-          headerTitle: '',
         }}
       />
     </Stack>
   )
 }
 
-export default StoreStackLayout
+export default StoresLayout

@@ -22,7 +22,7 @@ const TabsLayout = () => {
       }}
     >
       <Tabs.Screen
-        name="home" // the name of the screen (home.tsx)
+        name="home"
         options={{
           title: 'home',
           headerShown: false,
@@ -57,7 +57,8 @@ const TabsLayout = () => {
         options={{
           title: 'stores',
           href: null,
-          headerShown: false,
+          // headerShown: false,
+          headerTitle: 'TABS LAYOUT - tab.screen (stores)',
         }}
       />
       <Tabs.Screen

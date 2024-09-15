@@ -6,10 +6,10 @@ const StoreStackLayout = () => {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#161622',
+          // backgroundColor: '#161622',
         },
         presentation: 'modal',
-        headerTitle: '',
+        headerTitle: '[id] stack',
       }}
     >
       <Stack.Screen name="create" />
